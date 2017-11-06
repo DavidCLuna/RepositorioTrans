@@ -132,7 +132,7 @@ http://cfiscal.contraloria.gov.co/siborinternet/certificados/certificadosPersona
               <form action="upload.php" id = "divUploadDocuments" class="dropzone db">    
             </div>-->
 
-          <form action="upload.php" class="dropzone">
+          <form action="upload.php" class="dropzone padding-15">
             <div class="fallback">
               <input name="file" type="file" id="fm-dropzone" multiple />
             </div>
