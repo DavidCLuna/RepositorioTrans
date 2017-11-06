@@ -34,12 +34,12 @@ http://cfiscal.contraloria.gov.co/siborinternet/certificados/certificadosPersona
 <html lang="en">
   <head>
 	<?php include("head.php");?>
-          <script type="text/javascript" src="js/cargarPaginas.js"></script>
+          
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<link rel="stylesheet" href="libraries/dropzone.css">
 <script src="libraries/dropzone.js"></script>
-<!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">-->
-<script src="libraries/ToogleButton/dist/js/bootstrap-checkbox.min.js" defer></script>
+<script type="text/javascript" src="js/cargarPaginas.js"></script>
       
   </head>
   <body>
@@ -94,7 +94,8 @@ http://cfiscal.contraloria.gov.co/siborinternet/certificados/certificadosPersona
           <h4 class="modal-title">Consulta Transportador</h4>
         </div>
         <div class="modal-body">
-          <p>Debes verificar cada uno de las páginas que se han abierto, después clickear en 'Aprobar Transporte' si es el caso o 'No aprobar Transporte' sino cumple con los requisitos.</p>
+          <p>Debes verificar cada uno de las páginas que se han abierto, después clickear en 'Aprobar Transporte' si es el caso o 'No aprobar Transporte' sino cumple con los requisitos.<br/>
+          Antes de cargar los archivos verifica bien si son correctos, ya que esta acción no se podrá restablecer.</p>
            
             <hr>
                <!-- <ul class="list-group">
@@ -124,29 +125,31 @@ http://cfiscal.contraloria.gov.co/siborinternet/certificados/certificadosPersona
                     </li>
                 </ul>
             -->
-            <div class="dz-preview dz-file-preview">
-  <div class="dz-details">
-    <div class="dz-filename"><span data-dz-name></span></div>
-    <div class="dz-size" data-dz-size></div>
-    <img data-dz-thumbnail />
-  </div>
-  <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
-  <div class="dz-success-mark"><span>✔</span></div>
-  <div class="dz-error-mark"><span>✘</span></div>
-  <div class="dz-error-message"><span data-dz-errormessage></span></div>
+          
 </div>
-            
-</div>
-            
-        </div>
-          <div class="form-group">
-           <button id="btnNoAprobar" type="button" class="btn btn-danger">No aprobar Transporte</button>
-            <button id="btnAprobar" type="button" class="btn btn-success">Aprobar Transporte</button>
+          <h4 class="text-center">Da clic o arrastra y suelta tus archivos<h4>
+            <!--<div class="padding-10">
+              <form action="upload.php" id = "divUploadDocuments" class="dropzone db">    
+            </div>-->
+
+          <form action="upload.php" class="dropzone">
+            <div class="fallback">
+              <input name="file" type="file" id="fm-dropzone" multiple />
+            </div>
+          </form>
+          
+         <!--   <div class="fallback" >
+              <input name="file" type="file" multiple />
+            </div>-->
+          </form>
+          <div class="form-group padding-10">
+           <button id="btnNoAprobar" type="button" class="btn btn-danger btn-lg">No aprobar Transporte</button>
+            <button id="btnAprobar" type="button" class="btn btn-success btn-lg">Aprobar Transporte</button>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
-      
+      </div>
     </div>
   </div>
      
@@ -158,54 +161,7 @@ http://cfiscal.contraloria.gov.co/siborinternet/certificados/certificadosPersona
     }
       </style>
 	<hr>
-      
-          <script>
-    $(function() {
 
-        $('input[type="checkbox"]').checkboxpicker({
-
-        // OPTIONS
-
-        });
-
-    });
-              
-              // Dropzone class:
-var myDropzone = new Dropzone("div#myId", { url: "/file/post"});
-              
-    </script>
-    <style>
-        style: false,
-
-defaultClass: 'btn-default',
-
-disabledCursor: 'not-allowed',
-
-offClass: 'btn-danger',
-
-onClass: 'btn-success',
-
-offLabel: 'No',
-
-onLabel: 'Yes',
-
-offTitle: false,
-
-onTitle: false,
-
-
-// Event key codes:
-
-// 13: Return
-
-// 32: Spacebar
-
-toggleKeyCodes: [13, 32],
-
- 
-
-warningMessage: 'Please do not use Bootstrap-checkbox element in label element.'
-    </style>
 	<?php
 	include("footer.php");
 	?>
