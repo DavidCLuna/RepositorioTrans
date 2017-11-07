@@ -3,6 +3,12 @@ navbar-default personalizada en:
 http://work.smarchal.com/twbscolor/
 
 */
+
+
+.float-right{
+  float: right;
+}
+
 .navbar-default {
   background-color: #3498db;
   border-color: #2980b9;
@@ -73,3 +79,39 @@ http://work.smarchal.com/twbscolor/
   }
 }
 
+/* styles defects*/
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.padding-5{
+  padding: 5px;
+}
+
+.padding-10{
+  padding: 10px;
+}
+
+.padding-15{
+  padding: 15px;
+}
+
+.padding-20{
+  padding: 20px;
+}
+
+.padding-25{
+  padding: 25px;
+}
+
+.float-left{
+  float: left;
+}

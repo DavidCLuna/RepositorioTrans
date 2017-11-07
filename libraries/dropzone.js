@@ -369,10 +369,10 @@ var Dropzone = function (_Emitter) {
          * already uploading) the file. The `dictCancelUpload`, `dictCancelUploadConfirmation`
          * and `dictRemoveFile` options are used for the wording.
          */
-        addRemoveLinks: false,
+        addRemoveLinks: true,
 
         /**
-         * Defines where to display the file previews â€“ if `null` the
+         * Defines where to display the file previews – if `null` the
          * Dropzone element itself is used. Can be a plain `HTMLElement` or a CSS
          * selector. The element should have the `dropzone-previews` class so
          * the previews are displayed properly.
@@ -2037,7 +2037,7 @@ var Dropzone = function (_Emitter) {
               ctx.scale(-1, 1);
               break;
             case 3:
-              // 180Â° rotate left
+              // 180° rotate left
               ctx.translate(canvas.width, canvas.height);
               ctx.rotate(Math.PI);
               break;
@@ -2052,7 +2052,7 @@ var Dropzone = function (_Emitter) {
               ctx.scale(1, -1);
               break;
             case 6:
-              // 90Â° rotate right
+              // 90° rotate right
               ctx.rotate(0.5 * Math.PI);
               ctx.translate(0, -canvas.height);
               break;
@@ -2063,7 +2063,7 @@ var Dropzone = function (_Emitter) {
               ctx.scale(-1, 1);
               break;
             case 8:
-              // 90Â° rotate left
+              // 90° rotate left
               ctx.rotate(-0.5 * Math.PI);
               ctx.translate(-canvas.width, 0);
               break;
@@ -3502,3 +3502,16 @@ function __guardMethod__(obj, methodName, transform) {
     return undefined;
   }
 }
+
+
+// Modify
+Dropzone.prototype.defaultOptions.dictDefaultMessage = "";
+Dropzone.options.myDropzone = {
+    addRemoveLinks: true,
+    removedfile: function(file) { 
+      var _ref;
+      alert('Delete file');
+      return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+    }
+  };
+// Delete
