@@ -22,7 +22,7 @@ $login = new Login();
 if ($login->isUserLoggedIn() == true) {
     // the user is logged in. you can do whatever you want here.
     // for demonstration purposes, we simply show the "you are logged in" view.
-   header("location: facturas.php");
+   header("location: verificar.php");
 
 } else {
     // the user is not logged in. you can do whatever you want here.
@@ -85,7 +85,23 @@ if ($login->isUserLoggedIn() == true) {
     </div><!-- /container -->
   </body>
 </html>
-
+<script>
+var granimInstance = new Granim({
+    element: '#canvas-image',
+    direction: 'top-bottom',
+    opacity: [1, .5, 0],
+    isPausedWhenNotInView: true,
+    states : {
+        "default-state": {
+            gradients: [
+                ['#485563', '#29323c', '#29323c'],
+                ['#00c6ff', '#0072ff', '#0072ff']
+            ],
+            transitionSpeed: 10000
+        }
+    }
+});
+</script>
 	<?php
 }
 

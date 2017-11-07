@@ -1,22 +1,8 @@
 <?php
 	/*-------------------------
-	Autor: INNOVAWEBSV
-	Web: www.innovawebsv.com
-	Mail: info@innovawebsv.com
+	Autor: DavidCasadiegos
+	Mail: david.2818@outlook.com
 	---------------------------*/
-
-
-/*
---------------------------------
-https://consulta.simit.org.co/Simit/verificar/contenido_verificar_pago_linea.jsp
- 
-https://www.runt.com.co/consultaCiudadana/#/consultaPersona
- 
-https://www.procuraduria.gov.co/CertWEB/Certificado.aspx?tpo=2
- 
-http://cfiscal.contraloria.gov.co/siborinternet/certificados/certificadosPersonaNatural.asp
---------------------------------
-*/
 
 	session_start();
 	if (!isset($_SESSION['user_login_status']) AND $_SESSION['user_login_status'] != 1) {
@@ -28,7 +14,7 @@ http://cfiscal.contraloria.gov.co/siborinternet/certificados/certificadosPersona
 	$active_productos="";
 	$active_clientes="";
 	$active_usuarios="";	
-	$title="Facturas | Simple Invoice";
+	$title="Verificar | Coagrotransporte";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,22 +22,24 @@ http://cfiscal.contraloria.gov.co/siborinternet/certificados/certificadosPersona
 	<?php include("head.php");?>
           
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="libraries/granim/dist/granim.js"></script>
+      <script src="libraries/granim/dist/granim.min.js"></script>
       <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-<link rel="stylesheet" href="libraries/dropzone.css">
-<script src="libraries/dropzone.js"></script>
-<script type="text/javascript" src="js/cargarPaginas.js"></script>
-      
+      <link rel="stylesheet" href="libraries/dropzone.css">
+      <script src="libraries/dropzone.js"></script>
+      <script type="text/javascript" src="js/cargarPaginas.js"></script>
   </head>
-  <body>
+    
+  <body class="home">
 	<?php
 	include("navbar.php");
 	?>  
     <div class="container">
 		<div class="panel panel-info">
 		<div class="panel-heading">
-		    <div class="btn-group pull-right">
+		    <!--<div class="btn-group pull-right">
 				<a  href="nueva_factura.php" class="btn btn-info"><span class="glyphicon glyphicon-plus" ></span> Nueva Factura</a>
-			</div>
+			</div>-->
 			<h4><i class='glyphicon glyphicon-search'></i> Verificar Transportador</h4>
 		</div>
 			<div class="panel-body">
@@ -80,6 +68,7 @@ http://cfiscal.contraloria.gov.co/siborinternet/certificados/certificadosPersona
 		</div>	
 		
 	</div>
+      <canvas id="canvas-radial"></canvas>
       
       <div class="container">
           
@@ -126,7 +115,7 @@ http://cfiscal.contraloria.gov.co/siborinternet/certificados/certificadosPersona
                 </ul>
             -->
           
-</div>
+          </div>
           <h4 class="text-center">Da clic o arrastra y suelta tus archivos<h4>
             <!--<div class="padding-10">
               <form action="upload.php" id = "divUploadDocuments" class="dropzone db">    
@@ -138,17 +127,13 @@ http://cfiscal.contraloria.gov.co/siborinternet/certificados/certificadosPersona
             </div>
           </form>
           
-         <!--   <div class="fallback" >
-              <input name="file" type="file" multiple />
-            </div>-->
-          </form>
-          <div class="form-group padding-10">
-           <button id="btnNoAprobar" type="button" class="btn btn-danger btn-lg">No aprobar Transporte</button>
-            <button id="btnAprobar" type="button" class="btn btn-success btn-lg">Aprobar Transporte</button>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
+            <div class="form-group padding-10">
+                <button id="btnNoAprobar" type="button" class="btn btn-danger btn-lg">No aprobar Transporte</button>
+                <button id="btnAprobar" type="button" class="btn btn-success btn-lg">Aprobar Transporte</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
       </div>
     </div>
   </div>
@@ -156,18 +141,15 @@ http://cfiscal.contraloria.gov.co/siborinternet/certificados/certificadosPersona
 </div>
       
       <style>
-    #divConsultaPagina{
-        margin-bottom: 10px;
-    }
+        #divConsultaPagina{
+            margin-bottom: 10px;
+        }
       </style>
 	<hr>
 
 	<?php
 	include("footer.php");
 	?>
-      <script>
-      $(':checkbox').checkboxpicker();
-      </script>
 	<script type="text/javascript" src="js/VentanaCentrada.js"></script>
 	<script type="text/javascript" src="js/facturas.js"></script>
       

@@ -44,13 +44,14 @@ class Login
      */
     private function dologinWithPostData()
     {
+       
         // check login form contents
         if (empty($_POST['user_name'])) {
             $this->errors[] = "Username field was empty.";
         } elseif (empty($_POST['user_password'])) {
             $this->errors[] = "Password field was empty.";
         } elseif (!empty($_POST['user_name']) && !empty($_POST['user_password'])) {
-
+ 
             // create a database connection, using the constants from config/db.php (which we loaded in index.php)
             $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
@@ -67,9 +68,9 @@ class Login
 
                 // database query, getting all the info of the selected user (allows login via email address in the
                 // username field)
-                $sql = "SELECT user_id, user_name, user_email, user_password_hash
-                        FROM users
-                        WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_name . "';";
+                $sql = "SELECT idUsuario, nombre, contrasena, tipoUsuario
+                        FROM usuariosistema
+                        WHERE nombre = '" . $user_name . "' OR nombre = '" . $user_name . "';";
                 $result_of_login_check = $this->db_connection->query($sql);
 
                 // if this user exists
@@ -80,14 +81,21 @@ class Login
 
                     // using PHP 5.5's password_verify() function to check if the provided password fits
                     // the hash of that user's password
-                    if (password_verify($_POST['user_password'], $result_row->user_password_hash)) {
+                    if (password_verify($_POST['user_password'], $result_row->contrasena)) {
 
+                       
+                        echo "<script>alert('Prueba');</script>";
                         // write user data into PHP SESSION (a file on your server)
-                        $_SESSION['user_id'] = $result_row->user_id;
-						$_SESSION['user_name'] = $result_row->user_name;
-                        $_SESSION['user_email'] = $result_row->user_email;
+                        $_SESSION['user_id_usuario'] = $result_row->idUsuario;
+						$_SESSION['user_nombre'] = $result_row->nombre;
+                        $_SESSION['user_contrasena'] = $result_row->contrasena;
+                        $_SESSION['user_tipoUsuario'] = $result_row->tipoUsuario;
                         $_SESSION['user_login_status'] = 1;
 
+                        error_log(
+                            $_SESSION['user_id_usuario']. $_SESSION['user_nombre'].
+                            $_SESSION['user_contrasena'].
+                            $_SESSION['user_tipoUsuario']);
                     } else {
                         $this->errors[] = "Usuario y/o contraseña no coinciden.";
                     }
@@ -110,7 +118,6 @@ class Login
         session_destroy();
         // return a little feeedback message
         $this->messages[] = "Has sido desconectado.";
-
     }
 
     /**
