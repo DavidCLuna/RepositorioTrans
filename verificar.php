@@ -1,6 +1,6 @@
 <?php
 	/*-------------------------
-	Autor: DavidCasadiegos
+	Autores: David Casadiegos & Samuel Sanchez
 	Mail: david.2818@outlook.com
 	---------------------------*/
 
@@ -26,6 +26,7 @@
       <script src="libraries/granim/dist/granim.min.js"></script>
       <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
       <link rel="stylesheet" href="libraries/dropzone.css">
+      
       <script src="libraries/dropzone.js"></script>
       <script type="text/javascript" src="js/cargarPaginas.js"></script>
   </head>
@@ -34,6 +35,7 @@
 	<?php
 	include("navbar.php");
 	?>  
+      
     <div class="container">
 		<div class="panel panel-info">
 		<div class="panel-heading">
@@ -48,7 +50,7 @@
 						<div class="form-group row">
 							<label for="q" class="col-md-2 control-label">Consulta Transportador</label>
 							<div class="col-md-5">
-								<input type="text" class="form-control" id="q" placeholder="Digite el nombre del transportador" onkeyup='load(1);'>
+								<input type="text" class="form-control" id="q" placeholder="Digite el nombre o # de cédula del transportador" onkeyup='load(1);'>
 							</div>
 														
 							<div class="col-md-3">
@@ -84,6 +86,7 @@
         </div>
         <div class="modal-body">
           <p>Debes verificar cada uno de las páginas que se han abierto, después clickear en 'Aprobar Transporte' si es el caso o 'No aprobar Transporte' sino cumple con los requisitos.<br/>
+              Si das clic en 'No aprobar transporte' tienes la posbilidad de digitar una observación.<br/>
           Antes de cargar los archivos verifica bien si son correctos, ya que esta acción no se podrá restablecer.</p>
            
             <hr>
@@ -127,8 +130,8 @@
             </div>
           </form>
           
-            <div class="form-group padding-10">
-                <button id="btnNoAprobar" type="button" class="btn btn-danger btn-lg">No aprobar Transporte</button>
+            <div class="form-group">
+                <button id="btnNoAprobar" type="button" class="btn btn-danger btn-lg" style="margin: 5px;" data-toggle="modal" data-target="#modalObservaciones">No aprobar Transporte</button>
                 <button id="btnAprobar" type="button" class="btn btn-success btn-lg">Aprobar Transporte</button>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -138,6 +141,36 @@
     </div>
   </div>
      
+        
+        
+        <!-- Modal -->  
+  <div class="modal fade" id="modalObservaciones" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Consulta Transportador</h4>
+        </div>
+        <div class="modal-body">
+
+        <form action="" method="">
+            <div class="form-group">
+                <div class="form-group">
+                    <label for="comment">Observaciones:</label>
+                    <textarea class="form-control" rows="3" id="comment"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-default text-right" data-dismiss="modal">Guardar y enviar <span class="glyphicon glyphicon-ok" ></span></button>
+            </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+        
 </div>
       
       <style>

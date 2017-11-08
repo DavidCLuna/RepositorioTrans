@@ -32,19 +32,19 @@
 			
 		}
 	}
+
 	if($action == 'ajax'){
 		// escaping, additionally removing everything that could be (html/javascript-) code
          $q = mysqli_real_escape_string($con,(strip_tags($_REQUEST['q'], ENT_QUOTES)));
-		  $sTable = "facturas, clientes, users";
+		  $sTable = " conductor c join conductorvehiculo cv on c.cedula = cv.cedula ";
 		 $sWhere = "";
-		 $sWhere.=" WHERE facturas.id_cliente=clientes.id_cliente and facturas.id_vendedor=users.user_id";
 		if ( $_GET['q'] != "" )
 		{
-		$sWhere.= " and  (clientes.nombre_cliente like '%$q%' or facturas.numero_factura like '%$q%')";
+		$sWhere.= " where c.nombre like '%$q%' xor '%$q%' or c.cedula like '%$q%'";
 			
 		}
-		
-		$sWhere.=" order by facturas.id_factura desc";
+        
+		$sWhere.=" order by c.nombre";
 		include 'pagination.php'; //include pagination file
 		//pagination variables
 		$page = (isset($_REQUEST['page']) && !empty($_REQUEST['page']))?$_REQUEST['page']:1;
@@ -52,13 +52,13 @@
 		$adjacents  = 4; //gap between pages after number of adjacents
 		$offset = ($page - 1) * $per_page;
 		//Count the total number of row in your table*/
-		$count_query   = mysqli_query($con, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
+		$count_query   = mysqli_query($con, "SELECT count(c.cedula) as numrows FROM $sTable  $sWhere");
 		$row= mysqli_fetch_array($count_query);
 		$numrows = $row['numrows'];
 		$total_pages = ceil($numrows/$per_page);
-		$reload = './facturas.php';
+		$reload = './verificar.php';
 		//main query to fetch the data
-		$sql="SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
+		$sql="SELECT c.*,cv.placa FROM $sTable $sWhere LIMIT $offset,$per_page";
 		$query = mysqli_query($con, $sql);
 		//loop through fetched data
 		if ($numrows>0){
@@ -67,38 +67,39 @@
 			<div class="table-responsive">
 			  <table class="table">
 				<tr  class="info">
-					<th>#</th>
-					<th>Fecha</th>
-					<th>Cliente</th>
-					<th>Vendedor</th>
-					<th>Estado</th>
-					<th class='text-right'>Total</th>
-					<th class='text-right'>Acciones</th>
+					<th class="text-center">Cédula</th>
+					<th class="text-center">Transportador</th>
+                    <th class="text-center">Licencia</th>
+                    <th class="text-center">Fecha Ingreso</th>
+					<th class="text-center">Placa</th>
+					<th class="text-center">Consultar</th>
 					
 				</tr>
 				<?php
 				while ($row=mysqli_fetch_array($query)){
-						$id_factura=$row['id_factura'];
-						$numero_factura=$row['numero_factura'];
-						$fecha=date("d/m/Y", strtotime($row['fecha_factura']));
-						$nombre_cliente=$row['nombre_cliente'];
-						$telefono_cliente=$row['telefono_cliente'];
-						$email_cliente=$row['email_cliente'];
-						$nombre_vendedor=$row['firstname']." ".$row['lastname'];
-						$estado_factura=$row['estado_factura'];
-						if ($estado_factura==1){$text_estado="Pagada";$label_class='label-success';}
+						$cedula_conductor=$row['cedula'];
+						$nombre_conductor=$row['nombre']." ".$row['apellido'];
+						$licencia_conductor=$row['licencia'];
+						$fecha_ingreso_conductor=date("d/m/Y", strtotime($row['fechaIngreso']));
+						$placa_conductor=$row['placa'];
+                    
+						/*if ($estado_factura==1){$text_estado="Pagada";$label_class='label-success';}
 						else{$text_estado="Pendiente";$label_class='label-warning';}
-						$total_venta=$row['total_venta'];
+						$total_venta=$row['total_venta'];*/
 					?>
 					<tr>
-						<td><?php echo $numero_factura; ?></td>
-						<td><?php echo $fecha; ?></td>
-						<td><a href="#" data-toggle="tooltip" data-placement="top" title="<i class='glyphicon glyphicon-phone'></i> <?php echo $telefono_cliente;?><br><i class='glyphicon glyphicon-envelope'></i>  <?php echo $email_cliente;?>" ><?php echo $nombre_cliente;?></a></td>
-						<td><?php echo $nombre_vendedor; ?></td>
-						<td><span class="label <?php echo $label_class;?>"><?php echo $text_estado; ?></span></td>
-						<td class='text-right'><?php echo number_format ($total_venta,2); ?></td>					
-					<td class="text-right">
-                        <button type="button" class="btn btn-info" onclick="abrirPestanas();" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-search" ></span> Consultar</button>
+						<td class="text-center"><?php echo $cedula_conductor; ?></td>
+						<td class="text-center"><?php echo $nombre_conductor; ?></td>
+						<td class="text-center"><?php echo $licencia_conductor; ?></td>
+                        <td class="text-center"><?php echo $fecha_ingreso_conductor; ?></td>
+                        <td class="text-center"><?php echo $placa_conductor; ?></td>
+                        
+                        <!--<td><a href="#" data-toggle="tooltip" data-placement="top" title="<i class='glyphicon glyphicon-phone'></i> <?php /*echo $telefono_cliente;*/?> <br><i class='glyphicon glyphicon-envelope'></i>  <?php /*echo $email_cliente;*/?>" ><?php /*echo $nombre_cliente;*/?></a></td>-->
+						
+						<!--<td><span class="label <?php /*echo $label_class;*/?>"><?php /*echo $text_estado; */?></span></td>-->
+						<!--<td class='text-right'><?php /*echo number_format ($total_venta,2); */?></td>-->					
+					<td class="text-center">
+                        <button type="button" class="btn btn-info" onclick="abrirPestanas();" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-search" ></span></button>
 					</td>
 						
 					</tr>
