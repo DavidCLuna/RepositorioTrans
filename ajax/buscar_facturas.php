@@ -80,7 +80,7 @@
 						$cedula_conductor=$row['cedula'];
 						$nombre_conductor=$row['nombre']." ".$row['apellido'];
 						$licencia_conductor=$row['licencia'];
-						$fecha_ingreso_conductor=date("d/m/Y", strtotime($row['fechaIngreso']));
+						$fecha_ingreso_conductor=date("d/m/Y", strtotime($row['fecha_ingreso']));
 						$placa_conductor=$row['placa'];
                     
 						/*if ($estado_factura==1){$text_estado="Pagada";$label_class='label-success';}

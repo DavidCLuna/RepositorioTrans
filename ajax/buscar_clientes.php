@@ -1,9 +1,8 @@
 <?php
 
 	/*-------------------------
-	Autor: Obed Alvarado
-	Web: obedalvarado.pw
-	Mail: info@obedalvarado.pw
+	Autor: David Casadiegos
+	Mail: david.2818@outlook.com
 	---------------------------*/
 	include('is_logged.php');//Archivo verifica que el usario que intenta acceder a la URL esta logueado
 	/* Connect To Database*/
@@ -12,11 +11,11 @@
 	
 	$action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
 	if (isset($_GET['id'])){
-		$id_cliente=intval($_GET['id']);
-		$query=mysqli_query($con, "select * from facturas where id_cliente='".$id_cliente."'");
+		$id_conductor=intval($_GET['id']);
+		$query=mysqli_query($con, "select * from facturas where id_cliente='".$id_conductor."'");
 		$count=mysqli_num_rows($query);
 		if ($count==0){
-			if ($delete1=mysqli_query($con,"DELETE FROM clientes WHERE id_cliente='".$id_cliente."'")){
+			if ($delete1=mysqli_query($con,"DELETE FROM clientes WHERE id_cliente='".$id_conductor."'")){
 			?>
 			<div class="alert alert-success alert-dismissible" role="alert">
 			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -48,8 +47,8 @@
 	if($action == 'ajax'){
 		// escaping, additionally removing everything that could be (html/javascript-) code
          $q = mysqli_real_escape_string($con,(strip_tags($_REQUEST['q'], ENT_QUOTES)));
-		 $aColumns = array('nombre_cliente');//Columnas de busqueda
-		 $sTable = "clientes";
+		 $aColumns = array('nombre','apellido','cedula');//Columnas de busqueda
+		 $sTable = "conductor";
 		 $sWhere = "";
 		if ( $_GET['q'] != "" )
 		{
@@ -61,7 +60,7 @@
 			$sWhere = substr_replace( $sWhere, "", -3 );
 			$sWhere .= ')';
 		}
-		$sWhere.=" order by nombre_cliente";
+		$sWhere.=" order by nombre";
 		include 'pagination.php'; //include pagination file
 		//pagination variables
 		$page = (isset($_REQUEST['page']) && !empty($_REQUEST['page']))?$_REQUEST['page']:1;
@@ -84,47 +83,39 @@
 			<div class="table-responsive">
 			  <table class="table">
 				<tr  class="info">
-					<th>Nombre</th>
-					<th>Teléfono</th>
-					<th>Email</th>
-					<th>Dirección</th>
-					<th>Estado</th>
-					<th>Agregado</th>
+					<th># Cedula</th>
+					<th>Nombre Completo</th>
+					<th>Licencia</th>
+					<th>Fecha Ingreso</th>
 					<th class='text-right'>Acciones</th>
 					
 				</tr>
 				<?php
 				while ($row=mysqli_fetch_array($query)){
-						$id_cliente=$row['id_cliente'];
-						$nombre_cliente=$row['nombre_cliente'];
-						$telefono_cliente=$row['telefono_cliente'];
-						$email_cliente=$row['email_cliente'];
-						$direccion_cliente=$row['direccion_cliente'];
-						$status_cliente=$row['status_cliente'];
+						$cedula_conductor=$row['cedula'];
+						$nombre_completo_conductor=$row['nombre'].' '.$row['apellido'];
+						$licencia_conductor=$row['licencia'];
+                        $fecha_ingreso_conductor=date("d/m/Y", strtotime($row['fecha_ingreso']));
+						/*tatus_cliente=$row['status_cliente'];
 						if ($status_cliente==1){$estado="Activo";}
-						else {$estado="Inactivo";}
-						$date_added= date('d/m/Y', strtotime($row['date_added']));
+						else {$estado="Inactivo";}*/
 						
 					?>
 					
-					<input type="hidden" value="<?php echo $nombre_cliente;?>" id="nombre_cliente<?php echo $id_cliente;?>">
-					<input type="hidden" value="<?php echo $telefono_cliente;?>" id="telefono_cliente<?php echo $id_cliente;?>">
-					<input type="hidden" value="<?php echo $email_cliente;?>" id="email_cliente<?php echo $id_cliente;?>">
-					<input type="hidden" value="<?php echo $direccion_cliente;?>" id="direccion_cliente<?php echo $id_cliente;?>">
-					<input type="hidden" value="<?php echo $status_cliente;?>" id="status_cliente<?php echo $id_cliente;?>">
-					
+					<input type="hidden" value="<?php echo $cedula_conductor;?>" id="nombre_cliente<?php echo $cedula_conductor;?>">
+					<input type="hidden" value="<?php echo $nombre_completo_conductor;?>" id="telefono_cliente<?php echo $cedula_conductor;?>">
+					<input type="hidden" value="<?php echo $licencia_conductor;?>" id="email_cliente<?php echo $cedula_conductor;?>">
+					<input type="hidden" value="<?php echo $fecha_ingreso_conductor;?>" id="direccion_cliente<?php echo $cedula_conductor;?>">
 					<tr>
 						
-						<td><?php echo $nombre_cliente; ?></td>
-						<td ><?php echo $telefono_cliente; ?></td>
-						<td><?php echo $email_cliente;?></td>
-						<td><?php echo $direccion_cliente;?></td>
-						<td><?php echo $estado;?></td>
-						<td><?php echo $date_added;?></td>
+						<td><?php echo $cedula_conductor; ?></td>
+						<td ><?php echo $nombre_completo_conductor; ?></td>
+						<td><?php echo $licencia_conductor;?></td>
+						<td><?php echo $fecha_ingreso_conductor;?></td>
 						
 					<td ><span class="pull-right">
-					<a href="#" class='btn btn-default' title='Editar cliente' onclick="obtener_datos('<?php echo $id_cliente;?>');" data-toggle="modal" data-target="#myModal2"><i class="glyphicon glyphicon-edit"></i></a> 
-					<a href="#" class='btn btn-default' title='Borrar cliente' onclick="eliminar('<?php echo $id_cliente; ?>')"><i class="glyphicon glyphicon-trash"></i> </a></span></td>
+					<a href="#" class='btn btn-default' title='Editar cliente' onclick="obtener_datos('<?php echo $cedula_conductor;?>');" data-toggle="modal" data-target="#myModal2"><i class="glyphicon glyphicon-edit"></i></a> 
+					<a href="#" class='btn btn-default' title='Borrar cliente' onclick="eliminar('<?php echo $cedula_conductor; ?>')"><i class="glyphicon glyphicon-trash"></i> </a></span></td>
 						
 					</tr>
 					<?php
