@@ -1,0 +1,17 @@
+RewriteEngine On
+Options -Indexes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^/]+)/$ $1.php
+RewriteRule ^([^/]+)/([^/]+)/$ /$1/$2.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !(\.[a-zA-Z0-9]{1,5}|/)$
+RewriteRule (.*)$ /$1/ [R=301,L]
+# BEGIN Error_Document 
+ErrorDocument 400 /upps?c=400 
+ErrorDocument 401 /upps?c=401 
+ErrorDocument 402 /upps?c=402 
+ErrorDocument 403 /upps?c=403 
+ErrorDocument 404 /verificar.php 
+ErrorDocument 500 /upps?c=500  
+# END Error_Document 

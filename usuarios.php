@@ -1,23 +1,26 @@
 <?php
 	/*-------------------------
-	Autor: Obed Alvarado
-	Web: obedalvarado.pw
-	Mail: info@obedalvarado.pw
+	Autor: David Casadiegos
+	Mail: david.2818@outlook.com
 	---------------------------*/
 	session_start();
-	if (!isset($_SESSION['user_login_status']) AND $_SESSION['user_login_status'] != 1) {
-        header("location: login.php");
+	if (!isset($_SESSION['user_login_status']) AND $_SESSION['user_login_status'] != 1) 
+    {
+        header("location: login");
 		exit;
-        }
+    }
+
+
 
 	/* Connect To Database*/
 	require_once ("config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
 	require_once ("config/conexion.php");//Contiene funcion que conecta a la base de datos
-	$active_facturas="";
-	$active_productos="";
-	$active_clientes="";
+	$active_verificar="";
+	$active_cargues="";
+	$active_conductores="";
+    $active_vehiculos="";
 	$active_usuarios="active";	
-	$title="Usuarios | Simple Invoice";
+	$title="Usuarios | Coagrocostos";
 ?>
 <!DOCTYPE html>
 <html lang="en">

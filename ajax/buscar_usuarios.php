@@ -12,7 +12,7 @@
 	$action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
 	if (isset($_GET['id'])){
 		$user_id=intval($_GET['id']);
-		$query=mysqli_query($con, "select * from users where user_id='".$user_id."'");
+		$query=mysqli_query($con, "select * from usuarios where id_usuario ='".$user_id."'");
 		$rw_user=mysqli_fetch_array($query);
 		$count=$rw_user['user_id'];
 		if ($count==0){
@@ -48,8 +48,8 @@
 	if($action == 'ajax'){
 		// escaping, additionally removing everything that could be (html/javascript-) code
          $q = mysqli_real_escape_string($con,(strip_tags($_REQUEST['q'], ENT_QUOTES)));
-		 $aColumns = array('firstname', 'lastname');//Columnas de busqueda
-		 $sTable = "users";
+		 $aColumns = array('nombre_usuario');//Columnas de busqueda
+		 $sTable = "usuarios";
 		 $sWhere = "";
 		if ( $_GET['q'] != "" )
 		{
@@ -61,7 +61,7 @@
 			$sWhere = substr_replace( $sWhere, "", -3 );
 			$sWhere .= ')';
 		}
-		$sWhere.=" order by user_id desc";
+		$sWhere.=" order by nombre_usuario desc";
 		include 'pagination.php'; //include pagination file
 		//pagination variables
 		$page = (isset($_REQUEST['page']) && !empty($_REQUEST['page']))?$_REQUEST['page']:1;
@@ -84,35 +84,26 @@
 			<div class="table-responsive">
 			  <table class="table">
 				<tr  class="info">
-					<th>ID</th>
-					<th>Nombres</th>
-					<th>Usuario</th>
-					<th>Email</th>
-					<th>Agregado</th>
+					<th class="text-center">Nombre Usuario</th>
+					<th class="text-center">Tipo Usuario</th>
 					<th><span class="pull-right">Acciones</span></th>
 					
 				</tr>
 				<?php
 				while ($row=mysqli_fetch_array($query)){
-						$user_id=$row['user_id'];
-						$fullname=$row['firstname']." ".$row["lastname"];
-						$user_name=$row['user_name'];
-						$user_email=$row['user_email'];
-						$date_added= date('d/m/Y', strtotime($row['date_added']));
+						$user_id=$row['id_usuario'];
+						$user_name=$row['nombre_usuario'];
+						$user_password=$row['contrasena_usuario'];
+                        $user_tipo=$row['tipo_usuario'];
 						
 					?>
 					
-					<input type="hidden" value="<?php echo $row['firstname'];?>" id="nombres<?php echo $user_id;?>">
-					<input type="hidden" value="<?php echo $row['lastname'];?>" id="apellidos<?php echo $user_id;?>">
-					<input type="hidden" value="<?php echo $user_name;?>" id="usuario<?php echo $user_id;?>">
-					<input type="hidden" value="<?php echo $user_email;?>" id="email<?php echo $user_id;?>">
+					<input type="hidden" value="<?php echo $user_password;?>" id="Nombre<?php echo $user_id;?>">
+					<input type="hidden" value="<?php echo $user_name;?>" id="tipo_usuario<?php echo $user_id;?>">
 				
 					<tr>
-						<td><?php echo $user_id; ?></td>
-						<td><?php echo $fullname; ?></td>
-						<td ><?php echo $user_name; ?></td>
-						<td ><?php echo $user_email; ?></td>
-						<td><?php echo $date_added;?></td>
+						<td class="text-center"><?php echo $user_name; ?></td>
+						<td class="text-center"><?php echo $user_tipo; ?></td>
 						
 					<td ><span class="pull-right">
 					<a href="#" class='btn btn-default' title='Editar usuario' onclick="obtener_datos('<?php echo $user_id;?>');" data-toggle="modal" data-target="#myModal2"><i class="glyphicon glyphicon-edit"></i></a> 

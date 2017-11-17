@@ -1,6 +1,6 @@
 <?php
 	/*-------------------------
-	Autores: David Casadiegos & Samuel Sanchez
+	Autores: David Casadiegos && Samuel Sanchez
 	Mail: david.2818@outlook.com
 	---------------------------*/
 
@@ -8,12 +8,14 @@
 	if (!isset($_SESSION['user_login_status']) AND $_SESSION['user_login_status'] != 1) {
         header("location: login.php");
 		exit;
-        }
+    }
+
 	
-	$active_facturas="active";
-	$active_productos="";
-	$active_clientes="";
-	$active_usuarios="";	
+	$active_verificar="active";
+	$active_cargues="";
+	$active_conductores="";
+    $active_vehiculos="";
+	$active_usuarios="";
 	$title="Verificar | Coagrotransporte";
 ?>
 <!DOCTYPE html>

@@ -68,9 +68,9 @@ class Login
 
                 // database query, getting all the info of the selected user (allows login via email address in the
                 // username field)
-                $sql = "SELECT idUsuario, nombre, contrasena, tipoUsuario
-                        FROM usuariosistema
-                        WHERE nombre = '" . $user_name . "' OR nombre = '" . $user_name . "';";
+                $sql = "SELECT id_usuario, nombre_usuario, contrasena_usuario, tipo_usuario
+                        FROM usuarios
+                        WHERE nombre_usuario = '" . $user_name . "' OR nombre_usuario = '" . $user_name . "';";
                 $result_of_login_check = $this->db_connection->query($sql);
 
                 // if this user exists
@@ -81,15 +81,13 @@ class Login
 
                     // using PHP 5.5's password_verify() function to check if the provided password fits
                     // the hash of that user's password
-                    if (password_verify($_POST['user_password'], $result_row->contrasena)) {
+                    if (password_verify($_POST['user_password'], $result_row->contrasena_usuario)) {
 
-                       
-                        echo "<script>alert('Prueba');</script>";
                         // write user data into PHP SESSION (a file on your server)
-                        $_SESSION['user_id_usuario'] = $result_row->idUsuario;
-						$_SESSION['user_nombre'] = $result_row->nombre;
-                        $_SESSION['user_contrasena'] = $result_row->contrasena;
-                        $_SESSION['user_tipoUsuario'] = $result_row->tipoUsuario;
+                        $_SESSION['user_id_usuario'] = $result_row->id_usuario;
+						$_SESSION['user_nombre'] = $result_row->nombre_usuario;
+                        $_SESSION['user_contrasena'] = $result_row->contrasena_usuario;
+                        $_SESSION['user_tipoUsuario'] = $result_row->tipo_usuario;
                         $_SESSION['user_login_status'] = 1;
 
                         error_log(

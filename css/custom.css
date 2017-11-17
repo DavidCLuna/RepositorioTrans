@@ -1,6 +1,6 @@
 /*
 navbar-default personalizada en:
-http://work.smarchal.com/twbscolor/
+http://transporte.com.co/
 
 */
 
@@ -10,8 +10,8 @@ http://work.smarchal.com/twbscolor/
 }
 
 .navbar-default {
-  background-color: #3498db;
-  border-color: #2980b9;
+  background-color: #339C4D;
+  border-color: #5E9940;
 }
 .navbar-default .navbar-brand {
   color: #ecf0f1;
@@ -34,13 +34,13 @@ http://work.smarchal.com/twbscolor/
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
   color: #ecdbff;
-  background-color: #2980b9;
+  background-color: #339C4D;
 }
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
   color: #ecdbff;
-  background-color: #2980b9;
+  background-color: #339C4D;
 }
 .navbar-default .navbar-toggle {
   border-color: #2980b9;
