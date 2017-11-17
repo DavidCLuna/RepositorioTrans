@@ -32,10 +32,10 @@
 	include("navbar.php");
 	?> 
     <div class="container">
-		<div class="panel panel-info">
+		<div class="panel panel-success">
 		<div class="panel-heading">
 		    <div class="btn-group pull-right">
-				<button type='button' class="btn btn-info" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus" ></span> Nuevo Usuario</button>
+				<button type='button' class="btn btn-warning" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus" ></span> Nuevo Usuario</button>
 			</div>
 			<h4><i class='glyphicon glyphicon-search'></i> Buscar Usuarios</h4>
 		</div>			

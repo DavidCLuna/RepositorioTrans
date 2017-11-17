@@ -39,7 +39,7 @@
 	?>  
       
     <div class="container">
-		<div class="panel panel-info">
+		<div class="panel panel-success">
 		<div class="panel-heading">
 		    <!--<div class="btn-group pull-right">
 				<a  href="nueva_factura.php" class="btn btn-info"><span class="glyphicon glyphicon-plus" ></span> Nueva Factura</a>
