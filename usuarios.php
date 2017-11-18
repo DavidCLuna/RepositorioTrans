@@ -37,7 +37,7 @@
 		    <div class="btn-group pull-right">
 				<button type='button' class="btn btn-warning" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus" ></span> Nuevo Usuario</button>
 			</div>
-			<h4><i class='glyphicon glyphicon-search'></i> Buscar Usuarios</h4>
+			<h4><i class='glyphicon glyphicon-search'></i> Buscar Usuarios:</h4>
 		</div>			
 			<div class="panel-body">
 			<?php
@@ -150,16 +150,12 @@ $( "#editar_password" ).submit(function( event ) {
 	}
 
 	function obtener_datos(id){
-			var nombres = $("#nombres"+id).val();
-			var apellidos = $("#apellidos"+id).val();
-			var usuario = $("#usuario"+id).val();
-			var email = $("#email"+id).val();
+			var user_name = $("#user_name"+id).val();
+			var tipo_usuario = $("#user_tipo_usuario"+id).val();
 			
 			$("#mod_id").val(id);
-			$("#firstname2").val(nombres);
-			$("#lastname2").val(apellidos);
-			$("#user_name2").val(usuario);
-			$("#user_email2").val(email);
+			$("#user_name2").val(user_name);
+			$("#user_tipo_usuario2").val(tipo_usuario);
 			
 		}
 </script>

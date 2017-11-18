@@ -16,7 +16,7 @@
 		$rw_user=mysqli_fetch_array($query);
 		$count=$rw_user['user_id'];
 		if ($count==0){
-			if ($delete1=mysqli_query($con,"DELETE FROM users WHERE user_id='".$user_id."'")){
+			if ($delete1=mysqli_query($con,"DELETE FROM usuarios WHERE id_usuario='".$user_id."'")){
 			?>
 			<div class="alert alert-success alert-dismissible" role="alert">
 			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -61,6 +61,7 @@
 			$sWhere = substr_replace( $sWhere, "", -3 );
 			$sWhere .= ')';
 		}
+        
 		$sWhere.=" order by nombre_usuario desc";
 		include 'pagination.php'; //include pagination file
 		//pagination variables
@@ -97,9 +98,9 @@
                         $user_tipo=$row['tipo_usuario'];
 						
 					?>
-					
-					<input type="hidden" value="<?php echo $user_password;?>" id="Nombre<?php echo $user_id;?>">
-					<input type="hidden" value="<?php echo $user_name;?>" id="tipo_usuario<?php echo $user_id;?>">
+					<input type="hidden" value="<?php echo $user_id;?>" id="mod_id<?php echo $user_id;?>">
+					<input type="hidden" value="<?php echo $user_name;?>" id="user_name<?php echo $user_id;?>">
+					<input type="hidden" value="<?php echo $user_tipo;?>" id="user_tipo_usuario<?php echo $user_id;?>">
 				
 					<tr>
 						<td class="text-center"><?php echo $user_name; ?></td>

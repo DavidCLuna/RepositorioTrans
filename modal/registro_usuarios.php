@@ -14,27 +14,9 @@
 			<form class="form-horizontal" method="post" id="guardar_usuario" name="guardar_usuario">
 			<div id="resultados_ajax"></div>
 			  <div class="form-group">
-				<label for="firstname" class="col-sm-3 control-label">Nombres</label>
+				<label for="firstname" class="col-sm-3 control-label">Nombre de usuario</label>
 				<div class="col-sm-8">
-				  <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Nombres" required>
-				</div>
-			  </div>
-			  <div class="form-group">
-				<label for="lastname" class="col-sm-3 control-label">Apellidos</label>
-				<div class="col-sm-8">
-				  <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Apellidos" required>
-				</div>
-			  </div>
-			  <div class="form-group">
-				<label for="user_name" class="col-sm-3 control-label">Usuario</label>
-				<div class="col-sm-8">
-				  <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Usuario" pattern="[a-zA-Z0-9]{2,64}" title="Nombre de usuario ( sólo letras y números, 2-64 caracteres)"required>
-				</div>
-			  </div>
-			  <div class="form-group">
-				<label for="user_email" class="col-sm-3 control-label">Email</label>
-				<div class="col-sm-8">
-				  <input type="email" class="form-control" id="user_email" name="user_email" placeholder="Correo electrónico" required>
+				  <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Nombre de usuario" pattern="[a-zA-Z0-9]{2,64}" title="Nombre de usuario ( sólo letras y números, 2-64 caracteres)"required>
 				</div>
 			  </div>
 			  <div class="form-group">
@@ -49,16 +31,19 @@
 				  <input type="password" class="form-control" id="user_password_repeat" name="user_password_repeat" placeholder="Repite contraseña" pattern=".{6,}" required>
 				</div>
 			  </div>
-			 
-			  
-
-			 
-			 
-			
+                <div class="form-group">
+				<label for="user_tipo_usuario" class="col-sm-3 control-label">Tipo de usuario</label>
+				<div class="col-sm-8">
+				    <select class="form-control" name="user_tipo_usuario">
+                        <option>Usuario</option>
+                        <option>Administrador</option>
+                    </select>
+				</div>
+			  </div>
 		  </div>
 		  <div class="modal-footer">
 			<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			<button type="submit" class="btn btn-primary" id="guardar_datos">Guardar datos</button>
+			<button type="submit" class="btn btn-warning" id="guardar_datos">Guardar datos</button>
 		  </div>
 		  </form>
 		</div>

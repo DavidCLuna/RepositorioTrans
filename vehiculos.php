@@ -32,17 +32,15 @@
 	?>
 	
     <div class="container">
-	<div class="panel panel-info">
+	<div class="panel panel-success">
 		<div class="panel-heading">
 		    <div class="btn-group pull-right">
-				<button type='button' class="btn btn-info" data-toggle="modal" data-target="#nuevoProducto"><span class="glyphicon glyphicon-plus" ></span> Nuevo Producto</button>
+				<button type='button' class="btn btn-warning" data-toggle="modal" data-target="#nuevoProducto"><span class="glyphicon glyphicon-plus" ></span> Nuevo Producto</button>
 			</div>
-			<h4><i class='glyphicon glyphicon-search'></i> Buscar Productos</h4>
+			<h4><i class='glyphicon glyphicon-search'></i> Buscar Vehículos:</h4>
 		</div>
 		<div class="panel-body">
 		
-			
-			
 			<?php
 			include("modal/registro_productos.php");
 			include("modal/editar_productos.php");

@@ -38,7 +38,7 @@
 	?>  
       
     <div class="container">
-		<div class="panel panel-info">
+		<div class="panel panel-success">
 		<div class="panel-heading">
 		    <!--<div class="btn-group pull-right">
 				<a  href="nueva_factura.php" class="btn btn-info"><span class="glyphicon glyphicon-plus" ></span> Nueva Factura</a>
@@ -49,7 +49,7 @@
 				<form class="form-horizontal" role="form" id="datos_cotizacion">
 				
 						<div class="form-group row">
-							<label for="q" class="col-md-2 control-label">Consulta Cargue</label>
+							<label for="q" class="col-md-2 control-label"> Consulta Cargue:</label>
 							<div class="col-md-5">
 								<input type="text" class="form-control" id="q" placeholder="Digite el nombre o # de cédula del transportador" onkeyup='load(1);'>
 							</div>

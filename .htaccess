@@ -12,6 +12,6 @@ ErrorDocument 400 /upps?c=400
 ErrorDocument 401 /upps?c=401 
 ErrorDocument 402 /upps?c=402 
 ErrorDocument 403 /upps?c=403 
-ErrorDocument 404 /verificar.php 
+ErrorDocument 404 /upps?c=404
 ErrorDocument 500 /upps?c=500  
 # END Error_Document 

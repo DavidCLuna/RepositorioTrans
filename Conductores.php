@@ -32,17 +32,15 @@
 	?>
 	
     <div class="container">
-	<div class="panel panel-info">
+	<div class="panel panel-success">
 		<div class="panel-heading">
 		    <div class="btn-group pull-right">
-				<button type='button' class="btn btn-info" data-toggle="modal" data-target="#nuevoCliente"><span class="glyphicon glyphicon-plus" ></span> Nuevo Conductor</button>
+				<button type='button' class="btn btn-warning" data-toggle="modal" data-target="#nuevoCliente"><span class="glyphicon glyphicon-plus" ></span> Nuevo Conductor</button>
 			</div>
 			<h4><i class='glyphicon glyphicon-search'></i> Buscar Conductores</h4>
 		</div>
 		<div class="panel-body">
 		
-			
-			
 			<?php
 				include("modal/registro_clientes.php");
 				include("modal/editar_clientes.php");

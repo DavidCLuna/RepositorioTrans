@@ -20,17 +20,15 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="user_email2" class="col-sm-3 control-label">Tipo Usuario</label>
+                    <label for="user_tipo_usuario2" class="col-sm-3 control-label">Tipo Usuario</label>
                     <div class="col-sm-8">
-                        <select class="form-control">
+                        <select id="user_tipo_usuario2" name="user_tipo_usuario2" class="form-control">
                             <option>Usuario</option>
                             <option>Administrador</option>
                         </select>
-                      <!--<input type="email" class="form-control" id="user_email2" name="user_email2" placeholder="Correo electrónico" required>-->
                     </div>
                   </div>
-
-
+                <input type="hidden" class="form-control" id="mod_id" name="mod_id" >
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
