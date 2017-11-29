@@ -84,20 +84,27 @@
 			<div class="table-responsive">
 			  <table class="table">
 				<tr  class="info">
-					<th>Código</th>
-					<th>Producto</th>
-					<th>Estado</th>
+					<th>Placa</th>
+					<th>Marca</th>
+					<th>Modelo</th>
+                    <th>Tipo</th>
+                    <th>SOAT</th>
+                    <th>Tecnicomecánico</th>
+                    <th>observaciones</th>
 					<th>Agregado</th>
-					<th class='text-right'>Precio</th>
 					<th class='text-right'>Acciones</th>
 					
 				</tr>
 				<?php
 				while ($row=mysqli_fetch_array($query)){
-						$id_producto=$row['id_producto'];
-						$codigo_producto=$row['codigo_producto'];
-						$nombre_producto=$row['nombre_producto'];
-						$status_producto=$row['status_producto'];
+						$id_producto=$row['placa_vehiculo'];
+						$codigo_producto=$row['marca_vehiculo'];
+						$nombre_producto=$row['modelo_vehiculo'];
+						$status_producto=$row['tipo_vehiculo'];
+                        $status_producto=$row['tipo_vehiculo'];
+                        $status_producto=$row['tipo_vehiculo'];
+                        $status_producto=$row['tipo_vehiculo'];
+                        $status_producto=$row['tipo_vehiculo'];
 						if ($status_producto==1){$estado="Activo";}
 						else {$estado="Inactivo";}
 						$date_added= date('d/m/Y', strtotime($row['date_added']));

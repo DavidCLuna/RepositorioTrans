@@ -69,7 +69,7 @@
 	<?php
 	include("footer.php");
 	?>
-	<script type="text/javascript" src="js/productos.js"></script>
+	<script type="text/javascript" src="js/vehiculos.js"></script>
   </body>
 </html>
 <script>
@@ -79,7 +79,7 @@ $( "#guardar_producto" ).submit(function( event ) {
  var parametros = $(this).serialize();
 	 $.ajax({
 			type: "POST",
-			url: "ajax/nuevo_producto.php",
+			url: "ajax/nuevo_vehiculo.php",
 			data: parametros,
 			 beforeSend: function(objeto){
 				$("#resultados_ajax_productos").html("Mensaje: Cargando...");

@@ -52,7 +52,7 @@
                 <div class="form-group">
 				<label for="tecnicomecanico_vehiculo" class="col-sm-3 control-label">Tecnicomecánico</label>
 				<div class="col-sm-8">
-				  <input type="date" class="form-control" id="tipo_vehiculo" value="<?php echo date("Y-m-d");?>"name="tipo_vehiculo" required>
+				  <input type="date" class="form-control" id="tecnicomencanico_vehiculo" value="<?php echo date("Y-m-d");?>"name="tecnicomecanico_vehiculo" required>
 				</div>
 			  </div>
 			  
