@@ -48,8 +48,8 @@
 	if($action == 'ajax'){
 		// escaping, additionally removing everything that could be (html/javascript-) code
          $q = mysqli_real_escape_string($con,(strip_tags($_REQUEST['q'], ENT_QUOTES)));
-		 $aColumns = array('codigo_producto', 'nombre_producto');//Columnas de busqueda
-		 $sTable = "products";
+		 $aColumns = array('placa_vehiculo');//Columnas de busqueda
+		 $sTable = "vehiculos";
 		 $sWhere = "";
 		if ( $_GET['q'] != "" )
 		{
@@ -61,7 +61,7 @@
 			$sWhere = substr_replace( $sWhere, "", -3 );
 			$sWhere .= ')';
 		}
-		$sWhere.=" order by id_producto desc";
+		$sWhere.=" order by placa_vehiculo desc";
 		include 'pagination.php'; //include pagination file
 		//pagination variables
 		$page = (isset($_REQUEST['page']) && !empty($_REQUEST['page']))?$_REQUEST['page']:1;
@@ -75,7 +75,7 @@
 		$total_pages = ceil($numrows/$per_page);
 		$reload = './productos.php';
 		//main query to fetch the data
-		$sql="SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
+		$sql="SELECT placa_vehiculo, marca_vehiculo,modelo_vehiculo,tipo_vehiculo,soat_vehiculo,tecnicomecanico_vehiculo,observaciones_vehiculo FROM  $sTable $sWhere LIMIT $offset,$per_page";
 		$query = mysqli_query($con, $sql);
 		//loop through fetched data
 		if ($numrows>0){

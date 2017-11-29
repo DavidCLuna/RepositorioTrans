@@ -43,7 +43,7 @@
 			  <div class="form-group">
 				<label for="fecha_ingreso" class="col-sm-3 control-label">Fecha Ingreso</label>
 				<div class="col-sm-8">
-					<input type="date" class="form-control" id="fecha_ingreso" name="fecha_ingreso" >
+					<input type="date" class="form-control" id="fecha_ingreso" value="<?php echo date("Y-m-d");?>" name="fecha_ingreso" >
 				</div>
 			  </div>
 		  </div>

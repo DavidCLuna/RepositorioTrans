@@ -42,7 +42,7 @@
 		<div class="panel-body">
 		
 			<?php
-			include("modal/registro_productos.php");
+			include("modal/registro_vehiculos.php");
 			include("modal/editar_productos.php");
 			?>
 			<form class="form-horizontal" role="form" id="datos_cotizacion">
