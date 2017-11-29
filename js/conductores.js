@@ -6,7 +6,7 @@
 			var q= $("#q").val();
 			$("#loader").fadeIn('slow');
 			$.ajax({
-				url:'./ajax/buscar_clientes.php?action=ajax&page='+page+'&q='+q,
+				url:'./ajax/buscar_conductores.php?action=ajax&page='+page+'&q='+q,
 				 beforeSend: function(objeto){
 				 $('#loader').html('<img src="./img/ajax-loader.gif"> Cargando...');
 			  },
@@ -23,10 +23,10 @@
 			function eliminar (id)
 		{
 			var q= $("#q").val();
-		if (confirm("Realmente deseas eliminar el cliente")){	
+		if (confirm("Realmente deseas eliminar el conductor")){	
 		$.ajax({
         type: "GET",
-        url: "./ajax/buscar_clientes.php",
+        url: "./ajax/buscar_conductores.php",
         data: "id="+id,"q":q,
 		 beforeSend: function(objeto){
 			$("#resultados").html("Mensaje: Cargando...");
@@ -37,6 +37,7 @@
 		}
 			});
 		}
+            
 		}
 		
 		
@@ -47,7 +48,7 @@ $( "#guardar_cliente" ).submit(function( event ) {
  var parametros = $(this).serialize();
 	 $.ajax({
 			type: "POST",
-			url: "ajax/nuevo_cliente.php",
+			url: "ajax/nuevo_conductor.php",
 			data: parametros,
 			 beforeSend: function(objeto){
 				$("#resultados_ajax").html("Mensaje: Cargando...");
@@ -67,7 +68,7 @@ $( "#editar_cliente" ).submit(function( event ) {
  var parametros = $(this).serialize();
 	 $.ajax({
 			type: "POST",
-			url: "ajax/editar_cliente.php",
+			url: "ajax/editar_conductor.php",
 			data: parametros,
 			 beforeSend: function(objeto){
 				$("#resultados_ajax2").html("Mensaje: Cargando...");
@@ -82,18 +83,21 @@ $( "#editar_cliente" ).submit(function( event ) {
 })
 
 	function obtener_datos(id){
-			var nombre_cliente = $("#nombre_cliente"+id).val();
-			var telefono_cliente = $("#telefono_cliente"+id).val();
-			var email_cliente = $("#email_cliente"+id).val();
-			var direccion_cliente = $("#direccion_cliente"+id).val();
-			var status_cliente = $("#status_cliente"+id).val();
-	
-			$("#mod_nombre").val(nombre_cliente);
-			$("#mod_telefono").val(telefono_cliente);
-			$("#mod_email").val(email_cliente);
-			$("#mod_direccion").val(direccion_cliente);
-			$("#mod_estado").val(status_cliente);
-			$("#mod_id").val(id);
+			var nombre_conductor = $("#nombre_conductor"+id).val();
+			var apellido_conductor = $("#apellido_conductor"+id).val();
+			var licencia_conductor = $("#licencia_conductor"+id).val();
+			var fecha_ingreso_conductor_str = $("#fecha_ingreso_conductor"+id).val();
+        
+            var parts = fecha_ingreso_conductor_str.split('/');
+        
+            var mydate = new Date(parts[2],parts[0]-1,parts[1]);
+        
+			$("#mod_nombre").val(nombre_conductor);
+			$("#mod_apellido").val(apellido_conductor);
+			$("#mod_licencia").val(licencia_conductor);
+			$("#mod_fecha_ingreso").val(parts[2]+'-'+parts[1]+'-'+parts[0]);
+			$("#mod_cedula").val(id);
+            $("#mod_id").val(id);
 		
 		}
 	

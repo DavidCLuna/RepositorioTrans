@@ -42,7 +42,7 @@
 		<div class="panel-body">
 		
 			<?php
-				include("modal/registro_clientes.php");
+				include("modal/registro_conductores.php");
 				include("modal/editar_clientes.php");
 			?>
 			<form class="form-horizontal" role="form" id="datos_cotizacion">
@@ -70,6 +70,6 @@
 	<?php
 	include("footer.php");
 	?>
-	<script type="text/javascript" src="js/clientes.js"></script>
+	<script type="text/javascript" src="js/conductores.js"></script>
   </body>
 </html>

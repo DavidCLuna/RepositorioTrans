@@ -10,13 +10,18 @@
 	require_once ("../config/conexion.php");//Contiene funcion que conecta a la base de datos
 	
 	$action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
+
 	if (isset($_GET['id'])){
-		$id_conductor=intval($_GET['id']);
-		$query=mysqli_query($con, "select * from facturas where id_cliente='".$id_conductor."'");
+        echo "<script>alert('".$_GET['id']."');</script>";
+		$id_conductor=$_GET['id'];
+		$query=mysqli_query($con, "select * from conductores where id_cliente='".$id_conductor."'");
 		$count=mysqli_num_rows($query);
 		if ($count==0){
-			if ($delete1=mysqli_query($con,"DELETE FROM clientes WHERE id_cliente='".$id_conductor."'")){
+             
+			if ($delete1=mysqli_query($con,"DELETE FROM conductores WHERE cedula_conductor='".$id_conductor."'")){
+           
 			?>
+            
 			<div class="alert alert-success alert-dismissible" role="alert">
 			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			  <strong>Aviso!</strong> Datos eliminados exitosamente.
@@ -47,8 +52,8 @@
 	if($action == 'ajax'){
 		// escaping, additionally removing everything that could be (html/javascript-) code
          $q = mysqli_real_escape_string($con,(strip_tags($_REQUEST['q'], ENT_QUOTES)));
-		 $aColumns = array('nombre','apellido','cedula');//Columnas de busqueda
-		 $sTable = "conductor";
+		 $aColumns = array('nombre_conductor','apellido_conductor','cedula_conductor');//Columnas de busqueda
+		 $sTable = "conductores";
 		 $sWhere = "";
 		if ( $_GET['q'] != "" )
 		{
@@ -60,7 +65,7 @@
 			$sWhere = substr_replace( $sWhere, "", -3 );
 			$sWhere .= ')';
 		}
-		$sWhere.=" order by nombre";
+		$sWhere.=" order by nombre_conductor";
 		include 'pagination.php'; //include pagination file
 		//pagination variables
 		$page = (isset($_REQUEST['page']) && !empty($_REQUEST['page']))?$_REQUEST['page']:1;
@@ -74,7 +79,8 @@
 		$total_pages = ceil($numrows/$per_page);
 		$reload = './clientes.php';
 		//main query to fetch the data
-		$sql="SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
+		$sql="SELECT * FROM  $sTable $sWhere LIMIT 
+        $offset,$per_page";
 		$query = mysqli_query($con, $sql);
 		//loop through fetched data
 		if ($numrows>0){
@@ -82,7 +88,7 @@
 			?>
 			<div class="table-responsive">
 			  <table class="table">
-				<tr  class="info">
+				<tr  class="warning">
 					<th># Cedula</th>
 					<th>Nombre Completo</th>
 					<th>Licencia</th>
@@ -92,20 +98,27 @@
 				</tr>
 				<?php
 				while ($row=mysqli_fetch_array($query)){
-						$cedula_conductor=$row['cedula'];
-						$nombre_completo_conductor=$row['nombre'].' '.$row['apellido'];
-						$licencia_conductor=$row['licencia'];
-                        $fecha_ingreso_conductor=date("d/m/Y", strtotime($row['fecha_ingreso']));
+						$cedula_conductor=$row['cedula_conductor'];
+						
+                    $nombre_conductor = $row['nombre_conductor'];
+                        $apellido_conductor = $row['apellido_conductor'];
+                        $nombre_completo_conductor=$row['nombre_conductor'].' '.$row['apellido_conductor'];
+						$licencia_conductor=$row['licencia_conductor'];
+                        $fecha_ingreso_conductor=date("d/m/Y", strtotime($row['fecha_ingreso_conductor']));
 						/*tatus_cliente=$row['status_cliente'];
 						if ($status_cliente==1){$estado="Activo";}
 						else {$estado="Inactivo";}*/
 						
 					?>
 					
-					<input type="hidden" value="<?php echo $cedula_conductor;?>" id="nombre_cliente<?php echo $cedula_conductor;?>">
-					<input type="hidden" value="<?php echo $nombre_completo_conductor;?>" id="telefono_cliente<?php echo $cedula_conductor;?>">
-					<input type="hidden" value="<?php echo $licencia_conductor;?>" id="email_cliente<?php echo $cedula_conductor;?>">
-					<input type="hidden" value="<?php echo $fecha_ingreso_conductor;?>" id="direccion_cliente<?php echo $cedula_conductor;?>">
+					<input type="hidden" value="<?php echo $cedula_conductor;?>" id="cedula_conductor<?php echo $cedula_conductor;?>">
+					<input type="hidden" value="<?php echo $nombre_conductor;?>" id="nombre_conductor<?php echo $cedula_conductor;?>">
+                  
+                    <input type="hidden" value="<?php echo $apellido_conductor;?>" id="apellido_conductor<?php echo $cedula_conductor;?>">
+                  
+                  
+					<input type="hidden" value="<?php echo $licencia_conductor;?>" id="licencia_conductor<?php echo $cedula_conductor;?>">
+					<input type="hidden" value="<?php echo $fecha_ingreso_conductor;?>" id="fecha_ingreso_conductor<?php echo $cedula_conductor;?>">
 					<tr>
 						
 						<td><?php echo $cedula_conductor; ?></td>

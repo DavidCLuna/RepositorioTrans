@@ -31,9 +31,10 @@ if (version_compare(PHP_VERSION, '5.3.7', '<')) {
                 // PHP 5.3/5.4, by the password hashing compatibility library
 				$user_password_hash = password_hash($user_password, PASSWORD_DEFAULT);
 					
-               
+                    
 					// write new user's data into database
-                    $sql = "UPDATE users SET user_password_hash='".$user_password_hash."' WHERE user_id='".$user_id."'";
+                    $sql = "UPDATE usuarios SET contrasena_usuario='".$user_password_hash."' WHERE id_usuario='".$user_id."'";
+                    //echo $sql;
                     $query = mysqli_query($con,$sql);
 
                     // if user has been added successfully

@@ -13,10 +13,6 @@
 		  <div class="modal-body">
 			<form class="form-horizontal" method="post" id="editar_password" name="editar_password">
 			<div id="resultados_ajax3"></div>
-			 
-			 
-			 
-			 
 			  <div class="form-group">
 				<label for="user_password_new3" class="col-sm-4 control-label">Nueva contraseña</label>
 				<div class="col-sm-8">
@@ -30,16 +26,10 @@
 				  <input type="password" class="form-control" id="user_password_repeat3" name="user_password_repeat3" placeholder="Repite contraseña" pattern=".{6,}" required>
 				</div>
 			  </div>
-			 
-			  
-
-			 
-			 
-			
 		  </div>
 		  <div class="modal-footer">
 			<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			<button type="submit" class="btn btn-primary" id="actualizar_datos3">Cambiar contraseña</button>
+			<button type="submit" class="btn btn-warning" id="actualizar_datos3">Cambiar contraseña</button>
 		  </div>
 		  </form>
 		</div>

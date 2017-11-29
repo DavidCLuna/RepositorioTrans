@@ -107,7 +107,7 @@ class Login
     }
 
     /**
-     * perform the logout
+     * perform the logoutñl-01.
      */
     public function doLogout()
     {

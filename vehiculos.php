@@ -56,21 +56,11 @@
 								<button type="button" class="btn btn-default" onclick='load(1);'>
 									<span class="glyphicon glyphicon-search" ></span> Buscar</button>
 								<span id="loader"></span>
-							</div>
-							
+							</div> 
 						</div>
-				
-				
-				
 			</form>
 				<div id="resultados"></div><!-- Carga los datos ajax -->
 				<div class='outer_div'></div><!-- Carga los datos ajax -->
-			
-		
-	
-			
-			
-			
   </div>
 </div>
 		 
