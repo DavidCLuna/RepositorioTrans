@@ -88,11 +88,11 @@
 			?>
 			<div class="table-responsive">
 			  <table class="table">
-				<tr  class="warning">
-					<th># Cedula</th>
-					<th>Nombre Completo</th>
-					<th>Licencia</th>
-					<th>Fecha Ingreso</th>
+				<tr  class="success">
+					<th class="text-center"># Cedula</th>
+					<th class="text-center">Nombre Completo</th>
+					<th class="text-center">Licencia</th>
+					<th class="text-center">Fecha Ingreso</th>
 					<th class='text-right'>Acciones</th>
 					
 				</tr>
@@ -121,10 +121,10 @@
 					<input type="hidden" value="<?php echo $fecha_ingreso_conductor;?>" id="fecha_ingreso_conductor<?php echo $cedula_conductor;?>">
 					<tr>
 						
-						<td><?php echo $cedula_conductor; ?></td>
-						<td ><?php echo $nombre_completo_conductor; ?></td>
-						<td><?php echo $licencia_conductor;?></td>
-						<td><?php echo $fecha_ingreso_conductor;?></td>
+						<td class="text-center"><?php echo $cedula_conductor; ?></td>
+						<td class="text-center"><?php echo $nombre_completo_conductor; ?></td>
+						<td class="text-center"><?php echo $licencia_conductor;?></td>
+						<td class="text-center"><?php echo $fecha_ingreso_conductor;?></td>
 						
 					<td ><span class="pull-right">
 					<a href="#" class='btn btn-default' title='Editar cliente' onclick="obtener_datos('<?php echo $cedula_conductor;?>');" data-toggle="modal" data-target="#myModal2"><i class="glyphicon glyphicon-edit"></i></a> 

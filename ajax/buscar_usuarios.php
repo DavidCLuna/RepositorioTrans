@@ -85,7 +85,7 @@
 			?>
 			<div class="table-responsive">
 			  <table class="table">
-				<tr  class="warning">
+				<tr  class="success">
 					<th class="text-center">Nombre Usuario</th>
 					<th class="text-center">Tipo Usuario</th>
 					<th><span class="pull-right">Acciones</span></th>

@@ -75,53 +75,61 @@
 		$total_pages = ceil($numrows/$per_page);
 		$reload = './productos.php';
 		//main query to fetch the data
-		$sql="SELECT placa_vehiculo, marca_vehiculo,modelo_vehiculo,tipo_vehiculo,soat_vehiculo,tecnicomecanico_vehiculo,observaciones_vehiculo FROM  $sTable $sWhere LIMIT $offset,$per_page";
+		$sql="SELECT placa_vehiculo, marca_vehiculo,modelo_vehiculo,tipo_vehiculo,soat_vehiculo,tecnicomecanico_vehiculo,observaciones_vehiculo,fecha_creacion_vehiculo,TIMESTAMPDIFF(YEAR, soat_vehiculo, CURDATE()) as estado_soat FROM  $sTable $sWhere LIMIT $offset,$per_page";
 		$query = mysqli_query($con, $sql);
 		//loop through fetched data
 		if ($numrows>0){
 			
 			?>
 			<div class="table-responsive">
-			  <table class="table">
-				<tr  class="info">
-					<th>Placa</th>
-					<th>Marca</th>
-					<th>Modelo</th>
-                    <th>Tipo</th>
-                    <th>SOAT</th>
-                    <th>Tecnicomecánico</th>
-                    <th>observaciones</th>
-					<th>Agregado</th>
+			  <table class="table" >
+				<tr  class="success text-center">
+					<th class="text-center">Placa</th>
+					<th class="text-center">Marca</th>
+					<th class="text-center">Modelo</th>
+                    <th class="text-center">Tipo</th>
+                    <th class="text-center">SOAT</th>
+                    <th class="text-center">Tecnicomecánico</th>
+                    <th class="text-center">observaciones</th>
 					<th class='text-right'>Acciones</th>
 					
 				</tr>
 				<?php
 				while ($row=mysqli_fetch_array($query)){
-						$id_producto=$row['placa_vehiculo'];
-						$codigo_producto=$row['marca_vehiculo'];
-						$nombre_producto=$row['modelo_vehiculo'];
-						$status_producto=$row['tipo_vehiculo'];
-                        $status_producto=$row['tipo_vehiculo'];
-                        $status_producto=$row['tipo_vehiculo'];
-                        $status_producto=$row['tipo_vehiculo'];
-                        $status_producto=$row['tipo_vehiculo'];
-						if ($status_producto==1){$estado="Activo";}
-						else {$estado="Inactivo";}
-						$date_added= date('d/m/Y', strtotime($row['date_added']));
-						$precio_producto=$row['precio_producto'];
+						$placa_vehiculo=$row['placa_vehiculo'];
+						$marca_vehiculo=$row['marca_vehiculo'];
+						$modelo_vehiculo=$row['modelo_vehiculo'];
+						$tipo_vehiculo=$row['tipo_vehiculo'];
+                        $soat_vehiculo=$row['soat_vehiculo'];
+                        $tecnicomecanico_vehiculo=$row['tecnicomecanico_vehiculo'];
+                        $observaciones_vehiculo=$row['observaciones_vehiculo'];
+                       
+                        $estado_soat=$row['estado_soat'];
+						if ($estado_soat=="1"){
+                            $class="danger";
+                        }
+						else {$class="";}
 					?>
 					
-					<input type="hidden" value="<?php echo $codigo_producto;?>" id="codigo_producto<?php echo $id_producto;?>">
-					<input type="hidden" value="<?php echo $nombre_producto;?>" id="nombre_producto<?php echo $id_producto;?>">
-					<input type="hidden" value="<?php echo $estado;?>" id="estado<?php echo $id_producto;?>">
+					<input type="hidden" value="<?php echo $placa_vehiculo;?>" id="placa_vehiculo<?php echo $placa_vehiculo;?>">
+					<input type="hidden" value="<?php echo $marca_vehiculo;?>" id="marca_vehiculo<?php echo $placa_vehiculo;?>">
+                    <input type="hidden" value="<?php echo $modelo_vehiculo;?>" id="modelo_vehiculo<?php echo $placa_vehiculo;?>">
+                    <input type="hidden" value="<?php echo $tipo_vehiculo;?>" id="tipo_vehiculo<?php echo $placa_vehiculo;?>">
+                    <input type="hidden" value="<?php echo $soat_vehiculo;?>" id="soat_vehiculo<?php echo $placa_vehiculo;?>">
+                    <input type="hidden" value="<?php echo $tecnicomecanico_vehiculo;?>" id="tecnicomecanico_vehiculo<?php echo $placa_vehiculo;?>">
+                    <input type="hidden" value="<?php echo $observaciones_vehiculo;?>" id="observaciones_vehiculo<?php echo $placa_vehiculo;?>">
+                  
+                  
+					<input type="hidden" value="<?php echo $modelo_vehiculo;?>" id="estado<?php echo $id_producto;?>">
 					<input type="hidden" value="<?php echo number_format($precio_producto,2,'.','');?>" id="precio_producto<?php echo $id_producto;?>">
-					<tr>
-						
-						<td><?php echo $codigo_producto; ?></td>
-						<td ><?php echo $nombre_producto; ?></td>
-						<td><?php echo $estado;?></td>
-						<td><?php echo $date_added;?></td>
-						<td>$<span class='pull-right'><?php echo number_format($precio_producto,2);?></span></td>
+					<tr class="<?php  $class; ?> text-center" >
+						<td><?php echo $placa_vehiculo; ?></td>
+						<td ><?php echo $marca_vehiculo; ?></td>
+                        <td ><?php echo $modelo_vehiculo; ?></td>
+                        <td ><?php echo $tipo_vehiculo; ?></td>
+                        <td><?php echo $soat_vehiculo; ?></td>
+                        <td ><?php echo $tecnicomecanico_vehiculo; ?></td>
+                        <td ><?php echo $observaciones_vehiculo; ?></td>
 					<td ><span class="pull-right">
 					<a href="#" class='btn btn-default' title='Editar producto' onclick="obtener_datos('<?php echo $id_producto;?>');" data-toggle="modal" data-target="#myModal2"><i class="glyphicon glyphicon-edit"></i></a> 
 					<a href="#" class='btn btn-default' title='Borrar producto' onclick="eliminar('<?php echo $id_producto; ?>')"><i class="glyphicon glyphicon-trash"></i> </a></span></td>

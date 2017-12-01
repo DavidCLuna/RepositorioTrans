@@ -123,3 +123,7 @@ http://transporte.com.co/
 .margin-10{
     margin:10px;
 }
+
+.upperCase{
+    text-transform: uppercase;
+}
