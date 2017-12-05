@@ -4,12 +4,8 @@
 	Mail: david.2818@outlook.com
 	---------------------------*/
 	session_start();
-	if (!isset($_SESSION['user_login_status']) AND $_SESSION['user_login_status'] != 1) 
-    {
-        header("location: login");
-		exit;
-    }else if(isset($_SESSION['user_tipoUsuario']) && $_SESSION['user_tipoUsuario'] != "Administrador"){
-        header("location: verificar");
+	if (!isset($_SESSION['user_login_status']) AND $_SESSION['user_login_status'] != 1) {
+        header("location: login.php");
 		exit;
     }
 
@@ -37,8 +33,13 @@
 	?> 
       <script>
               // función encargada de la redirección
-        function redireccion() {
-            window.location = "lock_screen.php";
+       /* function redireccion() {
+            <?php
+            /*$_SESSION['user_login_status'] = null;
+            header("location: login");
+            exit;*/
+            ?>
+            window.location = "ajax/is_logged.php";
         }
 
         // se llamará a la función que redirecciona después de 10 minutos (600.000 segundos)
@@ -50,7 +51,7 @@
             clearTimeout(temp);
             // y volver a iniciarlo
             temp = setTimeout(redireccion, 5000);
-        })
+        })*/
       </script>
     <div class="container">
 		<div class="panel panel-success">

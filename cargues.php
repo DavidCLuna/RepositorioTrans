@@ -8,9 +8,6 @@
 	if (!isset($_SESSION['user_login_status']) AND $_SESSION['user_login_status'] != 1) {
         header("location: login.php");
 		exit;
-    }else if(isset($_SESSION['user_tipoUsuario']) && $_SESSION['user_tipoUsuario'] != "Administrador"){
-        header("location: verificar");
-		exit;
     }
 	
 	$active_verificar="";

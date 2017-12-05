@@ -36,15 +36,15 @@
 	if($action == 'ajax'){
 		// escaping, additionally removing everything that could be (html/javascript-) code
          $q = mysqli_real_escape_string($con,(strip_tags($_REQUEST['q'], ENT_QUOTES)));
-		  $sTable = " conductor c join conductorvehiculo cv on c.cedula = cv.cedula ";
+		  $sTable = " conductores c join conductores_vehiculos cv on c.cedula_conductor = cv.cedula_conductor ";
 		 $sWhere = "";
 		if ( $_GET['q'] != "" )
 		{
-		$sWhere.= " where c.nombre like '%$q%' xor '%$q%' or c.cedula like '%$q%'";
+		$sWhere.= " where c.nombre_conductor like '%$q%' xor '%$q%' or c.cedula_conductor like '%$q%'";
 			
 		}
         
-		$sWhere.=" order by c.nombre";
+		$sWhere.=" order by c.nombre_conductor";
 		include 'pagination.php'; //include pagination file
 		//pagination variables
 		$page = (isset($_REQUEST['page']) && !empty($_REQUEST['page']))?$_REQUEST['page']:3;
@@ -52,7 +52,7 @@
 		$adjacents  = 4; //gap between pages after number of adjacents
 		$offset = ($page - 1) * $per_page;
 		//Count the total number of row in your table*/
-		$count_query   = mysqli_query($con, "SELECT count(c.cedula) as numrows FROM $sTable  $sWhere");
+		$count_query   = mysqli_query($con, "SELECT count(c.cedula_conductor) as numrows FROM $sTable  $sWhere");
 		$row= mysqli_fetch_array($count_query);
 		$numrows = $row['numrows'];
 		$total_pages = ceil($numrows/$per_page);
