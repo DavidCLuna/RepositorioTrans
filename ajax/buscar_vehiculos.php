@@ -12,11 +12,16 @@
 	
 	$action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
 	if (isset($_GET['id'])){
-		$id_producto=intval($_GET['id']);
-		$query=mysqli_query($con, "select * from detalle_cotizacion_demo where id_producto='".$id_producto."'");
+		$id_vehiculo=$_GET['id'];
+        $sql = "select * from vehiculos where placa_vehiculo='".$id_vehiculo."'";
+        error_log($sql);
+		$query=mysqli_query($con, $sql);
 		$count=mysqli_num_rows($query);
-		if ($count==0){
-			if ($delete1=mysqli_query($con,"DELETE FROM products WHERE id_producto='".$id_producto."'")){
+        error_log("COUNT ".$count);
+		if ($count==1){
+            $sqlDelete = "DELETE FROM vehiculos WHERE placa_vehiculo='".$id_vehiculo."'";
+            error_log($sqlDelete);
+			if ($delete1=mysqli_query($con, $sqlDelete)){
 			?>
 			<div class="alert alert-success alert-dismissible" role="alert">
 			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -37,13 +42,11 @@
 			?>
 			<div class="alert alert-danger alert-dismissible" role="alert">
 			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			  <strong>Error!</strong> No se pudo eliminar éste  producto. Existen cotizaciones vinculadas a éste producto. 
+			  <strong>Error!</strong> No se pudo eliminar éste  vehículo. Existen cargues vinculados a éste vehículo. 
 			</div>
 			<?php
 		}
-		
-		
-		
+				
 	}
 	if($action == 'ajax'){
 		// escaping, additionally removing everything that could be (html/javascript-) code
@@ -65,6 +68,7 @@
 		include 'pagination.php'; //include pagination file
 		//pagination variables
 		$page = (isset($_REQUEST['page']) && !empty($_REQUEST['page']))?$_REQUEST['page']:1;
+        echo("<script>alert('Page: '+".$page.");</script>");
 		$per_page = 10; //how much records you want to show
 		$adjacents  = 4; //gap between pages after number of adjacents
 		$offset = ($page - 1) * $per_page;
@@ -73,9 +77,9 @@
 		$row= mysqli_fetch_array($count_query);
 		$numrows = $row['numrows'];
 		$total_pages = ceil($numrows/$per_page);
-		$reload = './productos.php';
+		$reload = './vehiculos.php';
 		//main query to fetch the data
-		$sql="SELECT placa_vehiculo, marca_vehiculo,modelo_vehiculo,tipo_vehiculo,soat_vehiculo,tecnicomecanico_vehiculo,observaciones_vehiculo,fecha_creacion_vehiculo,TIMESTAMPDIFF(YEAR, soat_vehiculo, CURDATE()) as estado_soat FROM  $sTable $sWhere LIMIT $offset,$per_page";
+		$sql="SELECT placa_vehiculo, marca_vehiculo,modelo_vehiculo,tipo_vehiculo,soat_vehiculo,tecnicomecanico_vehiculo,observaciones_vehiculo,fecha_creacion_vehiculo,TIMESTAMPDIFF(YEAR, soat_vehiculo, CURDATE()) as estado_soat,TIMESTAMPDIFF(YEAR, tecnicomecanico_vehiculo, CURDATE()) as estado_tecnicomecanico FROM  $sTable $sWhere LIMIT $offset,$per_page";
 		$query = mysqli_query($con, $sql);
 		//loop through fetched data
 		if ($numrows>0){
@@ -105,10 +109,7 @@
                         $observaciones_vehiculo=$row['observaciones_vehiculo'];
                        
                         $estado_soat=$row['estado_soat'];
-						if ($estado_soat=="1"){
-                            $class="danger";
-                        }
-						else {$class="";}
+                        $estado_tecnicomecanico=$row['estado_tecnicomecanico'];
 					?>
 					
 					<input type="hidden" value="<?php echo $placa_vehiculo;?>" id="placa_vehiculo<?php echo $placa_vehiculo;?>">
@@ -119,20 +120,34 @@
                     <input type="hidden" value="<?php echo $tecnicomecanico_vehiculo;?>" id="tecnicomecanico_vehiculo<?php echo $placa_vehiculo;?>">
                     <input type="hidden" value="<?php echo $observaciones_vehiculo;?>" id="observaciones_vehiculo<?php echo $placa_vehiculo;?>">
                   
-                  
-					<input type="hidden" value="<?php echo $modelo_vehiculo;?>" id="estado<?php echo $id_producto;?>">
-					<input type="hidden" value="<?php echo number_format($precio_producto,2,'.','');?>" id="precio_producto<?php echo $id_producto;?>">
+					<input type="hidden" value="<?php echo $placa_vehiculo;?>" id="mod_id">
 					<tr class="<?php  $class; ?> text-center" >
 						<td><?php echo $placa_vehiculo; ?></td>
 						<td ><?php echo $marca_vehiculo; ?></td>
                         <td ><?php echo $modelo_vehiculo; ?></td>
                         <td ><?php echo $tipo_vehiculo; ?></td>
-                        <td><?php echo $soat_vehiculo; ?></td>
-                        <td ><?php echo $tecnicomecanico_vehiculo; ?></td>
+                        <td><?php 
+                    if(intval($estado_soat)>=1){
+                        ?><span class="label label-danger" title="Este vehículo tiene el SOAT vencido"><?php echo $soat_vehiculo;?></span>       
+                        <?php
+                    }else{
+                        echo $soat_vehiculo;    
+                    }
+                    ?>
+                    </td>
+                    <td>
+                    <?php        
+                    if(intval($estado_tecnicomecanico)>=1){
+                        ?><span class="label label-danger" title="Este vehículo tiene el Tecnicomecánico vencido"><?php echo $tecnicomecanico_vehiculo;?></span>       
+                        <?php
+                    }else{
+                        echo $tecnicomecanico_vehiculo;    
+                    }
+                    ?></td>
                         <td ><?php echo $observaciones_vehiculo; ?></td>
 					<td ><span class="pull-right">
-					<a href="#" class='btn btn-default' title='Editar producto' onclick="obtener_datos('<?php echo $id_producto;?>');" data-toggle="modal" data-target="#myModal2"><i class="glyphicon glyphicon-edit"></i></a> 
-					<a href="#" class='btn btn-default' title='Borrar producto' onclick="eliminar('<?php echo $id_producto; ?>')"><i class="glyphicon glyphicon-trash"></i> </a></span></td>
+					<a href="#" class='btn btn-default' title='Editar vehículo' onclick="obtener_datos('<?php echo $placa_vehiculo;?>');" data-toggle="modal" data-target="#myModal2"><i class="glyphicon glyphicon-edit"></i></a> 
+					<a href="#" class='btn btn-default' title='Eliminar vehículo' onclick="eliminar('<?php echo $placa_vehiculo; ?>')"><i class="glyphicon glyphicon-trash"></i> </a></span></td>
 						
 					</tr>
 					<?php

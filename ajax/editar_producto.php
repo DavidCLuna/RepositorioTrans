@@ -3,34 +3,52 @@
 	/*Inicia validacion del lado del servidor*/
 	if (empty($_POST['mod_id'])) {
            $errors[] = "ID vacío";
-        }else if (empty($_POST['mod_codigo'])) {
-           $errors[] = "Código vacío";
-        } else if (empty($_POST['mod_nombre'])){
-			$errors[] = "Nombre del producto vacío";
-		} else if ($_POST['mod_estado']==""){
-			$errors[] = "Selecciona el estado del producto";
-		} else if (empty($_POST['mod_precio'])){
-			$errors[] = "Precio de venta vacío";
-		} else if (
+        }else if (empty($_POST['mod_placa'])) {
+           $errors[] = "Placa vacía";
+        }else if (empty($_POST['mod_marca'])) {
+           $errors[] = "Marca vacía";
+        }else if (empty($_POST['mod_modelo'])) {
+           $errors[] = "Modelo vacío";
+        }else if (empty($_POST['mod_tipo'])) {
+           $errors[] = "Tipo vacío";
+        }else if (empty($_POST['mod_soat'])) {
+           $errors[] = "SOAT vacío";
+        }else if (empty($_POST['mod_tecnicomecanico'])) {
+           $errors[] = "Tecnicomecánico vacío";
+        }else if (empty($_POST['mod_observaciones'])) {
+           $errors[] = "Observaciones vacío";
+        } else if (
 			!empty($_POST['mod_id']) &&
-			!empty($_POST['mod_codigo']) &&
-			!empty($_POST['mod_nombre']) &&
-			$_POST['mod_estado']!="" &&
-			!empty($_POST['mod_precio'])
+            !empty($_POST['mod_placa']) &&
+            !empty($_POST['mod_marca']) &&
+            !empty($_POST['mod_modelo']) &&
+            !empty($_POST['mod_tipo']) &&
+            !empty($_POST['mod_soat']) &&
+            !empty($_POST['mod_tecnicomecanico']) &&
+            !empty($_POST['mod_observaciones'])
 		){
 		/* Connect To Database*/
 		require_once ("../config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
 		require_once ("../config/conexion.php");//Contiene funcion que conecta a la base de datos
 		// escaping, additionally removing everything that could be (html/javascript-) code
-		$codigo=mysqli_real_escape_string($con,(strip_tags($_POST["mod_codigo"],ENT_QUOTES)));
-		$nombre=mysqli_real_escape_string($con,(strip_tags($_POST["mod_nombre"],ENT_QUOTES)));
-		$estado=intval($_POST['mod_estado']);
-		$precio_venta=floatval($_POST['mod_precio']);
-		$id_producto=$_POST['mod_id'];
-		$sql="UPDATE products SET codigo_producto='".$codigo."', nombre_producto='".$nombre."', status_producto='".$estado."', precio_producto='".$precio_venta."' WHERE id_producto='".$id_producto."'";
+		$placa=mysqli_real_escape_string($con,(strip_tags($_POST["mod_placa"],ENT_QUOTES)));
+        $marca=mysqli_real_escape_string($con,(strip_tags($_POST["mod_marca"],ENT_QUOTES)));
+        $modelo=mysqli_real_escape_string($con,(strip_tags($_POST["mod_modelo"],ENT_QUOTES)));
+        $tipo=mysqli_real_escape_string($con,(strip_tags($_POST["mod_tipo"],ENT_QUOTES)));
+        $soat=mysqli_real_escape_string($con,(strip_tags($_POST["mod_soat"],ENT_QUOTES)));
+        $tecnicomecanico=mysqli_real_escape_string($con,(strip_tags($_POST["mod_tecnicomecanico"],ENT_QUOTES)));
+        $observaciones=mysqli_real_escape_string($con,(strip_tags($_POST["mod_observaciones"],ENT_QUOTES)));
+		$id_vehiculo=$_POST['mod_id'];
+        
+		$sql="UPDATE vehiculos SET 
+        marca_vehiculo=UPPER('".$marca."'), 
+        modelo_vehiculo=UPPER('".$modelo."'), 
+        tipo_vehiculo=UPPER('".$tipo."'), 
+        soat_vehiculo=UPPER('".$soat."'), tecnicomecanico_vehiculo=UPPER('".$tecnicomecanico."'), observaciones_vehiculo=UPPER('".$observaciones."') 
+        WHERE placa_vehiculo='".$id_vehiculo."'";
 		$query_update = mysqli_query($con,$sql);
 			if ($query_update){
-				$messages[] = "Producto ha sido actualizado satisfactoriamente.";
+				$messages[] = "Vehículo ha sido actualizado satisfactoriamente.";
 			} else{
 				$errors []= "Lo siento algo ha salido mal intenta nuevamente.".mysqli_error($con);
 			}

@@ -8,7 +8,10 @@
 	if (!isset($_SESSION['user_login_status']) AND $_SESSION['user_login_status'] != 1) {
         header("location: login.php");
 		exit;
-        }
+    }else if(isset($_SESSION['user_tipoUsuario']) && $_SESSION['user_tipoUsuario'] != "Administrador"){
+        header("location: verificar");
+		exit;
+    }
 
 	/* Connect To Database*/
 	require_once ("config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
@@ -48,9 +51,9 @@
 			<form class="form-horizontal" role="form" id="datos_cotizacion">
 				
 						<div class="form-group row">
-							<label for="q" class="col-md-2 control-label">Código o nombre</label>
+							<label for="q" class="col-md-2 control-label">Placa</label>
 							<div class="col-md-5">
-								<input type="text" class="form-control" id="q" placeholder="Código o nombre del producto" onkeyup='load(1);'>
+								<input type="text" class="form-control" id="q" placeholder="Placa del vehículo" onkeyup='load(1);'>
 							</div>
 							<div class="col-md-3">
 								<button type="button" class="btn btn-default" onclick='load(1);'>
@@ -114,13 +117,22 @@ $( "#editar_producto" ).submit(function( event ) {
 })
 
 	function obtener_datos(id){
-			var codigo_producto = $("#codigo_producto"+id).val();
-			var nombre_producto = $("#nombre_producto"+id).val();
-			var estado = $("#estado"+id).val();
-			var precio_producto = $("#precio_producto"+id).val();
+        
+			var placa_vehiculo = $("#placa_vehiculo"+id).val();
+			var marca_vehiculo = $("#marca_vehiculo"+id).val();  
+            var modelo_vehiculo = $("#modelo_vehiculo"+id).val();
+			var tipo_vehiculo = $("#tipo_vehiculo"+id).val();
+            var soat_vehiculo = $("#soat_vehiculo"+id).val();
+			var tecnicomecanico_vehiculo = $("#tecnicomecanico_vehiculo"+id).val();
+            var observaciones_vehiculo = $("#observaciones_vehiculo"+id).val();
+        
 			$("#mod_id").val(id);
-			$("#mod_codigo").val(codigo_producto);
-			$("#mod_nombre").val(nombre_producto);
-			$("#mod_precio").val(precio_producto);
+			$("#mod_placa").val(placa_vehiculo);
+			$("#mod_marca").val(marca_vehiculo);
+			$("#mod_modelo").val(modelo_vehiculo);
+			$("#mod_tipo").val(tipo_vehiculo);
+			$("#mod_soat").val(soat_vehiculo);
+			$("#mod_tecnicomecanico").val(tecnicomecanico_vehiculo);
+            $("#mod_observaciones").val(observaciones_vehiculo);
 		}
 </script>

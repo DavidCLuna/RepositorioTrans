@@ -8,48 +8,66 @@
 		<div class="modal-content">
 		  <div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			<h4 class="modal-title" id="myModalLabel"><i class='glyphicon glyphicon-edit'></i> Editar producto</h4>
+			<h4 class="modal-title" id="myModalLabel"><i class='glyphicon glyphicon-edit'></i> Editar vehículo</h4>
 		  </div>
 		  <div class="modal-body">
 			<form class="form-horizontal" method="post" id="editar_producto" name="editar_producto">
 			<div id="resultados_ajax2"></div>
+                
 			  <div class="form-group">
-				<label for="mod_codigo" class="col-sm-3 control-label">Código</label>
+				<label for="mod_placa" class="col-sm-3 control-label">Placa</label>
 				<div class="col-sm-8">
-				  <input type="text" class="form-control" id="mod_codigo" name="mod_codigo" placeholder="Código del producto" required>
+				  <input type="text" class="form-control upperCase" id="mod_placa" name="mod_placa" placeholder="Placa del vehículo" required>
 					<input type="hidden" name="mod_id" id="mod_id">
 				</div>
 			  </div>
+                
 			   <div class="form-group">
-				<label for="mod_nombre" class="col-sm-3 control-label">Nombre</label>
+				<label for="mod_marca" class="col-sm-3 control-label">Marca</label>
 				<div class="col-sm-8">
-				  <textarea class="form-control" id="mod_nombre" name="mod_nombre" placeholder="Nombre del producto" required></textarea>
+				  <input type="text" class="form-control upperCase" id="mod_marca" name="mod_marca" placeholder="Marca del vehículo" required>
+				</div>
+			  </div>
+                
+                <div class="form-group">
+				<label for="mod_modelo" class="col-sm-3 control-label">Modelo</label>
+				<div class="col-sm-8">
+				  <input type="text" class="form-control upperCase" id="mod_modelo" name="mod_modelo" placeholder="Modelo del vehículo" required>
+				</div>
+			  </div>
+                
+                <div class="form-group">
+				<label for="mod_tipo" class="col-sm-3 control-label">Tipo</label>
+				<div class="col-sm-8">
+				  <input type="text" class="form-control upperCase" id="mod_tipo" name="mod_tipo" placeholder="Modelo del vehículo" required>
 				</div>
 			  </div>
 			  
-			  <div class="form-group">
-				<label for="mod_estado" class="col-sm-3 control-label">Estado</label>
+                <div class="form-group">
+				<label for="mod_soat" class="col-sm-3 control-label">Soat</label>
 				<div class="col-sm-8">
-				 <select class="form-control" id="mod_estado" name="mod_estado" required>
-					<option value="">-- Selecciona estado --</option>
-					<option value="1" selected>Activo</option>
-					<option value="0">Inactivo</option>
-				  </select>
+				  <input type="date" class="form-control" id="mod_soat" name="mod_soat"  required>
 				</div>
 			  </div>
-			  <div class="form-group">
-				<label for="mod_precio" class="col-sm-3 control-label">Precio</label>
+                
+                <div class="form-group">
+				<label for="mod_tecnicomecanico" class="col-sm-3 control-label">Tecnicomecánico</label>
 				<div class="col-sm-8">
-				  <input type="text" class="form-control" id="mod_precio" name="mod_precio" placeholder="Precio de venta del producto" required pattern="^[0-9]{1,5}(\.[0-9]{0,2})?$" title="Ingresa sólo números con 0 ó 2 decimales" maxlength="8">
+				  <input type="date" class="form-control" id="mod_tecnicomecanico" name="mod_tecnicomecanico" required>
+				</div>
+			  </div>
+                
+                <div class="form-group">
+				<label for="mod_observaciones" class="col-sm-3 control-label">Observaciones</label>
+				<div class="col-sm-8">
+				  <textarea class="form-control upperCase" id="mod_observaciones" name="mod_observaciones" placeholder="Observaciones del vehículo" required></textarea>
 				</div>
 			  </div>
 			 
-			 
-			
 		  </div>
 		  <div class="modal-footer">
 			<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			<button type="submit" class="btn btn-primary" id="actualizar_datos">Actualizar datos</button>
+			<button type="submit" class="btn btn-warning" id="actualizar_datos">Actualizar datos</button>
 		  </div>
 		  </form>
 		</div>

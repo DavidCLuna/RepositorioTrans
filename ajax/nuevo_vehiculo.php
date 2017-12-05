@@ -49,7 +49,7 @@ include('is_logged.php');//Archivo verifica que el usario que intenta acceder a 
         $soat=mysqli_real_escape_string($con,(strip_tags($_POST["soat_vehiculo"],ENT_QUOTES)));
         $tecnicomecanico=mysqli_real_escape_string($con,(strip_tags($_POST["tecnicomecanico_vehiculo"],ENT_QUOTES)));
         $observaciones=mysqli_real_escape_string($con,(strip_tags($_POST["observaciones_vehiculo"],ENT_QUOTES)));
-		$sql="INSERT INTO vehiculos (placa_vehiculo, marca_vehiculo, modelo_vehiculo, tipo_vehiculo, soat_vehiculo,tecnicomecanico_vehiculo,observaciones_vehiculo,fecha_creacion_vehiculo) VALUES ('$placa','$marca','$modelo','$tipo','$soat','$tecnicomecanico','$observaciones',now())";
+		$sql="INSERT INTO vehiculos (placa_vehiculo, marca_vehiculo, modelo_vehiculo, tipo_vehiculo, soat_vehiculo,tecnicomecanico_vehiculo,observaciones_vehiculo,fecha_creacion_vehiculo) VALUES (UPPER('$placa'),UPPER('$marca'),UPPER('$modelo'),UPPER('$tipo'),UPPER('$soat'),UPPER('$tecnicomecanico'),UPPER('$observaciones'),now())";
 		$query_new_insert = mysqli_query($con,$sql);
 			if ($query_new_insert){
 				$messages[] = "Vehiculo ha sido ingresado satisfactoriamente.";

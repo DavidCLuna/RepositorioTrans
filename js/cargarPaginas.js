@@ -57,7 +57,7 @@ $("#fm-dropzone").dropzone({
            },
   removedfile: function(file) {
     
-            $.post(siteurl + "/removeFile", fid:fileList[file.name].fid}).done(function() {
+            $.post(siteurl + "/removeFile", fid:fileList[file.name].fid).done(function() {
                     file.previewElement.remove();
                 }); 
            }

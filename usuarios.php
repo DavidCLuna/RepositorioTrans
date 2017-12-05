@@ -8,6 +8,9 @@
     {
         header("location: login");
 		exit;
+    }else if(isset($_SESSION['user_tipoUsuario']) && $_SESSION['user_tipoUsuario'] != "Administrador"){
+        header("location: verificar");
+		exit;
     }
 
 
@@ -28,9 +31,27 @@
 	<?php include("head.php");?>
   </head>
   <body>
+      
  	<?php
 	include("navbar.php");
 	?> 
+      <script>
+              // función encargada de la redirección
+        function redireccion() {
+            window.location = "lock_screen.php";
+        }
+
+        // se llamará a la función que redirecciona después de 10 minutos (600.000 segundos)
+        var temp = setTimeout(redireccion, 5000);
+
+        // cuando se pulse en cualquier parte del documento
+        document.addEventListener("click", function() {
+            // borrar el temporizador que redireccionaba
+            clearTimeout(temp);
+            // y volver a iniciarlo
+            temp = setTimeout(redireccion, 5000);
+        })
+      </script>
     <div class="container">
 		<div class="panel panel-success">
 		<div class="panel-heading">

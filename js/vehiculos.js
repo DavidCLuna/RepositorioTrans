@@ -6,7 +6,7 @@
 			var q= $("#q").val();
 			$("#loader").fadeIn('slow');
 			$.ajax({
-				url:'./ajax/buscar_productos.php?action=ajax&page='+page+'&q='+q,
+				url:'./ajax/buscar_vehiculos.php?action=ajax&page='+page+'&q='+q,
 				 beforeSend: function(objeto){
 				 $('#loader').html('<img src="./img/ajax-loader.gif"> Cargando...');
 			  },
@@ -21,10 +21,10 @@
 		function eliminar (id)
 		{
 			var q= $("#q").val();
-		if (confirm("Realmente deseas eliminar el producto")){	
+		if (confirm("Realmente deseas eliminar el vehículo")){	
 		$.ajax({
         type: "GET",
-        url: "./ajax/buscar_productos.php",
+        url: "./ajax/buscar_vehiculos.php",
         data: "id="+id,"q":q,
 		 beforeSend: function(objeto){
 			$("#resultados").html("Mensaje: Cargando...");
