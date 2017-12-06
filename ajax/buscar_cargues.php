@@ -36,15 +36,7 @@
 	if($action == 'ajax'){
 		// escaping, additionally removing everything that could be (html/javascript-) code
          $q = mysqli_real_escape_string($con,(strip_tags($_REQUEST['q'], ENT_QUOTES)));
-		  $sTable = " conductores c join conductores_vehiculos cv on c.cedula_conductor = cv.cedula_conductor ";
-		 $sWhere = "";
-		if ( $_GET['q'] != "" )
-		{
-		$sWhere.= " where c.nombre_conductor like '%$q%' xor '%$q%' or c.cedula_conductor like '%$q%'";
-			
-		}
-        
-		$sWhere.=" order by c.nombre_conductor";
+		  
 		include 'pagination.php'; //include pagination file
 		//pagination variables
 		$page = (isset($_REQUEST['page']) && !empty($_REQUEST['page']))?$_REQUEST['page']:3;
@@ -52,13 +44,12 @@
 		$adjacents  = 4; //gap between pages after number of adjacents
 		$offset = ($page - 1) * $per_page;
 		//Count the total number of row in your table*/
-		$count_query   = mysqli_query($con, "SELECT count(c.cedula_conductor) as numrows FROM $sTable  $sWhere");
-		$row= mysqli_fetch_array($count_query);
-		$numrows = $row['numrows'];
+		//$row= mysqli_fetch_array($count_query);
+		$numrows = "11";
 		$total_pages = ceil($numrows/$per_page);
-		$reload = './verificar.php';
+		$reload = './cargues.php';
 		//main query to fetch the data
-		$sql="SELECT c.*,cv.placa_vehiculo FROM $sTable $sWhere LIMIT $offset,$per_page";
+		$sql="call procedure_cargues($q,$offset,$per_page)";
 		$query = mysqli_query($con, $sql);
 		//loop through fetched data
 		if ($numrows>0){
@@ -66,42 +57,37 @@
 			?>
 			<div class="table-responsive">
 			  <table class="table">
-				<tr  class="success">
+				<tr  class="info">
+					<th class="text-center"># Factura</th>
 					<th class="text-center">Cédula</th>
-					<th class="text-center">Transportador</th>
-                    <th class="text-center">Licencia</th>
-                    <th class="text-center">Fecha Ingreso</th>
-					<th class="text-center">Placa</th>
+                    <th class="text-center">Nombre Completo</th>
+                    <th class="text-center">Placa</th>
+					<th class="text-center">Estado</th>
+                    <th class="text-center">Modificación</th>
 					<th class="text-center">Consultar</th>
 					
 				</tr>
 				<?php
 				while ($row=mysqli_fetch_array($query)){
-						$cedula_conductor=$row['cedula_conductor'];
-						$nombre_conductor=$row['nombre_conductor']." ".$row['apellido_conductor'];
-						$licencia_conductor=$row['licencia_conductor'];
-						$fecha_ingreso_conductor=date("d/m/Y", strtotime($row['fecha_ingreso_conductor']));
-						$placa_conductor=$row['placa_vehiculo'];
+						$id_factura_cargue=$row['id_factura_cargue'];
+						
+                        $cedula_conductor=$row['cedula_conductor'];
                     
-						/*if ($estado_factura==1){$text_estado="Pagada";$label_class='label-success';}
-						else{$text_estado="Pendiente";$label_class='label-warning';}
-						$total_venta=$row['total_venta'];*/
+                        $nombre_completo_conductor=$row['nombre_conductor']." ".$row['apellido_conductor'];
+						$placa_vehiculo=$row['placa_vehiculo'];
+					
+                    $estado_cargue=$row['estado_cargue'];
+                    
+                    $fecha_hora_cargue=date("d/m/Y H/m/s", strtotime($row['fecha_hora_cargue']));
+						
 					?>
 					<tr>
+						<td class="text-center"><?php echo $id_factura_cargue; ?></td>
 						<td class="text-center"><?php echo $cedula_conductor; ?></td>
-						<td class="text-center"><?php echo $nombre_conductor; ?></td>
-						<td class="text-center"><?php echo $licencia_conductor; ?></td>
-                        <td class="text-center"><?php echo $fecha_ingreso_conductor; ?></td>
-                        <td class="text-center"><?php echo $placa_conductor; ?></td>
-                        
-                        <!--<td><a href="#" data-toggle="tooltip" data-placement="top" title="<i class='glyphicon glyphicon-phone'></i> <?php /*echo $telefono_cliente;*/?> <br><i class='glyphicon glyphicon-envelope'></i>  <?php /*echo $email_cliente;*/?>" ><?php /*echo $nombre_cliente;*/?></a></td>-->
-						
-						<!--<td><span class="label <?php /*echo $label_class;*/?>"><?php /*echo $text_estado; */?></span></td>-->
-						<!--<td class='text-right'><?php /*echo number_format ($total_venta,2); */?></td>-->					
-					<td class="text-center">
-                        <button type="button" class="btn btn-warning" onclick="abrirPestanas();" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-search" ></span></button>
-					</td>
-						
+						<td class="text-center"><?php echo $nombre_completo_conductor; ?></td>
+                        <td class="text-center"><?php echo $placa_vehiculo; ?></td>
+                        <td class="text-center"><?php echo $estado_cargue; ?></td>
+                        <td class="text-center"><?php echo $fecha_hora_cargue; ?></td>
 					</tr>
 					<?php
 				}

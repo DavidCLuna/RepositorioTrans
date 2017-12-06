@@ -37,19 +37,19 @@
             if(isset($tipoUsuarioSession) && $tipoUsuarioSession == "Administrador")
             { 
           ?>
-          <li class="<?php echo $active_cargues;?>"><a href="cargues"><img class="img-navbar" src="img/icons8_Fork_Lift_96px.png"/> Cargues</a></li>
+          <li class="<?php echo $active_cargues;?>"><a href="cargues.php"><img class="img-navbar" src="img/icons8_Fork_Lift_96px.png"/> Cargues</a></li>
           
-        <li class="<?php echo $active_conductores;?>"><a href="conductores"><img class="img-navbar" src="img/icons8_Driver_96px_1.png"/> Conductores</a></li>
+        <li class="<?php echo $active_conductores;?>"><a href="conductores.php"><img class="img-navbar" src="img/icons8_Driver_96px_1.png"/> Conductores</a></li>
           
-          <li class="<?php echo $active_vehiculos;?>"><a href="vehiculos"><img class="img-navbar" src="img/icons8_Semi_Truck_96px.png"/> Vehículos</a></li>
+          <li class="<?php echo $active_vehiculos;?>"><a href="vehiculos.php"><img class="img-navbar" src="img/icons8_Semi_Truck_96px.png"/> Vehículos</a></li>
           
-        <li class="<?php echo $active_verificar;?>"><a href="verificar"><img class="img-navbar" src="img/icons8_Check_File_96px.png"/> Verificar<span class="sr-only">(current)</span></a></li>
+        <li class="<?php echo $active_verificar;?>"><a href="verificar.php"><img class="img-navbar" src="img/icons8_Check_File_96px.png"/> Verificar<span class="sr-only">(current)</span></a></li>
                     
-		<li class="<?php echo $active_usuarios;?>"><a href="usuarios"><img class="img-navbar" src="img/icons8_User_Account_96px.png"/> Usuarios</a></li>
+		<li class="<?php echo $active_usuarios;?>"><a href="usuarios.php"><img class="img-navbar" src="img/icons8_User_Account_96px.png"/> Usuarios</a></li>
             <?php
             }else{
             ?>
-        <li class="<?php echo $active_verificar;?>"><a href="verificar"><img class="img-navbar" src="img/icons8_Check_File_96px.png"/> Verificar<span class="sr-only">(current)</span></a></li>
+        <li class="<?php echo $active_verificar;?>"><a href="verificar.php"><img class="img-navbar" src="img/icons8_Check_File_96px.png"/> Verificar<span class="sr-only">(current)</span></a></li>
           <?php
           }      
           ?>

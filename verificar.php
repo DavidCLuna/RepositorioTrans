@@ -122,10 +122,6 @@
           
           </div>
           <h4 class="text-center">Da clic o arrastra y suelta tus archivos<h4>
-            <!--<div class="padding-10">
-              <form action="upload.php" id = "divUploadDocuments" class="dropzone db">    
-            </div>-->
-
           <form action="upload.php" class="dropzone padding-15">
             <div class="fallback">
               <input name="file" type="file" id="fm-dropzone" multiple />
@@ -186,7 +182,7 @@
 	include("footer.php");
 	?>
 	<script type="text/javascript" src="js/VentanaCentrada.js"></script>
-	<script type="text/javascript" src="js/facturas.js"></script>
+	<script type="text/javascript" src="js/verificar.js"></script>
       
   </body>
 </html>

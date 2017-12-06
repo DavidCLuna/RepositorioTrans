@@ -75,8 +75,6 @@
 								<input type="text" class="form-control" id="q" placeholder="Nombre" onkeyup='load(1);'>
 							</div>
 							
-							
-							
 							<div class="col-md-3">
 								<button type="button" class="btn btn-default" onclick='load(1);'>
 									<span class="glyphicon glyphicon-search" ></span> Buscar</button>

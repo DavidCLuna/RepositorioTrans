@@ -52,7 +52,7 @@
 	if($action == 'ajax'){
 		// escaping, additionally removing everything that could be (html/javascript-) code
          $q = mysqli_real_escape_string($con,(strip_tags($_REQUEST['q'], ENT_QUOTES)));
-		 $aColumns = array('nombre_conductor','apellido_conductor','cedula_conductor');//Columnas de busqueda
+		 $aColumns = array('cedula_conductor');//Columnas de busqueda
 		 $sTable = "conductores";
 		 $sWhere = "";
 		if ( $_GET['q'] != "" )
@@ -62,10 +62,12 @@
 			{
 				$sWhere .= $aColumns[$i]." LIKE '%".$q."%' OR ";
 			}
+            $sWhere .= " concat(nombre_conductor, ' ', apellido_conductor) like '%".$q."%' OR";
 			$sWhere = substr_replace( $sWhere, "", -3 );
 			$sWhere .= ')';
 		}
 		$sWhere.=" order by nombre_conductor";
+        
 		include 'pagination.php'; //include pagination file
 		//pagination variables
 		$page = (isset($_REQUEST['page']) && !empty($_REQUEST['page']))?$_REQUEST['page']:1;
@@ -127,8 +129,11 @@
 						<td class="text-center"><?php echo $fecha_ingreso_conductor;?></td>
 						
 					<td ><span class="pull-right">
+					<a href="#" class='btn btn-default' title='Editar cliente' data-toggle="modal" data-target="#myModal3"><i class="glyphicon glyphicon-plus-sign"></i></a> 
 					<a href="#" class='btn btn-default' title='Editar cliente' onclick="obtener_datos('<?php echo $cedula_conductor;?>');" data-toggle="modal" data-target="#myModal2"><i class="glyphicon glyphicon-edit"></i></a> 
-					<a href="#" class='btn btn-default' title='Borrar cliente' onclick="eliminar('<?php echo $cedula_conductor; ?>')"><i class="glyphicon glyphicon-trash"></i> </a></span></td>
+                    <a href="#" class='btn btn-default' title='Borrar cliente' onclick="eliminar('<?php echo $cedula_conductor; ?>')"><i class="glyphicon glyphicon-trash"></i> </a>
+                    
+                        </span></td>
 						
 					</tr>
 					<?php

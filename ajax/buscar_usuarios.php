@@ -1,5 +1,5 @@
 <?php
-
+$pruebaVariablePHP = "Texto Prueba";
 	/*-------------------------
 	Autor: Obed Alvarado
 	Web: obedalvarado.pw
@@ -14,8 +14,8 @@
 		$user_id=intval($_GET['id']);
 		$query=mysqli_query($con, "select * from usuarios where id_usuario ='".$user_id."'");
 		$rw_user=mysqli_fetch_array($query);
-		$count=$rw_user['user_id'];
-		if ($count==0){
+		$count=$count=mysqli_num_rows($query);
+		if ($count>=1){
 			if ($delete1=mysqli_query($con,"DELETE FROM usuarios WHERE id_usuario='".$user_id."'")){
 			?>
 			<div class="alert alert-success alert-dismissible" role="alert">
@@ -42,6 +42,7 @@
 			<?php
 		}
 		
+        
 		
 		
 	}
