@@ -25,12 +25,6 @@
 				  <input type="password" class="form-control" id="user_password_new" name="user_password_new" placeholder="Contraseña" pattern=".{6,}" title="Contraseña ( min . 6 caracteres)" required>
 				</div>
 			  </div>
-			  <div class="form-group">
-				<label for="user_password_repeat" class="col-sm-3 control-label">Repite contraseña</label>
-				<div class="col-sm-8">
-				  <input type="password" class="form-control" id="user_password_repeat" name="user_password_repeat" placeholder="Repite contraseña" pattern=".{6,}" required>
-				</div>
-			  </div>
                 <div class="form-group">
 				<label for="user_tipo_usuario" class="col-sm-3 control-label">Tipo de usuario</label>
 				<div class="col-sm-8">
