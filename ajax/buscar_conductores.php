@@ -127,7 +127,7 @@
 						
 					<td>
                         <span class="pull-right">
-                        <a href="../registrar_cargue.php" class='btn btn-default' title='Asignar Cargue'>
+                        <a href="../registrar_cargue.php?cedula=<?php echo $cedula_conductor?>" class='btn btn-default' title='Asignar Cargue'>
                             <i class="glyphicon glyphicon-plus-sign"></i>
                         </a> 
                         <a href="#" class='btn btn-default' title='Editar cliente' onclick="obtener_datos('<?php echo $cedula_conductor;?>');" data-toggle="modal" data-target="#myModal2">

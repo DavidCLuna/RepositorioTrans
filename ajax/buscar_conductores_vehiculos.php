@@ -11,7 +11,6 @@
 	$action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
 
     if (isset($_POST['cedula']) && isset($_POST['placa'])){
-        
             $cedula_conductor = mysqli_real_escape_string($con,(strip_tags($_POST['cedula'], ENT_QUOTES)));
             $placa_vehiculo = mysqli_real_escape_string($con,(strip_tags($_POST['placa'], ENT_QUOTES)));
         
@@ -23,7 +22,7 @@
                 $query=mysqli_query($con, "select * from vehiculos where placa_vehiculo ='".$placa_vehiculo."'");
                 $rw_user=mysqli_fetch_array($query);
                 $count=$count=mysqli_num_rows($query);
-        
+        echo "adad";
                 if ($count>=1){
 
                     if ($count>=1){
@@ -75,7 +74,6 @@
 
 	if($action == 'ajax'){
 		// escaping, additionally removing everything that could be (html/javascript-) code
-        
 		include 'pagination.php'; //include pagination file
 		//pagination variables
 		$page = (isset($_REQUEST['page']) && !empty($_REQUEST['page']))?$_REQUEST['page']:3;
@@ -88,7 +86,7 @@
 		$total_pages = ceil($numrows/$per_page);
 		$reload = './registrar_cargues.php';
 		//main query to fetch the data
-		$sql="select vehi.* from vehiculos vehi join conductores_vehiculos con_vehi on vehi.placa_vehiculo=con_vehi.placa_vehiculo where con_vehi.cedula_conductor= '".$cedula_conductor."' order by placa_vehiculo";
+		$sql="select vehi.* from vehiculos vehi join conductores_vehiculos con_vehi on vehi.placa_vehiculo=con_vehi.placa_vehiculo where con_vehi.cedula_conductor= '10905215369' order by placa_vehiculo";
 		$query = mysqli_query($con, $sql);
 		//loop through fetched data
 		if ($numrows>0){
@@ -108,17 +106,17 @@
                         <th class="text-center">Seleccionar</th>
                     </tr>
                 </thead>
-              <input type="hidden" id="cedula_cliente" name="cedula_cliente" value="<?php echo $cedula_conductor;?>">
+              <input type="hidden" id="cedula_cliente" name="cedula_cliente" value="10905215369">
                 <tbody>
 				<?php
 				while ($row=mysqli_fetch_array($query)){
-					$placa_vehiculo = $rw['placa_vehiculo'];
-                    $marca_vehiculo = $rw['marca_vehiculo'];
-                    $modelo_vehiculo = $rw['modelo_vehiculo'];
-                    $tipo_vehiculo = $rw['tipo_vehiculo'];
-                    $soat_vehiculo = $rw['soat_vehiculo'];
-                    $tecnicomecanico_vehiculo = $rw['tecnicomecanico_vehiculo'];
-                    $observaciones_vehiculo = $rw['observaciones_vehiculo'];
+					$placa_vehiculo = $row['placa_vehiculo'];
+                    $marca_vehiculo = $row['marca_vehiculo'];
+                    $modelo_vehiculo = $row['modelo_vehiculo'];
+                    $tipo_vehiculo = $row['tipo_vehiculo'];
+                    $soat_vehiculo = $row['soat_vehiculo'];
+                    $tecnicomecanico_vehiculo = $row['tecnicomecanico_vehiculo'];
+                    $observaciones_vehiculo = $row['observaciones_vehiculo'];
 
                     ?>
                     <tr>

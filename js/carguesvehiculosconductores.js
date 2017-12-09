@@ -4,10 +4,9 @@ $(document).ready(function(){
 });
 
 function loadVehiculosCargues(page){
-        var q= $("#q").val();
         $("#loader").fadeIn('slow');
         $.ajax({
-            url:'./ajax/buscar_cargues.php?action=ajax&page='+page,
+            url:'./ajax/buscar_conductores_vehiculos.php?action=ajax&page='+page,
              beforeSend: function(objeto){
              $('#loader').html('<img src="./img/ajax-loader.gif"> Cargando...');
           },
@@ -18,6 +17,7 @@ function loadVehiculosCargues(page){
 
             }
         })
+    
 }
 
 $( "#formulario_vinculacion_cargue" ).submit(function( event ) {
@@ -29,10 +29,10 @@ $( "#formulario_vinculacion_cargue" ).submit(function( event ) {
 			url: "ajax/buscar_conductores_vehiculos.php",
 			data: parametros,
 			 beforeSend: function(objeto){
-				$("#resultados_ajax").html("Mensaje: Cargando...");
+				$("#resultados").html("Mensaje: Cargando...");
 			  },
 			success: function(datos){
-			$("#resultados_ajax").html(datos);
+			$("#resultados").html(datos);
 			$('#guardar_datos').attr("disabled", false);
 			load(1);
 		  }

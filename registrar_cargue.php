@@ -8,7 +8,7 @@
         header("location: login.php");
 		exit;
         }
-	$active_facturas="active";
+	$active_facturas="";
 	$active_productos="";
 	$active_clientes="";
 	$active_usuarios="";
@@ -23,7 +23,6 @@
 		$campos="nombre_conductor, apellido_conductor, licencia_conductor";
 		$sql_conductor=mysqli_query($con,"select $campos from conductores where cedula_conductor = '".$_GET['cedula']."'");
 		$count=mysqli_num_rows($sql_conductor);
-    echo "<script>alert('select $campos from conductores where cedula_conductor = '".$_GET['cedula']."'');</script>";
 		if ($count==1)
 		{
 				$rw_conductor=mysqli_fetch_array($sql_conductor);
@@ -104,7 +103,7 @@
 			<h4><img class="img-navbar" src="img/icons8_Semi_Truck_100px.png"/> Información Vehículo</h4>
 		</div>
 		<div class="panel-body">
-			<form class="form-horizontal" role="form" id="datos_factura">
+			<form class="form-horizontal" role="form" id="datos_factura" name="datos_factura" method="post">
 				<div class="form-group row">
                     
                     <p class="padding-10">Si no encuentra el vehículo en la tabla, digite el número de placa y de clic en vincular. Esta acción vinculará este vehículo con el conductor seleccionado para la asignación del cargue.</p>
@@ -125,53 +124,8 @@
                         </form>
 				    </div>
                     
-                    <div class="table-responsive">
-                      <table class="table table-hover">
-                            <thead>
-                                <tr  class="">
-                                    <th class="text-center">Placa</th>
-                                    <th class="text-center">Marca</th>
-                                    <th class="text-center">Modelo</th>
-                                    <th class="text-center">Tipo</th>
-                                    <th class="text-center">SOAT</th>
-                                    <th class="text-center">Tecnicomecánico</th>
-                                    <th class="text-center">Observaciones</th>
-                                    <th class="text-center">Seleccionar</th>
-                                </tr>
-                            </thead>
-                            <input type="hidden" id="cedula_cliente" name="cedula_cliente" value="<?php echo $cedula_conductor;?>">
-                            <tbody>
-                                <?php
-										$sql_vendedor=mysqli_query($con,"select vehi.* from vehiculos vehi join conductores_vehiculos con_vehi on vehi.placa_vehiculo=con_vehi.placa_vehiculo where con_vehi.cedula_conductor= '".$cedula_conductor."' order by placa_vehiculo");
-										while ($rw=mysqli_fetch_array($sql_vendedor)){
-											
-                                            $placa_vehiculo = $rw['placa_vehiculo'];
-											$marca_vehiculo = $rw['marca_vehiculo'];
-                                            $modelo_vehiculo = $rw['modelo_vehiculo'];
-                                            $tipo_vehiculo = $rw['tipo_vehiculo'];
-                                            $soat_vehiculo = $rw['soat_vehiculo'];
-                                            $tecnicomecanico_vehiculo = $rw['tecnicomecanico_vehiculo'];
-                                            $observaciones_vehiculo = $rw['observaciones_vehiculo'];
-                                                
-											?>
-                                            <tr>
-                                                <td class="text-center"><?php echo $placa_vehiculo ?></td>
-                                                <td class="text-center"><?php echo $marca_vehiculo ?></td>
-                                                <td class="text-center"><?php echo $modelo_vehiculo ?></td>
-                                                <td class="text-center"><?php echo $tipo_vehiculo ?></td>
-                                                <td class="text-center"><?php echo $soat_vehiculo ?></td>
-                                                <td class="text-center"><?php echo $tecnicomecanico_vehiculo ?></td>
-                                                <td class="text-center"><?php echo $observaciones_vehiculo ?></td>
-                                                <td class="text-center"><input type="checkbox"></td>
-                                            </tr>
-											
-											<?php
-										}
-									?>
-                                
-                            </tbody>
-                        </table>
-				  </div>
+                    <div id="resultados"></div><!-- Carga los datos ajax -->
+				    <div class='outer_div'></div><!-- Carga los datos ajax -->
 				 </div>
 			</form>	
 	   </div>	
@@ -180,8 +134,8 @@
 	<?php
 	include("footer.php");
 	?>
-	<script type="text/javascript" src="js/VentanaCentrada.js"></script>
-	<script type="text/javascript" src="js/editar_factura.js"></script>
+    <script type="text/javascript" src="js/carguesvehiculosconductores.js"></script>    
+    <script type="text/javascript" src="js/VentanaCentrada.js"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
