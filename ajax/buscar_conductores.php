@@ -115,10 +115,7 @@
 					
 					<input type="hidden" value="<?php echo $cedula_conductor;?>" id="cedula_conductor<?php echo $cedula_conductor;?>">
 					<input type="hidden" value="<?php echo $nombre_conductor;?>" id="nombre_conductor<?php echo $cedula_conductor;?>">
-                  
                     <input type="hidden" value="<?php echo $apellido_conductor;?>" id="apellido_conductor<?php echo $cedula_conductor;?>">
-                  
-                  
 					<input type="hidden" value="<?php echo $licencia_conductor;?>" id="licencia_conductor<?php echo $cedula_conductor;?>">
 					<input type="hidden" value="<?php echo $fecha_ingreso_conductor;?>" id="fecha_ingreso_conductor<?php echo $cedula_conductor;?>">
 					<tr>
