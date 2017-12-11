@@ -12,6 +12,7 @@ function seleccionarFilaVehiculos(idTR,acumulador,placa){
     var elemento = document.getElementById(idTR);
     elemento.className += " success";
     document.getElementById('placa_vehiculo_tabla').innerHTML = placa;
+
     
 }
 
@@ -34,26 +35,26 @@ function loadVehiculosCargues(page){
 }
 
 
-
-
-
 $( "#formulario_vinculacion_cargue" ).submit(function( event ) {
-  $('#vincular_cargue').attr("disabled", true);
+  $('#guardar_cargue').attr("disabled", true);
   
- var parametros = $(this).serialize();
-	 $.ajax({
-			type: "POST",
-			url: "ajax/buscar_conductores_vehiculos.php",
-			data: parametros,
-			 beforeSend: function(objeto){
-				$("#resultados").html("Mensaje: Cargando...");
-			  },
-			success: function(datos){
-			$("#resultados").html(datos);
-			$('#guardar_datos').attr("disabled", false);
-			load(1);
-		  }
-	});
-  event.preventDefault();
+    var accion = confirm('¿Realmente deseas vincular este vehículo?, esta acción no se podrá revertir.');
+    if(accion){
+     var parametros = $(this).serialize();
+         $.ajax({
+                type: "POST",
+                url: "ajax/buscar_conductores_vehiculos.php",
+                data: parametros,
+                 beforeSend: function(objeto){
+                    $("#resultados").html("Mensaje: Cargando...");
+                  },
+                success: function(datos){
+                $("#resultados").html(datos);
+                $('#guardar_cargue').attr("disabled", false);
+                loadVehiculosCargues(1);
+              }
+        });
+      event.preventDefault();
+    }
 })
 

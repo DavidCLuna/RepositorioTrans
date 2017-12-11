@@ -11,66 +11,116 @@
 	$action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
 
     if (isset($_POST['cedula']) && isset($_POST['placa'])){
-            $cedula_conductor = mysqli_real_escape_string($con,(strip_tags($_POST['cedula'], ENT_QUOTES)));
-            $placa_vehiculo = mysqli_real_escape_string($con,(strip_tags($_POST['placa'], ENT_QUOTES)));
-        
-            $query=mysqli_query($con, "select * from conductores where cedula_conductor ='".$cedula_conductor."'");
-            $rw_user=mysqli_fetch_array($query);
-            $count=$count=mysqli_num_rows($query);
-        error_log("adad ".$cedula_conductor);
-            if ($count>=1){
-                $query=mysqli_query($con, "select * from vehiculos where placa_vehiculo ='".$placa_vehiculo."'");
-                $rw_user=mysqli_fetch_array($query);
-                $count=$count=mysqli_num_rows($query);
-        
-                if ($count>=1){
+            
+            if(!empty($_POST['cedula'])){
+                if(!empty($_POST['placa'])){
+                    $cedula_conductor = mysqli_real_escape_string($con,(strip_tags($_POST['cedula'], ENT_QUOTES)));
+                    $placa_vehiculo = mysqli_real_escape_string($con,(strip_tags($_POST['placa'], ENT_QUOTES)));
 
+                    $query=mysqli_query($con, "select * from conductores where cedula_conductor ='".$cedula_conductor."'");
+                    $rw_user=mysqli_fetch_array($query);
+                    $count=$count=mysqli_num_rows($query);
                     if ($count>=1){
-                        $query=mysqli_query($con, "select * from conductores_vehiculos where cedula_conductor ='".$cedula_conductor."' and placa_vehiculo ='".$placa_vehiculo."'");
+                        $query=mysqli_query($con, "select * from vehiculos where placa_vehiculo ='".$placa_vehiculo."'");
                         $rw_user=mysqli_fetch_array($query);
                         $count=$count=mysqli_num_rows($query);
 
-                        if ($delete1=mysqli_query($con,"INSERT INTO conductores_vehiculos(cedula_conductor, placa_vehiculo) FROM conductores_vehiculos WHERE cedula_conductor='".$cedula_conductor."' and placa_vehiculo='".$placa_vehiculo."'")){
-                            ?>
-                            <div class="alert alert-success alert-dismissible" role="alert">
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                              <strong>Aviso!</strong> Se ha vinculado en vehículo exitosamente.
-                            </div>
-                            <?php 
-                        }else {
+                        if ($count>=1){
+
+                            $query=mysqli_query($con, "select * from conductores_vehiculos where cedula_conductor ='".$cedula_conductor."' and placa_vehiculo ='".$placa_vehiculo."'");
+                            $rw_user=mysqli_fetch_array($query);
+                            $count=$count=mysqli_num_rows($query);
+                            if ($count==0){
+
+                                if ($delete1=mysqli_query($con,"INSERT INTO conductores_vehiculos(cedula_conductor, placa_vehiculo) values ('$cedula_conductor','$placa_vehiculo')")){
+                                    ?>
+                                    <div class="alert alert-success alert-dismissible" role="alert">
+                                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                      <strong>Aviso!</strong> Se ha vinculado en vehículo exitosamente.
+                                    </div>
+                                    <?php 
+                                }else {
+                                    ?>
+                                    <div class="alert alert-danger alert-dismissible" role="alert">
+                                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                      <strong>Error!</strong> No se ha podido vincular el vehiculo
+                                    </div>
+                                    <?php
+                                }
+                            } else {
                             ?>
                             <div class="alert alert-danger alert-dismissible" role="alert">
                               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                              <strong>Error!</strong> Ocurrió un error al vincular el vehiculo
+                              <strong>Error!</strong> Este vehículo ya se encuentra vinculado 
                             </div>
                             <?php
                         }
+                        } else {
+                            ?>
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <strong>Error!</strong> La placa no se encuentra registrada 
+                            </div>
+                            <?php
+                        }
+
                     } else {
-                    ?>
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <strong>Error!</strong> Ocurrió un error, este vehículo ya se encuentra vinculado 
-                    </div>
-                    <?php
-                }
+                        ?>
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <strong>Error!</strong> La cédula no se encuentra registrada 
+                        </div>
+                        <?php
+                    }
                 } else {
                     ?>
                     <div class="alert alert-danger alert-dismissible" role="alert">
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <strong>Error!</strong> Ocurrió un error, la placa no se encuentra registrada 
+                      <strong>Error!</strong> Por favor, digita una placa 
                     </div>
                     <?php
                 }
-
-            } else {
+            }else {
                 ?>
                 <div class="alert alert-danger alert-dismissible" role="alert">
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <strong>Error!</strong> Ocurrió un error, la cédula no se encuentra registrada 
+                  <strong>Error!</strong> La cédula se encuentra vacía 
                 </div>
                 <?php
             }
         }
+
+    if($action == 'delete'){
+        if (isset($_POST['cedula']) && isset($_POST['placa'])){
+            
+            
+        }
+    }
+
+    if($action == 'add'){
+        session_start();
+        if (isset($_POST['cedula']) && isset($_POST['placa']) && isset($_POST['num_factura'])){
+            $cedula_conductor = mysqli_real_escape_string($con,(strip_tags($_POST['cedula'], ENT_QUOTES)));
+            $placa_vehiculo = mysqli_real_escape_string($con,(strip_tags($_POST['placa'], ENT_QUOTES)));
+            $num_factura = mysqli_real_escape_string($con,(strip_tags($_POST['num_factura'], ENT_QUOTES)));
+
+            if ($delete1=mysqli_query($con,"INSERT INTO cargues(id_factura_cargue, id_conductor_vehiculo, id_usuario_usuarios) values ('$cedula_conductor','$placa_vehiculo','$_SESSION['user_id_usuario']')")){
+                ?>
+                <div class="alert alert-success alert-dismissible" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <strong>Aviso!</strong> Se ha vinculado en vehículo exitosamente.
+                </div>
+                <?php 
+            }else {
+                ?>
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <strong>Error!</strong> No se ha podido vincular el vehiculo
+                </div>
+                <?php
+            }
+        }
+    }
 
 	if($action == 'ajax'){
 		// escaping, additionally removing everything that could be (html/javascript-) code
@@ -86,8 +136,9 @@
 		$total_pages = ceil($numrows/$per_page);
 		$reload = './registrar_cargues.php';
 		//main query to fetch the data
-		$sql="select vehi.* from vehiculos vehi join conductores_vehiculos con_vehi on vehi.placa_vehiculo=con_vehi.placa_vehiculo where con_vehi.cedula_conductor= '".$_GET['cedula']."' order by placa_vehiculo";
+		$sql="select con_vehi.id_conductor_vehiculo, vehi.* from vehiculos vehi join conductores_vehiculos con_vehi on vehi.placa_vehiculo=con_vehi.placa_vehiculo where con_vehi.cedula_conductor= '".$_GET['cedula']."' order by placa_vehiculo";
 		$query = mysqli_query($con, $sql);
+        $filas = $query->num_rows;
 		//loop through fetched data
 		if ($numrows>0){
 			echo mysqli_error($con);
@@ -105,10 +156,10 @@
                         <th class="text-center">Observaciones</th>
                     </tr>
                 </thead>
-              <input type="text" id="placa_vehiculo_tabla" name="placa_vehiculo_tabla" value=""> <!--boton para acumular la cédula al seleccionar desde el js para realizar el registro-->
+              <input type="hidden" id="placa_vehiculo_tabla" name="placa_vehiculo_tabla" value=""> <!--boton para acumular la cédula al seleccionar desde el js para realizar el registro-->
                 <tbody>
 				<?php
-            $acumulador = 0;
+                $acumulador = 0;
 				while ($row=mysqli_fetch_array($query)){
                     $acumulador += 1;
 					$placa_vehiculo = $row['placa_vehiculo'];
@@ -120,7 +171,7 @@
                     $observaciones_vehiculo = $row['observaciones_vehiculo'];
 
                     ?>
-                    <tr class="" id="tr<?php echo $acumulador; ?>" onclick="seleccionarFilaVehiculos('tr<?php echo $acumulador; ?>',2,'<?php echo $placa_vehiculo; ?>');">
+                    <tr class="" style="cursor:pointer;" id="tr<?php echo $acumulador; ?>" onclick="seleccionarFilaVehiculos('tr<?php echo $acumulador; ?>',<?php echo $filas?>,'<?php echo $placa_vehiculo; ?>');">
                         <td class="text-center"><?php echo $placa_vehiculo ?></td>
                         <td class="text-center"><?php echo $marca_vehiculo ?></td>
                         <td class="text-center"><?php echo $modelo_vehiculo ?></td>

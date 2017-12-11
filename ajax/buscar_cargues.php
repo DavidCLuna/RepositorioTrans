@@ -49,7 +49,20 @@
 		$total_pages = ceil($numrows/$per_page);
 		$reload = './cargues.php';
 		//main query to fetch the data
-		$sql="call procedure_cargues($q,$offset,$per_page)";
+        $sql="SELECT car.id_factura_cargue, con.cedula_conductor, con.nombre_conductor, con.apellido_conductor, vehi.placa_vehiculo, est_car.estado_cargue, est_car.fecha_hora_cargue  
+        FROM cargues car 
+        join conductores_vehiculos con_vehi 
+        join vehiculos vehi 
+        join conductores con 
+        join estados_cargues est_car 
+        ON car.id_factura_cargue = est_car.id_factura_cargue 
+        AND con_vehi.id_conductor_vehiculo = car.id_conductor_vehiculo
+        AND vehi.placa_vehiculo = con_vehi.placa_vehiculo
+        AND con.cedula_conductor = con_vehi.cedula_conductor
+        WHERE car.id_factura_cargue LIKE '%".$q."%'
+        OR con.cedula_conductor LIKE '%".$q."%' 
+        OR concat(con.nombre_conductor, ' ', con.apellido_conductor) LIKE '%".$q."%'
+        OR vehi.placa_vehiculo LIKE '%".$q."%';";
 		$query = mysqli_query($con, $sql);
 		//loop through fetched data
 		if ($numrows>0){
