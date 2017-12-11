@@ -17,12 +17,12 @@
             $query=mysqli_query($con, "select * from conductores where cedula_conductor ='".$cedula_conductor."'");
             $rw_user=mysqli_fetch_array($query);
             $count=$count=mysqli_num_rows($query);
-        
+        error_log("adad ".$cedula_conductor);
             if ($count>=1){
                 $query=mysqli_query($con, "select * from vehiculos where placa_vehiculo ='".$placa_vehiculo."'");
                 $rw_user=mysqli_fetch_array($query);
                 $count=$count=mysqli_num_rows($query);
-        echo "adad";
+        
                 if ($count>=1){
 
                     if ($count>=1){
@@ -86,14 +86,14 @@
 		$total_pages = ceil($numrows/$per_page);
 		$reload = './registrar_cargues.php';
 		//main query to fetch the data
-		$sql="select vehi.* from vehiculos vehi join conductores_vehiculos con_vehi on vehi.placa_vehiculo=con_vehi.placa_vehiculo where con_vehi.cedula_conductor= '10905215369' order by placa_vehiculo";
+		$sql="select vehi.* from vehiculos vehi join conductores_vehiculos con_vehi on vehi.placa_vehiculo=con_vehi.placa_vehiculo where con_vehi.cedula_conductor= '".$_GET['cedula']."' order by placa_vehiculo";
 		$query = mysqli_query($con, $sql);
 		//loop through fetched data
 		if ($numrows>0){
 			echo mysqli_error($con);
 			?>
 			<div class="table-responsive">
-			  <table class="table">
+			  <table class="table table-hover">
 				<thead>
                     <tr  class="">
                         <th class="text-center">Placa</th>
@@ -103,13 +103,14 @@
                         <th class="text-center">SOAT</th>
                         <th class="text-center">Tecnicomecánico</th>
                         <th class="text-center">Observaciones</th>
-                        <th class="text-center">Seleccionar</th>
                     </tr>
                 </thead>
-              <input type="hidden" id="cedula_cliente" name="cedula_cliente" value="10905215369">
+              <input type="text" id="placa_vehiculo_tabla" name="placa_vehiculo_tabla" value=""> <!--boton para acumular la cédula al seleccionar desde el js para realizar el registro-->
                 <tbody>
 				<?php
+            $acumulador = 0;
 				while ($row=mysqli_fetch_array($query)){
+                    $acumulador += 1;
 					$placa_vehiculo = $row['placa_vehiculo'];
                     $marca_vehiculo = $row['marca_vehiculo'];
                     $modelo_vehiculo = $row['modelo_vehiculo'];
@@ -119,7 +120,7 @@
                     $observaciones_vehiculo = $row['observaciones_vehiculo'];
 
                     ?>
-                    <tr>
+                    <tr class="" id="tr<?php echo $acumulador; ?>" onclick="seleccionarFilaVehiculos('tr<?php echo $acumulador; ?>',2,'<?php echo $placa_vehiculo; ?>');">
                         <td class="text-center"><?php echo $placa_vehiculo ?></td>
                         <td class="text-center"><?php echo $marca_vehiculo ?></td>
                         <td class="text-center"><?php echo $modelo_vehiculo ?></td>
@@ -127,7 +128,6 @@
                         <td class="text-center"><?php echo $soat_vehiculo ?></td>
                         <td class="text-center"><?php echo $tecnicomecanico_vehiculo ?></td>
                         <td class="text-center"><?php echo $observaciones_vehiculo ?></td>
-                        <td class="text-center"><input type="checkbox"></td>
                     </tr>
 					<?php
 				}

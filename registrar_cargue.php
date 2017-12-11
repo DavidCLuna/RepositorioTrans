@@ -49,17 +49,13 @@
 	<?php
 	include("navbar.php");
 	?>  
+      <input type="hidden" id="valor_cedula_conductores_vehiculos" value="<?php echo $_GET['cedula']?>"/>
     <div class="container">
 	<div class="panel panel-success">
 		<div class="panel-heading">
 			<h4><img class="img-navbar" src="img/icons8_Bill_100px.png"/> Información Factura</h4>
 		</div>
 		<div class="panel-body">
-		<?php 
-			/*include("modal/buscar_productos.php");
-			include("modal/registro_clientes.php");
-			include("modal/registro_productos.php");*/
-		?>
 			<form class="form-horizontal" role="form" id="datos_factura">
 				<div class="form-group row">
 				  <label for="nombre_cliente" class="col-md-2 control-label">Número de Factura</label>
@@ -74,11 +70,6 @@
 			<h4><img class="img-navbar" src="img/icons8_Driver_96px_2.png"/> Información Conductor</h4>
 		</div>
 		<div class="panel-body">
-		<?php 
-			/*include("modal/buscar_productos.php");
-			include("modal/registro_clientes.php");
-			include("modal/registro_productos.php");*/
-		?>
 			<form class="form-horizontal" role="form" id="datos_factura">
 				<div class="form-group row">
                     <div class="table-responsive">
@@ -99,6 +90,7 @@
 				 </div>
 			</form>	
 		</div>
+        
 		 <div class="panel-heading">
 			<h4><img class="img-navbar" src="img/icons8_Semi_Truck_100px.png"/> Información Vehículo</h4>
 		</div>
@@ -113,7 +105,7 @@
                         
 							<label for="q" class="col-md-1 control-label">Placa</label>
 							<div class="col-md-5">
-								<input type="text" class="form-control" id="q" placeholder="Placa del vehículo" onkeyup='load(1);'>
+								<input type="text" class="form-control" onclick="seleccionarFilaVehiculos();" id="q" placeholder="Placa del vehículo" onkeyup='load(1);'>
 							</div>
 							<div class="col-md-3">
 								<button type="submit" class="btn btn-default"id="guardar_cargue" onclick=''>
