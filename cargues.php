@@ -8,7 +8,10 @@
         header("location: login.php");
 		exit;
     }
-
+    if($_SESSION['user_tipoUsuario'] != null && $_SESSION['user_tipoUsuario'] != 'Administrador' ) {
+        header("location: verificar.php");
+        exit;
+    }
 
 
 	/* Connect To Database*/
@@ -34,11 +37,7 @@
       <script>
               // función encargada de la redirección
        /* function redireccion() {
-            <?php
-            /*$_SESSION['user_login_status'] = null;
-            header("location: login");
-            exit;*/
-            ?>
+         
             window.location = "ajax/is_logged.php";
         }
 
@@ -60,7 +59,7 @@
 		    <div class="btn-group pull-right">
 				<button type='button' class="btn btn-warning" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus" ></span> Nuevo Cargue</button>
 			</div>
-			<h4><i class='glyphicon glyphicon-search'></i> Buscar Usuarios:</h4>
+			<h4><i class='glyphicon glyphicon-search'></i> Buscar Cargues:</h4>
 		</div>			
 			<div class="panel-body">
 			<?php
@@ -73,13 +72,22 @@
 						<div class="form-group row">
 							<label for="q" class="col-md-2 control-label">Nombres:</label>
 							<div class="col-md-5">
-								<input type="text" class="form-control" id="q" placeholder="Nombre" onkeyup='load(1);'>
+								<input type="text" class="form-control" id="q" placeholder="Digite el # factura, cédula o nombre del conductor" onkeyup='load(1);'>
 							</div>
 							
 							<div class="col-md-3">
 								<button type="button" class="btn btn-default" onclick='load(1);'>
 									<span class="glyphicon glyphicon-search" ></span> Buscar</button>
 								<span id="loader"></span>
+							</div>
+                            
+                            <div class="col-md-2">
+								<select class="form-control" name="consulta_condicion_estado">
+                                    <option>Todos</option>
+                                    <option>Registrado</option>
+                                    <option>Verificado</option>
+                                    <option>Despachado</option>
+                                </select>
 							</div>
 							
 						</div>

@@ -50,12 +50,13 @@
 	include("navbar.php");
 	?>  
       <input type="hidden" id="valor_cedula_conductores_vehiculos" value="<?php echo $_GET['cedula']?>"/>
+     
     <div class="container">
+         <div id="resultado_registro_cargue"></div><!-- Carga el resultado del registro -->
         <div class="form-group row">
         <div class="col-md-12">
-            <button type="button" class="btn btn-warning pull-right" >
+            <button type="button" id="btn_registrar_cargue1" class="btn btn-warning pull-right" >
                 <span class="glyphicon glyphicon-ok" ></span> Registrar Cargue</button>
-            <span id="loader"></span>
         </div>
     </div>
         <div class="panel panel-success">
@@ -67,7 +68,7 @@
                     <div class="form-group row">
                       <label for="nombre_cliente" class="col-md-3 control-label">Número de Factura</label>
                       <div class="col-md-3">
-                          <input type="text" class="form-control input-sm" id="nombre_cliente" placeholder="Digite el número de la factura">
+                          <input type="text" class="form-control input-sm" id="id_factura_cargue" placeholder="Digite el número de la factura">
                       </div>
                     </div>
                 </form>	
@@ -82,7 +83,7 @@
                         <div class="table-responsive">
                           <table class="table">
                               <tr  class="">
-                                <th class="text-center"># Cedula</th>
+                                <th class="text-center"># Cédula</th>
                                 <th class="text-center">Nombre Completo</th>
                                 <th class="text-center"># Licencia</th>
                               </tr>
@@ -128,10 +129,10 @@
                      </div>
            </div>
             <div class="col-md-12 padding-15">
-            <button type="button" class="btn btn-warning pull-right" >
-                <span class="glyphicon glyphicon-ok" ></span> Registrar Cargue</button>
-            <span id="loader"></span>
-        </div>
+                <button id="btn_registrar_cargue2" type="button" class="btn btn-warning pull-right" >
+                    <span class="glyphicon glyphicon-ok" ></span> Registrar Cargue
+                </button>
+            </div>
         </div>
         <br><br>
         <br><br>

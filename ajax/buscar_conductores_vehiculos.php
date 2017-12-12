@@ -97,31 +97,6 @@
         }
     }
 
-    if($action == 'add'){
-        session_start();
-        if (isset($_POST['cedula']) && isset($_POST['placa']) && isset($_POST['num_factura'])){
-            $cedula_conductor = mysqli_real_escape_string($con,(strip_tags($_POST['cedula'], ENT_QUOTES)));
-            $placa_vehiculo = mysqli_real_escape_string($con,(strip_tags($_POST['placa'], ENT_QUOTES)));
-            $num_factura = mysqli_real_escape_string($con,(strip_tags($_POST['num_factura'], ENT_QUOTES)));
-
-            if ($delete1=mysqli_query($con,"INSERT INTO cargues(id_factura_cargue, id_conductor_vehiculo, id_usuario_usuarios) values ('$cedula_conductor','$placa_vehiculo','$_SESSION['user_id_usuario']')")){
-                ?>
-                <div class="alert alert-success alert-dismissible" role="alert">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <strong>Aviso!</strong> Se ha vinculado en vehículo exitosamente.
-                </div>
-                <?php 
-            }else {
-                ?>
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <strong>Error!</strong> No se ha podido vincular el vehiculo
-                </div>
-                <?php
-            }
-        }
-    }
-
 	if($action == 'ajax'){
 		// escaping, additionally removing everything that could be (html/javascript-) code
 		include 'pagination.php'; //include pagination file

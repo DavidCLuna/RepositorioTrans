@@ -62,7 +62,8 @@
         WHERE car.id_factura_cargue LIKE '%".$q."%'
         OR con.cedula_conductor LIKE '%".$q."%' 
         OR concat(con.nombre_conductor, ' ', con.apellido_conductor) LIKE '%".$q."%'
-        OR vehi.placa_vehiculo LIKE '%".$q."%';";
+        OR vehi.placa_vehiculo LIKE '%".$q."%'
+        AND est_car.estado_cargue like '';";
 		$query = mysqli_query($con, $sql);
 		//loop through fetched data
 		if ($numrows>0){
@@ -70,7 +71,7 @@
 			?>
 			<div class="table-responsive">
 			  <table class="table">
-				<tr  class="info">
+				<tr  class="success">
 					<th class="text-center"># Factura</th>
 					<th class="text-center">Cédula</th>
                     <th class="text-center">Nombre Completo</th>
@@ -99,8 +100,15 @@
 						<td class="text-center"><?php echo $cedula_conductor; ?></td>
 						<td class="text-center"><?php echo $nombre_completo_conductor; ?></td>
                         <td class="text-center"><?php echo $placa_vehiculo; ?></td>
-                        <td class="text-center"><?php echo $estado_cargue; ?></td>
+                        <td class="text-center">
+                            <?php 
+                                if($estado_cargue == "0") echo 'Registrado';
+                                else if($estado_cargue == "1") echo 'Verificado';
+                                else if($estado_cargue == "2") echo 'Despachado';
+                            ?>
+                        </td>
                         <td class="text-center"><?php echo $fecha_hora_cargue; ?></td>
+                        <td class="text-center"><a href="#" class='btn btn-default' title='Descargar PDF' onclick="imprimir_factura('<?php echo $id_factura_cargue;?>');"><i class="glyphicon glyphicon-download"></i></a> </td>
 					</tr>
 					<?php
 				}

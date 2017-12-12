@@ -5,9 +5,10 @@
 
 		function load(page){
 			var q= $("#q").val();
+            var estado= $("#estado_cargues").val();
 			$("#loader").fadeIn('slow');
 			$.ajax({
-				url:'./ajax/buscar_cargues.php?action=ajax&page='+page+'&q='+q,
+				url:'./ajax/buscar_cargues.php?action=ajax&page='+page+'&q='+q+'&estado='+estado,
 				 beforeSend: function(objeto){
 				 $('#loader').html('<img src="./img/ajax-loader.gif"> Cargando...');
 			  },

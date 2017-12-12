@@ -3,8 +3,13 @@ $(document).ready(function(){
 
 });
 
+let placa_vehiculo_seleccionada;
+let idTRGlobal;
+
 function seleccionarFilaVehiculos(idTR,acumulador,placa){
     
+    idTRGlobal = idTR;
+    placa_vehiculo_seleccionada = placa;
     for (let i = 1; i <= acumulador; i++ ){
         var elemento = document.getElementById('tr'+i);
         elemento.className -= " success";
@@ -12,7 +17,7 @@ function seleccionarFilaVehiculos(idTR,acumulador,placa){
     var elemento = document.getElementById(idTR);
     elemento.className += " success";
     document.getElementById('placa_vehiculo_tabla').innerHTML = placa;
-
+    
     
 }
 
@@ -31,7 +36,6 @@ function loadVehiculosCargues(page){
 
             }
         })
-    
 }
 
 
@@ -57,4 +61,48 @@ $( "#formulario_vinculacion_cargue" ).submit(function( event ) {
       event.preventDefault();
     }
 })
+
+$("#btn_registrar_cargue1").click(function(){
+    registrar_cargue();
+})
+
+$("#btn_registrar_cargue2").click(function(){
+    registrar_cargue();
+})
+
+function registrar_cargue(){
+    let cedula = document.getElementById("valor_cedula_conductores_vehiculos").value;
+    let placa = placa_vehiculo_seleccionada;
+    let num_factura = document.getElementById("id_factura_cargue").value;
+    
+    var parametros = {
+        "cedula" : cedula,
+        "placa" : placa,
+        "num_factura" : num_factura
+    };
+    
+    $.ajax({
+        data: parametros,
+        url: "ajax/nuevo_cargue.php",
+        type: "post",
+        beforeSend: function(){
+            $("#resultado_registro_cargue").html("Mensaje: Cargando...");
+            $('#btn_registrar_cargue1').attr("disabled", true);
+            $('#btn_registrar_cargue2').attr("disabled", true);
+            
+        },
+        success: function(datos){
+                $("#resultado_registro_cargue").html(datos);
+                $('#btn_registrar_cargue1').attr("disabled", false);
+                $('#btn_registrar_cargue2').attr("disabled", false);
+               /* if(idTRGlobal != null && idTRGlobal != ""){
+                    seleccionarFilaVehiculos(idTRGlobal);
+                }*/
+              }
+    })    
+}
+
+/*
+https://www.facebook.com/davidhurtadotv/videos/455870698131986/
+*/
 

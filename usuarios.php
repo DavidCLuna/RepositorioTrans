@@ -8,7 +8,10 @@
         header("location: login.php");
 		exit;
     }
-
+    if($_SESSION['user_tipoUsuario'] != null && $_SESSION['user_tipoUsuario'] != 'Administrador' ) {
+        header("location: verificar.php");
+        exit;
+    }
 
 
 	/* Connect To Database*/
@@ -31,28 +34,6 @@
  	<?php
 	include("navbar.php");
 	?> 
-      <script>
-              // función encargada de la redirección
-       /* function redireccion() {
-            <?php
-            /*$_SESSION['user_login_status'] = null;
-            header("location: login");
-            exit;*/
-            ?>
-            window.location = "ajax/is_logged.php";
-        }
-
-        // se llamará a la función que redirecciona después de 10 minutos (600.000 segundos)
-        var temp = setTimeout(redireccion, 5000);
-
-        // cuando se pulse en cualquier parte del documento
-        document.addEventListener("click", function() {
-            // borrar el temporizador que redireccionaba
-            clearTimeout(temp);
-            // y volver a iniciarlo
-            temp = setTimeout(redireccion, 5000);
-        })*/
-      </script>
     <div class="container">
 		<div class="panel panel-success">
 		<div class="panel-heading">

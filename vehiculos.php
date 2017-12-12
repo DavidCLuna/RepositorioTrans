@@ -9,11 +9,10 @@
         header("location: login.php");
 		exit;
     }
-/*else if(isset($_SESSION['user_tipoUsuario']) && $_SESSION['user_tipoUsuario'] != "Administrador"){
-        header("location: verificar");
-		exit;
+    if($_SESSION['user_tipoUsuario'] != null && $_SESSION['user_tipoUsuario'] != 'Administrador' ) {
+        header("location: verificar.php");
+        exit;
     }
-*/
 	/* Connect To Database*/
 	require_once ("config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
 	require_once ("config/conexion.php");//Contiene funcion que conecta a la base de datos
