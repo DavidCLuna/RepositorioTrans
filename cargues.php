@@ -82,7 +82,7 @@
 							</div>
                             
                             <div class="col-md-2">
-								<select class="form-control" name="consulta_condicion_estado">
+								<select class="form-control" onchange="seleccion_estado();" id="estado_cargues" name="consulta_condicion_estado">
                                     <option>Todos</option>
                                     <option>Registrado</option>
                                     <option>Verificado</option>

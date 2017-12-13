@@ -24,12 +24,10 @@
 	<?php include("head.php");?>
           
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      <script src="libraries/granim/dist/granim.js"></script>
-      <script src="libraries/granim/dist/granim.min.js"></script>
       <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
       <link rel="stylesheet" href="libraries/dropzone.css">
       
-      <script src="libraries/dropzone.js"></script>
+      <script src="libraries/dropzone/dist/dropzone.js"></script>
       <script type="text/javascript" src="js/cargarPaginas.js"></script>
   </head>
     
@@ -60,6 +58,8 @@
 									<span class="glyphicon glyphicon-search" ></span> Buscar</button>
 								<span id="loader"></span>
 							</div>
+                            <div id="msg">
+                            </div>
 							
 						</div>
                     
@@ -76,106 +76,108 @@
       
       <div class="container">
           
-  <!-- Modal -->  
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Consulta Transportador</h4>
-        </div>
-        <div class="modal-body">
-          <p>Debes verificar cada uno de las páginas que se han abierto, después clickear en 'Aprobar Transporte' si es el caso o 'No aprobar Transporte' sino cumple con los requisitos.<br/>
-              Si das clic en 'No aprobar transporte' tienes la posbilidad de digitar una observación.<br/>
-          Antes de cargar los archivos verifica bien si son correctos, ya que esta acción no se podrá restablecer.</p>
-           
-            <hr>
-               <!-- <ul class="list-group">
-                    <li class="list-group-item">
-                        Estado RUNT
-                        <div class="material-switch pull-right">
-                            <input type="checkbox" id="checkboxRUNTConsulta" name="checkboxRuntConsulta" checked />
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        Estado SIMIT
-                        <div class="material-switch pull-right">
-                            <input type="checkbox" id="checkboxSIMITConsulta" name="checkboxSIMITConsulta" checked/>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        Estado Procuraduría
-                        <div class="material-switch pull-right">
-                            <input type="checkbox" id="checkboxPROCURADURIAConsulta" name="checkboxPROCURADURIAConsulta" checked/>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        Estado Contraloría
-                        <div class="helper pull-right">
-                            <input type="checkbox" id="checkboxCONTRALORIAConsulta" name="checkboxCONTRALORIAConsulta" checked/>
-                        </div>
-                    </li>
-                </ul>
-            -->
-          
-          </div>
-          <h4 class="text-center">Da clic o arrastra y suelta tus archivos<h4>
-          <form action="upload.php" class="dropzone padding-15">
-            <div class="fallback">
-              <input name="file" type="file" id="fm-dropzone" multiple />
-            </div>
-          </form>
-          
-            <div class="form-group">
-                <button id="btnNoAprobar" type="button" class="btn btn-danger btn-lg" style="margin: 5px;" data-toggle="modal" data-target="#modalObservaciones">No aprobar Transporte</button>
-                <button id="btnAprobar" type="button" class="btn btn-success btn-lg">Aprobar Transporte</button>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-      </div>
-    </div>
-  </div>
-     
-        
-        
-        <!-- Modal -->  
-  <div class="modal fade" id="modalObservaciones" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Consulta Transportador</h4>
-        </div>
-        <div class="modal-body">
+      <!-- Modal -->  
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
 
-        <form action="" method="">
-            <div class="form-group">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Consulta Transportador</h4>
+            </div>
+                <div class="modal-body">
+                    <div id="resultados"></div>
+                    <p>Debes verificar cada uno de las páginas que se han abierto, después clickear en 'Aprobar Transporte' si es el caso o 'No aprobar Transporte' sino cumple con los requisitos.<br/>
+                          Si das clic en 'No aprobar transporte' tienes la posbilidad de digitar una observación.<br/>
+                      Antes de cargar los archivos verifica bien si son correctos, ya que esta acción no se podrá restablecer.</p>
+                    <hr>
+
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            Estado RUNT
+                            <div class="material-switch pull-right">
+                                <input type="file" id="inputRUNTConsulta" name="inputRuntConsulta"/>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            Estado SIMIT
+                            <div class="material-switch pull-right">
+                                <input type="file" id="inputSIMITConsulta" name="inputSIMITConsulta"/>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            Estado Procuraduría
+                            <div class="material-switch pull-right">
+                                <input type="file" id="inputPROCURADURIAConsulta" name="inputPROCURADURIAConsulta"/>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            Estado Contraloría
+                            <div class="helper pull-right">
+                                <input type="file" id="inputCONTRALORIAConsulta" name="inputCONTRALORIAConsulta"/>
+                            </div>
+                        </li>
+                    </ul>
+
+                  </div>
+
+              <!--
+              <h4 class="text-center">Da clic o arrastra y suelta tus archivos<h4>
+              <form action="upload.php" class="dropzone padding-15">
+                <div class="fallback">
+                  <input name="file" type="file" id="fm-dropzone" multiple />
+                </div>
+              </form>
+              -->
                 <div class="form-group">
-                    <label for="comment">Observaciones:</label>
-                    <textarea class="form-control" rows="3" id="comment"></textarea>
+                    <div class="form-group row padding-5">
+                        <div class="col-md-5 pull-right">
+                            <button id="btnNoAprobar" type="button" class="btn btn-danger btn-lg"  data-toggle="modal" data-target="#modalObservaciones">No aprobar Transporte</button>        
+                        </div>
+                        <div class="col-md-4 pull-right">
+                            <button id="btnAprobar" type="button" class="btn btn-success btn-lg">Aprobar Transporte</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-default text-right" data-dismiss="modal">Guardar y enviar <span class="glyphicon glyphicon-ok" ></span></button>
-            </div>
 
-        </form>
+          </div>
+        </div>
+
       </div>
+
+
+
+            <!-- Modal -->  
+      <div class="modal fade" id="modalObservaciones" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Consulta Transportador</h4>
+            </div>
+            <div class="modal-body">
+
+            <form action="" method="">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="comment">Observaciones:</label>
+                        <textarea class="form-control" rows="3" id="comment"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="button" id="btn_guardar_enviar" class="btn btn-default text-right" data-dismiss="modal">Guardar y enviar <span class="glyphicon glyphicon-ok" ></span></button>
+                </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+
     </div>
-  </div>
-        
 </div>
-      
-      <style>
-        #divConsultaPagina{
-            margin-bottom: 10px;
-        }
-      </style>
 	<hr>
 
 	<?php

@@ -36,7 +36,21 @@
 	if($action == 'ajax'){
 		// escaping, additionally removing everything that could be (html/javascript-) code
          $q = mysqli_real_escape_string($con,(strip_tags($_REQUEST['q'], ENT_QUOTES)));
-		  
+         $estado =  mysqli_real_escape_string($con,(strip_tags($_REQUEST['estado'], ENT_QUOTES)));
+        
+        $where_like_estado = "";
+        
+        echo $estado;
+        if($estado == "Registrado"){
+            $where_like_estado = "0";
+        }else if($estado == "Verificado"){
+            $where_like_estado = "1";
+        }else if($estado == "Despachado"){
+            $where_like_estado = "2";
+        }
+        
+        echo $where_like_estado;
+        
 		include 'pagination.php'; //include pagination file
 		//pagination variables
 		$page = (isset($_REQUEST['page']) && !empty($_REQUEST['page']))?$_REQUEST['page']:3;
@@ -59,11 +73,11 @@
         AND con_vehi.id_conductor_vehiculo = car.id_conductor_vehiculo
         AND vehi.placa_vehiculo = con_vehi.placa_vehiculo
         AND con.cedula_conductor = con_vehi.cedula_conductor
-        WHERE car.id_factura_cargue LIKE '%".$q."%'
+        WHERE est_car.estado_cargue = 0 
+        AND car.id_factura_cargue LIKE '%".$q."%'
         OR con.cedula_conductor LIKE '%".$q."%' 
         OR concat(con.nombre_conductor, ' ', con.apellido_conductor) LIKE '%".$q."%'
-        OR vehi.placa_vehiculo LIKE '%".$q."%'
-        AND est_car.estado_cargue like '';";
+        OR vehi.placa_vehiculo LIKE '%".$q."%';";
 		$query = mysqli_query($con, $sql);
 		//loop through fetched data
 		if ($numrows>0){

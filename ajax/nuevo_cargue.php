@@ -44,45 +44,47 @@
                             $query_new_insert = mysqli_query($con,$sql);
                             if ($query_new_insert){
                                 
+                            }else{
+                                $errors []= "Lo siento algo ha salido mal intenta nuevamente.".mysqli_error($con);
                             }
-                    } else{
-                        $errors []= "Lo siento algo ha salido mal intenta nuevamente.".mysqli_error($con);
+                        } 
+                    } else {
+                        $errors []= "Error desconocido.";
                     }
-                } else {
-                    $errors []= "Error desconocido.";
-                }
             }else{
                 $errors []= "Ya se encuentra registrado un cargue con este número de factura";
             }
         }
+    }
 
-                if (isset($errors)){
+        if (isset($errors)){
 
-                    ?>
-                    <div class="alert alert-danger" role="alert">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            <strong>Error!</strong> 
-                            <?php
-                                foreach ($errors as $error) {
-                                        echo $error;
-                                    }
-                                ?>
-                    </div>
+            ?>
+            <div class="alert alert-danger" role="alert">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Error!</strong> 
                     <?php
-                }
-                if (isset($messages)){
+                        foreach ($errors as $error) {
+                                echo $error;
+                            }
+                        ?>
+            </div>
+            <?php
+        }
 
-                    ?>
-                    <div class="alert alert-success" role="alert">
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            <strong>¡Bien hecho!</strong>
-                            <?php
-                                foreach ($messages as $message) {
-                                        echo $message;
-                                    }
-                                ?>
-                    </div>
+        if (isset($messages)){
+
+            ?>
+            <div class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>¡Bien hecho!</strong>
                     <?php
-                }
+                        foreach ($messages as $message) {
+                                echo $message;
+                            }
+                        ?>
+            </div>
+            <?php
+        }
 
 ?>

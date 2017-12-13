@@ -370,6 +370,22 @@ var Dropzone = function (_Emitter) {
          * and `dictRemoveFile` options are used for the wording.
          */
         addRemoveLinks: true,
+          removedfile: function(file) {
+              console.log("liososo");
+            var name = file.name;        
+            $.ajax({
+                type: 'POST',
+                url: '../ajax/delete_file_verificar.php',
+                data: "id="+name,
+                dataType: 'html'
+            });
+            if (file.previewElement) {
+              if ((_ref = file.previewElement) != null) {
+                _ref.parentNode.removeChild(file.previewElement);
+              }
+            }
+            return this._updateMaxFilesReachedClass();
+        },
 
         /**
          * Defines where to display the file previews – if `null` the
@@ -1270,10 +1286,6 @@ var Dropzone = function (_Emitter) {
       }
 
       this.on("uploadprogress", function () {
-        return _this3.updateTotalUploadProgress();
-      });
-
-      this.on("removedfile", function () {
         return _this3.updateTotalUploadProgress();
       });
 
@@ -3506,12 +3518,3 @@ function __guardMethod__(obj, methodName, transform) {
 
 // Modify
 Dropzone.prototype.defaultOptions.dictDefaultMessage = "";
-Dropzone.options.myDropzone = {
-    addRemoveLinks: true,
-    removedfile: function(file) { 
-      var _ref;
-      alert('Delete file');
-      return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
-    }
-  };
-// Delete

@@ -23,27 +23,31 @@
 
 	
 		
-			function eliminar (id)
-		{
-			var q= $("#q").val();
-		if (confirm("Realmente deseas eliminar la factura")){	
-		$.ajax({
-        type: "GET",
-        url: "./ajax/buscar_cargues.php",
-        data: "id="+id,"q":q,
-		 beforeSend: function(objeto){
-			$("#resultados").html("Mensaje: Cargando...");
-		  },
-        success: function(datos){
-		$("#resultados").html(datos);
-		load(1);
-		}
-			});
-		}
-		}
+function eliminar (id){
+    var q= $("#q").val();
+    if (confirm("Realmente deseas eliminar la factura")){	
+        $.ajax({
+            type: "GET",
+            url: "./ajax/buscar_cargues.php",
+            data: "id="+id,"q":q,
+             beforeSend: function(objeto){
+                $("#resultados").html("Mensaje: Cargando...");
+              },
+            success: function(datos){
+                $("#resultados").html(datos);
+                load(1);
+            }
+        });
+    }
+}
 		
-		function imprimir_factura(id_factura){
-			VentanaCentrada('./pdf/documentos/ver_factura.php?id_factura='+id_factura,'Factura','','1024','768','true');
-		}
+function imprimir_factura(id_factura){
+    VentanaCentrada('./pdf/documentos/ver_factura.php?id_factura='+id_factura,'Factura','','1024','768','true');
+}
+
+function seleccion_estado(){
+    alert('prueba');
+    load(1);
+}
 
 
