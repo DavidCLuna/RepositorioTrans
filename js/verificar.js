@@ -54,23 +54,22 @@ $("#btnAprobar").click(function(){
 
 function registrar_verificacion(){
     
-    let file_runt = document.getElementById("inputRUNTConsulta");
-    let file_simit = document.getElementById("inputSIMITConsulta");
-    let file_procuraduria = document.getElementById("inputPROCURADURIAConsulta");
-    let file_contraloria = document.getElementById("inputCONTRALORIAConsulta");
+    var file_runt = $('#inputRUNTConsulta').prop('files')[0];   
+    var file_simit = $('#inputSIMITConsulta').prop('files')[0];   
+    var file_procuraduria = $('#inputPROCURADURIAConsulta').prop('files')[0];   
+    var file_contraloria = $('#inputCONTRALORIAConsulta').prop('files')[0];   
+    var cedula = $("#cedula_conductor").text();
+    alert(cedula);
     
-    var file_r = file_runt.file;
-    var file_s = file_simit.file;
-    var file_p = file_procuraduria.file;
-    var file_c = file_contraloria.file;
-    
-    var data = new FormData();
-    
-    data.append('file_runt',file_r);
+    var form_data = new FormData();                  
+    form_data.append('file_runt', file_runt);
+    form_data.append('file_simit', file_simit);
+    form_data.append('file_procuraduria', file_procuraduria);
+    form_data.append('file_contraloria', file_contraloria);
     
     $.ajax({
-        data: data,
-        url: "ajax/registro_verificar.php",
+        data: form_data,
+        url: "ajax/registro_verificar.php?cedula="+cedula,
         type: "post",
         processData:false,
         cache:false,
@@ -81,7 +80,7 @@ function registrar_verificacion(){
             $('#btnNoAprobar').attr("disabled", true);
         },
         success: function(datos){
-            $("#resultado").html(datos);
+            $("#resultado_cargar_datos").html(datos);
             $('#btnAprobar').attr("disabled", false);
             $('#btnNoAprobar').attr("disabled", false);
         }
@@ -89,4 +88,6 @@ function registrar_verificacion(){
     
 }
 
-
+function asigarCedulaCampo(cedula){
+    $("#cedula_conductor").text(cedula);
+}

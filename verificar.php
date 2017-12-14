@@ -87,12 +87,12 @@
               <h4 class="modal-title">Consulta Transportador</h4>
             </div>
                 <div class="modal-body">
-                    <div id="resultados"></div>
+                    <div id="resultado_cargar_datos"></div>
                     <p>Debes verificar cada uno de las páginas que se han abierto, después clickear en 'Aprobar Transporte' si es el caso o 'No aprobar Transporte' sino cumple con los requisitos.<br/>
                           Si das clic en 'No aprobar transporte' tienes la posbilidad de digitar una observación.<br/>
                       Antes de cargar los archivos verifica bien si son correctos, ya que esta acción no se podrá restablecer.</p>
                     <hr>
-
+                    <input type="hidden" id="cedula_conductor" name="cedula_conductor"/>
                     <ul class="list-group">
                         <li class="list-group-item">
                             Estado RUNT

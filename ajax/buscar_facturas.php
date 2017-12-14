@@ -99,7 +99,7 @@
 						<!--<td><span class="label <?php /*echo $label_class;*/?>"><?php /*echo $text_estado; */?></span></td>-->
 						<!--<td class='text-right'><?php /*echo number_format ($total_venta,2); */?></td>-->					
 					<td class="text-center">
-                        <button type="button" class="btn btn-warning" onclick="abrirPestanas();" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-search" ></span></button>
+                        <button type="button" class="btn btn-warning" onclick="abrirPestanas();asigarCedulaCampo(<?php echo $cedula_conductor ?>);" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-search" ></span></button>
 					</td>
 						
 					</tr>

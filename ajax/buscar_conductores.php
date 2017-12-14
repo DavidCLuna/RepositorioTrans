@@ -12,9 +12,8 @@
 	$action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
 
 	if (isset($_GET['id'])){
-        echo "<script>alert('".$_GET['id']."');</script>";
 		$id_conductor=$_GET['id'];
-		$query=mysqli_query($con, "select * from conductores where id_cliente='".$id_conductor."'");
+		$query=mysqli_query($con, "select * from conductores where cedula_conductor='".$id_conductor."'");
 		$count=mysqli_num_rows($query);
 		if ($count==0){
              
@@ -41,14 +40,12 @@
 			?>
 			<div class="alert alert-danger alert-dismissible" role="alert">
 			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			  <strong>Error!</strong> No se pudo eliminar éste  cliente. Existen facturas vinculadas a éste producto. 
+			  <strong>Error!</strong> No se pudo eliminar éste  conductor porque tiene cargues registrados o vehículos vinculados. 
 			</div>
 			<?php
 		}
-		
-		
-		
 	}
+
 	if($action == 'ajax'){
 		// escaping, additionally removing everything that could be (html/javascript-) code
          $q = mysqli_real_escape_string($con,(strip_tags($_REQUEST['q'], ENT_QUOTES)));

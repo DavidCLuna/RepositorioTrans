@@ -111,7 +111,7 @@
 		$total_pages = ceil($numrows/$per_page);
 		$reload = './registrar_cargues.php';
 		//main query to fetch the data
-		$sql="select con_vehi.id_conductor_vehiculo, vehi.* from vehiculos vehi join conductores_vehiculos con_vehi on vehi.placa_vehiculo=con_vehi.placa_vehiculo where con_vehi.cedula_conductor= '".$_GET['cedula']."' order by placa_vehiculo";
+		$sql="select con_vehi.id_conductor_vehiculo, vehi.*,TIMESTAMPDIFF(YEAR, soat_vehiculo, CURDATE()) as estado_soat,TIMESTAMPDIFF(YEAR, tecnicomecanico_vehiculo, CURDATE()) as estado_tecnicomecanico from vehiculos vehi join conductores_vehiculos con_vehi on vehi.placa_vehiculo=con_vehi.placa_vehiculo where con_vehi.cedula_conductor= '".$_GET['cedula']."' order by placa_vehiculo";
 		$query = mysqli_query($con, $sql);
         $filas = $query->num_rows;
 		//loop through fetched data
@@ -144,6 +144,8 @@
                     $soat_vehiculo = $row['soat_vehiculo'];
                     $tecnicomecanico_vehiculo = $row['tecnicomecanico_vehiculo'];
                     $observaciones_vehiculo = $row['observaciones_vehiculo'];
+                    $estado_soat=$row['estado_soat'];
+                    $estado_tecnicomecanico=$row['estado_tecnicomecanico'];
 
                     ?>
                     <tr class="" style="cursor:pointer;" id="tr<?php echo $acumulador; ?>" onclick="seleccionarFilaVehiculos('tr<?php echo $acumulador; ?>',<?php echo $filas?>,'<?php echo $placa_vehiculo; ?>');">
@@ -151,8 +153,26 @@
                         <td class="text-center"><?php echo $marca_vehiculo ?></td>
                         <td class="text-center"><?php echo $modelo_vehiculo ?></td>
                         <td class="text-center"><?php echo $tipo_vehiculo ?></td>
-                        <td class="text-center"><?php echo $soat_vehiculo ?></td>
-                        <td class="text-center"><?php echo $tecnicomecanico_vehiculo ?></td>
+                        <td class="text-center">
+                            <?php 
+                                if(intval($estado_soat)>=1){
+                                    ?><span class="label label-danger" title="Este vehículo tiene el SOAT vencido"><?php echo $soat_vehiculo;?></span>       
+                                    <?php
+                                }else{
+                                    echo $soat_vehiculo;    
+                                }
+                            ?>
+                        </td>
+                        <td class="text-center">
+                            <?php        
+                            if(intval($estado_tecnicomecanico)>=1){
+                                ?><span class="label label-danger" title="Este vehículo tiene el Tecnicomecánico vencido"><?php echo $tecnicomecanico_vehiculo;?></span>       
+                                <?php
+                            }else{
+                                echo $tecnicomecanico_vehiculo;    
+                            }
+                            ?>
+                        </td>
                         <td class="text-center"><?php echo $observaciones_vehiculo ?></td>
                     </tr>
 					<?php

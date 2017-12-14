@@ -4,6 +4,7 @@
 	Autor: Obed Alvarado
 	Web: obedalvarado.pw
 	Mail: info@obedalvarado.pw
+    DavidCasadiegos.worker1 
 	---------------------------*/
 	include('is_logged.php');//Archivo verifica que el usario que intenta acceder a la URL esta logueado
 	/* Connect To Database*/
@@ -14,10 +15,8 @@
 	if (isset($_GET['id'])){
 		$id_vehiculo=$_GET['id'];
         $sql = "select * from vehiculos where placa_vehiculo='".$id_vehiculo."'";
-        error_log($sql);
 		$query=mysqli_query($con, $sql);
 		$count=mysqli_num_rows($query);
-        error_log("COUNT ".$count);
 		if ($count==1){
             $sqlDelete = "DELETE FROM vehiculos WHERE placa_vehiculo='".$id_vehiculo."'";
             error_log($sqlDelete);
