@@ -59,7 +59,6 @@ function registrar_verificacion(){
     var file_procuraduria = $('#inputPROCURADURIAConsulta').prop('files')[0];   
     var file_contraloria = $('#inputCONTRALORIAConsulta').prop('files')[0];   
     var cedula = $("#cedula_conductor").text();
-    alert(cedula);
     
     var form_data = new FormData();                  
     form_data.append('file_runt', file_runt);
