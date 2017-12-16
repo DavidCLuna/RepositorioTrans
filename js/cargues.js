@@ -46,7 +46,6 @@ function imprimir_factura(id_factura){
 }
 
 function seleccion_estado(){
-    alert('prueba');
     load(1);
 }
 

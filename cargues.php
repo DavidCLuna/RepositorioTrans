@@ -57,7 +57,7 @@
 		<div class="panel panel-success">
 		<div class="panel-heading">
 		    <div class="btn-group pull-right">
-				<button type='button' class="btn btn-warning" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus" ></span> Nuevo Cargue</button>
+				<!--<button type='button' class="btn btn-warning" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus" >-</span> Nuevo Cargue</button>-->
 			</div>
 			<h4><i class='glyphicon glyphicon-search'></i> Buscar Cargues:</h4>
 		</div>			

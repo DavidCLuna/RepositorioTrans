@@ -40,16 +40,15 @@
         
         $where_like_estado = "";
         
-        echo $estado;
         if($estado == "Registrado"){
             $where_like_estado = "0";
         }else if($estado == "Verificado"){
             $where_like_estado = "1";
         }else if($estado == "Despachado"){
             $where_like_estado = "2";
+        }else{
+            $where_like_estado = "%%";
         }
-        
-        echo $where_like_estado;
         
 		include 'pagination.php'; //include pagination file
 		//pagination variables
@@ -73,11 +72,12 @@
         AND con_vehi.id_conductor_vehiculo = car.id_conductor_vehiculo
         AND vehi.placa_vehiculo = con_vehi.placa_vehiculo
         AND con.cedula_conductor = con_vehi.cedula_conductor
-        WHERE est_car.estado_cargue = 0 
-        AND car.id_factura_cargue LIKE '%".$q."%'
-        OR con.cedula_conductor LIKE '%".$q."%' 
-        OR concat(con.nombre_conductor, ' ', con.apellido_conductor) LIKE '%".$q."%'
-        OR vehi.placa_vehiculo LIKE '%".$q."%';";
+        WHERE est_car.estado_cargue LIKE '".$where_like_estado."' 
+        XOR car.id_factura_cargue LIKE '%".$q."%'
+        XOR con.cedula_conductor LIKE '%".$q."%' 
+        XOR concat(con.nombre_conductor, ' ', con.apellido_conductor) LIKE '%".$q."%'
+        XOR vehi.placa_vehiculo LIKE '%".$q."%'
+        ORDER BY est_car.fecha_hora_cargue desc;";
 		$query = mysqli_query($con, $sql);
 		//loop through fetched data
 		if ($numrows>0){
@@ -106,7 +106,7 @@
 					
                     $estado_cargue=$row['estado_cargue'];
                     
-                    $fecha_hora_cargue=date("d/m/Y H/m/s", strtotime($row['fecha_hora_cargue']));
+                    $fecha_hora_cargue=date("d/m/Y H:m:s", strtotime($row['fecha_hora_cargue']));
 						
 					?>
 					<tr>

@@ -87,6 +87,7 @@
               <h4 class="modal-title">Consulta Transportador</h4>
             </div>
                 <div class="modal-body">
+                    <input type="hidden" id="id_factura_cargue" name="id_factura_cargue"/>
                     <div id="resultado_cargar_datos"></div>
                     <p>Debes verificar cada uno de las páginas que se han abierto, después clickear en 'Aprobar Transporte' si es el caso o 'No aprobar Transporte' sino cumple con los requisitos.<br/>
                           Si das clic en 'No aprobar transporte' tienes la posbilidad de digitar una observación.<br/>

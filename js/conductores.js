@@ -1,6 +1,12 @@
-		$(document).ready(function(){
-			load(1);
-		});
+    $(document).ready(function(){
+        load(1);
+        $("#cedula").keypress(function(){
+    		
+            soloNumeros($("#cedula").val());
+	   });
+    });
+
+
 
 		function load(page){
 			var q= $("#q").val();
@@ -101,6 +107,11 @@ $( "#editar_cliente" ).submit(function( event ) {
 		
 		}
 	
+function soloNumeros(e) 
+{ 
+var key = window.Event ? e.which : e.keyCode 
+return ((key >= 48 && key <= 57) || (key==8)) 
+}
 		
 		
 

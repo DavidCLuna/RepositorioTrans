@@ -16,26 +16,26 @@
 			  <div class="form-group">
 				<label for="nombre" class="col-sm-3 control-label">Cédula</label>
 				<div class="col-sm-8">
-				  <input type="number" class="form-control" id="cedula" name="cedula" required>
+				  <input type="text" class="form-control" id="cedula" name="cedula" required>
 				</div>
 			  </div>
                 <div class="form-group">
 				<label for="nombre" class="col-sm-3 control-label">Nombre</label>
 				<div class="col-sm-8">
-				  <input type="text" class="form-control" id="nombre" name="nombre" required>
+				  <input type="text" class="form-control upperCase" placeholder="Nombre Conductor" id="nombre" name="nombre" required>
 				</div>
 			  </div>
 			  <div class="form-group">
 				<label for="apellido" class="col-sm-3 control-label">Apellido</label>
 				<div class="col-sm-8">
-				  <input type="text" class="form-control" id="apellido" name="apellido" >
+				  <input type="text" class="form-control upperCase" placeholder="Apellido Conductor" id="apellido" name="apellido" >
 				</div>
 			  </div>
 			  
 			  <div class="form-group">
 				<label for="licencia" class="col-sm-3 control-label">Número Licencia</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control" id="licencia" name="licencia" >
+					<input type="text" class="form-control upperCase" id="licencia" name="licencia" >
 				  
 				</div>
 			  </div>

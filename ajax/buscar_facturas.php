@@ -36,15 +36,20 @@
 	if($action == 'ajax'){
 		// escaping, additionally removing everything that could be (html/javascript-) code
          $q = mysqli_real_escape_string($con,(strip_tags($_REQUEST['q'], ENT_QUOTES)));
-		  $sTable = " conductores c join conductores_vehiculos cv on c.cedula_conductor = cv.cedula_conductor ";
+		  $sTable = " conductores con
+                    join conductores_vehiculos cv 
+                    join cargues car
+                    join estados_cargues est
+                    on con.cedula_conductor = cv.cedula_conductor AND 
+                    cv.id_conductor_vehiculo = car.id_conductor_vehiculo AND
+                    car.id_factura_cargue = est.id_factura_cargue ";
 		 $sWhere = "";
-		if ( $_GET['q'] != "" )
-		{
-		$sWhere.= " where c.nombre_conductor like '%$q%' xor '%$q%' or c.cedula_conductor like '%$q%'";
-			
-		}
+		
+		$sWhere.= " where est.estado_cargue like '0' 
+                    AND con.cedula_conductor like '%".$q."%' ";
+		
         
-		$sWhere.=" order by c.nombre_conductor";
+		$sWhere.=" order by est.fecha_hora_cargue desc";
 		include 'pagination.php'; //include pagination file
 		//pagination variables
 		$page = (isset($_REQUEST['page']) && !empty($_REQUEST['page']))?$_REQUEST['page']:3;
@@ -52,13 +57,13 @@
 		$adjacents  = 4; //gap between pages after number of adjacents
 		$offset = ($page - 1) * $per_page;
 		//Count the total number of row in your table*/
-		$count_query   = mysqli_query($con, "SELECT count(c.cedula_conductor) as numrows FROM $sTable  $sWhere");
+		$count_query   = mysqli_query($con, "SELECT count(con.cedula_conductor) as numrows FROM $sTable  $sWhere");
 		$row= mysqli_fetch_array($count_query);
 		$numrows = $row['numrows'];
 		$total_pages = ceil($numrows/$per_page);
 		$reload = './verificar.php';
 		//main query to fetch the data
-		$sql="SELECT c.*,cv.placa_vehiculo FROM $sTable $sWhere LIMIT $offset,$per_page";
+		$sql="SELECT car.id_factura_cargue, con.*,cv.placa_vehiculo FROM $sTable $sWhere";
 		$query = mysqli_query($con, $sql);
 		//loop through fetched data
 		if ($numrows>0){
@@ -67,6 +72,7 @@
 			<div class="table-responsive">
 			  <table class="table">
 				<tr  class="success">
+                    <th class="text-center"># Factura</th>
 					<th class="text-center">Cédula</th>
 					<th class="text-center">Transportador</th>
                     <th class="text-center">Licencia</th>
@@ -77,6 +83,7 @@
 				</tr>
 				<?php
 				while ($row=mysqli_fetch_array($query)){
+                        $id_factura=$row['id_factura_cargue'];
 						$cedula_conductor=$row['cedula_conductor'];
 						$nombre_conductor=$row['nombre_conductor']." ".$row['apellido_conductor'];
 						$licencia_conductor=$row['licencia_conductor'];
@@ -88,6 +95,7 @@
 						$total_venta=$row['total_venta'];*/
 					?>
 					<tr>
+                        <td class="text-center"><?php echo $id_factura; ?></td>
 						<td class="text-center"><?php echo $cedula_conductor; ?></td>
 						<td class="text-center"><?php echo $nombre_conductor; ?></td>
 						<td class="text-center"><?php echo $licencia_conductor; ?></td>
@@ -99,7 +107,7 @@
 						<!--<td><span class="label <?php /*echo $label_class;*/?>"><?php /*echo $text_estado; */?></span></td>-->
 						<!--<td class='text-right'><?php /*echo number_format ($total_venta,2); */?></td>-->					
 					<td class="text-center">
-                        <button type="button" class="btn btn-warning" onclick="abrirPestanas();asigarCedulaCampo(<?php echo $cedula_conductor ?>);" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-search" ></span></button>
+                        <button type="button" class="btn btn-warning" onclick="abrirPestanas();asigarCedulaIdFacturaCampo(<?php echo $cedula_conductor ?>,<?php echo $id_factura?>);" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-search" ></span></button>
 					</td>
 						
 					</tr>

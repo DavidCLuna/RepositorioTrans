@@ -9,10 +9,12 @@
 		require_once ("../config/conexion.php");//Contiene funcion que conecta a la base de datos
 		// escaping, additionally removing everything that could be (html/javascript-) code
     
-    if(isset($_GET['cedula'])){
+    if(isset($_GET['cedula']) && isset($_GET['id_factura'])){
 
         $url_img = "http://transporte.com.co/uploads/";
         $cedula_verificar = $_GET['cedula'];
+        $id_factura_verificar = $_GET['id_factura'];
+        
         if (isset($_FILES['file_runt']['name']) && isset($_FILES['file_runt']['tmp_name'])){
 
             $nombre_archivo = $_FILES['file_runt']['name'];
@@ -70,14 +72,22 @@
                 $errors[] = "Error al registrar Contraloría";
             }
         }else{
-            $messages_warning[] = "No se cargó el archivo Contraloría por lo tanto no se registró, ";
+            $messages_warning[] = "No se cargó el archivo Contraloría por lo tanto no se registró. ";
             $file_contraloria_insert = "";
         }
         
 		$sql="INSERT INTO documentos (cedula_conductor_documento, runt_documento, procuraduria_documento, contraloria_documento, simit_documento, fecha_hora_documento) VALUES ('$cedula_verificar','$file_runt_insert','$file_simit_insert','$file_procuraduria_insert','$file_contraloria_insert',now());";
 		$query_new_insert = mysqli_query($con,$sql);
 			if ($query_new_insert){
-				$messages[] = "Conductor ha sido ingresado satisfactoriamente.";
+               
+                $sql = "update estados_cargues set estado_cargue = 1 where id_factura_cargue = '".$id_factura_verificar."'";
+                $query_new_insert = mysqli_query($con,$sql);
+			    if ($query_new_insert){
+                    $messages[] = "Conductor ha sido verificado satisfactoriamente.";
+                }else{
+                    $errors []= "No se pudo modificar el estado del cargue.".mysqli_error($con);    
+                }
+				
 			} else{
 				$errors []= "Lo siento algo ha salido mal intenta nuevamente.".mysqli_error($con);
 			}
@@ -132,7 +142,7 @@
 				<div class="alert alert-warning" role="alert">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
 						<strong>Error! </strong>
-				        No se ha podido obtener la cédula <?php echo $_GET['cedula'] ?>
+				        No se ha podido obtener los valores condicionales para realizar el registro, si sigue ocurriendo contacte con el Departamento de Sistemas
 				</div>
 				<?php
     }
