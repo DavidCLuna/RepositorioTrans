@@ -86,7 +86,6 @@ function registrar_verificacion(){
             load(1);
         }
     });
-    
 }
 
 function asigarCedulaIdFacturaCampo(cedula, idFactura){

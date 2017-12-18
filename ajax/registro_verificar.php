@@ -76,11 +76,12 @@
             $file_contraloria_insert = "";
         }
         
-		$sql="INSERT INTO documentos (cedula_conductor_documento, runt_documento, procuraduria_documento, contraloria_documento, simit_documento, fecha_hora_documento) VALUES ('$cedula_verificar','$file_runt_insert','$file_simit_insert','$file_procuraduria_insert','$file_contraloria_insert',now());";
+		$sql="INSERT INTO documentos (cedula_conductor_documento, runt_documento, procuraduria_documento, contraloria_documento, simit_documento, fecha_hora_documento) VALUES ('".$cedula_verificar."','".$file_runt_insert."','".$file_simit_insert."','".$file_procuraduria_insert."','".$file_contraloria_insert."',now());";
 		$query_new_insert = mysqli_query($con,$sql);
 			if ($query_new_insert){
                
                 $sql = "update estados_cargues set estado_cargue = 1 where id_factura_cargue = '".$id_factura_verificar."'";
+                error_log("Error SQL: ".$sql);
                 $query_new_insert = mysqli_query($con,$sql);
 			    if ($query_new_insert){
                     $messages[] = "Conductor ha sido verificado satisfactoriamente.";
@@ -89,6 +90,7 @@
                 }
 				
 			} else{
+                error_log("Error SQL: ".$sql." Cédula: ".$cedula_verificar);
 				$errors []= "Lo siento algo ha salido mal intenta nuevamente.".mysqli_error($con);
 			}
 		

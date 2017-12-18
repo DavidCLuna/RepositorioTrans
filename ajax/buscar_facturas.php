@@ -79,7 +79,6 @@
                     <th class="text-center">Fecha Ingreso</th>
 					<th class="text-center">Placa</th>
 					<th class="text-center">Consultar</th>
-					
 				</tr>
 				<?php
 				while ($row=mysqli_fetch_array($query)){
@@ -107,7 +106,7 @@
 						<!--<td><span class="label <?php /*echo $label_class;*/?>"><?php /*echo $text_estado; */?></span></td>-->
 						<!--<td class='text-right'><?php /*echo number_format ($total_venta,2); */?></td>-->					
 					<td class="text-center">
-                        <button type="button" class="btn btn-warning" onclick="abrirPestanas();asigarCedulaIdFacturaCampo(<?php echo $cedula_conductor ?>,<?php echo $id_factura?>);" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-search" ></span></button>
+                        <button type="button" class="btn btn-warning" onclick="abrirPestanas();asigarCedulaIdFacturaCampo('<?php echo $cedula_conductor ?>','<?php echo $id_factura?>');" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-search" ></span></button>
 					</td>
 						
 					</tr>
