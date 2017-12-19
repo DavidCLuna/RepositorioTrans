@@ -1,55 +1,53 @@
     $(document).ready(function(){
         load(1);
+        load_razon_social();
         $("#cedula").keypress(function(){
-    		
             soloNumeros($("#cedula").val());
 	   });
     });
 
 
 
-		function load(page){
-			var q= $("#q").val();
-			$("#loader").fadeIn('slow');
-			$.ajax({
-				url:'./ajax/buscar_conductores.php?action=ajax&page='+page+'&q='+q,
-				 beforeSend: function(objeto){
-				 $('#loader').html('<img src="./img/ajax-loader.gif"> Cargando...');
-			  },
-				success:function(data){
-					$(".outer_div").html(data).fadeIn('slow');
-					$('#loader').html('');
-					
-				}
-			})
-		}
+function load(page){
+    var q= $("#q").val();
+    $("#loader").fadeIn('slow');
+    $.ajax({
+        url:'./ajax/buscar_conductores.php?action=ajax&page='+page+'&q='+q,
+         beforeSend: function(objeto){
+         $('#loader').html('<img src="./img/ajax-loader.gif"> Cargando...');
+      },
+        success:function(data){
+            $(".outer_div").html(data).fadeIn('slow');
+            $('#loader').html('');
 
-	
-		
-			function eliminar (id)
-		{
-			var q= $("#q").val();
-		if (confirm("Realmente deseas eliminar el conductor")){	
-		$.ajax({
-        type: "GET",
-        url: "./ajax/buscar_conductores.php",
-        data: "id="+id,"q":q,
-		 beforeSend: function(objeto){
-			$("#resultados").html("Mensaje: Cargando...");
-		  },
-        success: function(datos){
-		$("#resultados").html(datos);
-		load(1);
-		}
-			});
-		}
-            
-		}
-		
-		
-	
+        }
+    })
+}
+
+
+
+function eliminar (id)
+{
+    var q= $("#q").val();
+if (confirm("Realmente deseas eliminar el conductor")){	
+$.ajax({
+type: "GET",
+url: "./ajax/buscar_conductores.php",
+data: "id="+id,"q":q,
+ beforeSend: function(objeto){
+    $("#resultados").html("Mensaje: Cargando...");
+  },
+success: function(datos){
+$("#resultados").html(datos);
+load(1);
+}
+    });
+}
+
+}
+
 $( "#guardar_cliente" ).submit(function( event ) {
-  $('#guardar_datos').attr("disabled", true);
+  $('#guardar_datos_registro').attr("disabled", true);
   
  var parametros = $(this).serialize();
 	 $.ajax({
@@ -61,7 +59,7 @@ $( "#guardar_cliente" ).submit(function( event ) {
 			  },
 			success: function(datos){
 			$("#resultados_ajax").html(datos);
-			$('#guardar_datos').attr("disabled", false);
+			$('#guardar_datos_registro').attr("disabled", false);
 			load(1);
 		  }
 	});
@@ -113,5 +111,42 @@ var key = window.Event ? e.which : e.keyCode
 return ((key >= 48 && key <= 57) || (key==8)) 
 }
 		
-		
+function load_razon_social(){
+    $("#loader").fadeIn('slow');
+    $.ajax({
+        url:'./ajax/registro_conductores/buscar_razon_social.php?action=ajax',
+         beforeSend: function(objeto){
+         //$('#loader').html('<img src="./img/ajax-loader.gif"> Cargando...');
+      },
+        success:function(data){
+            $(".ajax_razon_social").html(data).fadeIn('slow');
+           // $('#loader').html('');
+
+        }
+    })
+}
+
+$( "#guardar_razon_social" ).submit(function( event ) {
+    $('#guardar_datos_registro_razon').attr("disabled", true);
+    var parametros = $(this).serialize();
+	 $.ajax({
+			type: "POST",
+			url: "ajax/registro_conductores/registro_razon_social.php",
+			data: parametros,
+			 beforeSend: function(objeto){
+				$("#resultados_ajax").html("Mensaje: Cargando...");
+			  },
+			success: function(datos){
+			$("#resultados_ajax").html(datos);
+			$('#guardar_datos_registro_razon').attr("disabled", false);
+			$('#cerrar_modal_razon_social').click();    
+            $("#nombre_razon_social").val('');
+            $("#correo_razon_social").val('');
+            $("#telefono_razon_social").val('');
+            load_razon_social();
+		  }
+	});
+  event.preventDefault();
+});
+        
 

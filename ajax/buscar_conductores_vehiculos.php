@@ -121,7 +121,7 @@
 			<div class="table-responsive">
 			  <table class="table table-hover">
 				<thead>
-                    <tr  class="">
+                    <tr class="">
                         <th class="text-center">Placa</th>
                         <th class="text-center">Marca</th>
                         <th class="text-center">Modelo</th>
