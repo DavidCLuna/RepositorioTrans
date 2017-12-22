@@ -116,23 +116,21 @@ $( "#editar_producto" ).submit(function( event ) {
   event.preventDefault();
 })
 
-	function obtener_datos(id){
-        
-			var placa_vehiculo = $("#placa_vehiculo"+id).val();
-			var marca_vehiculo = $("#marca_vehiculo"+id).val();  
-            var modelo_vehiculo = $("#modelo_vehiculo"+id).val();
-			var tipo_vehiculo = $("#tipo_vehiculo"+id).val();
-            var soat_vehiculo = $("#soat_vehiculo"+id).val();
-			var tecnicomecanico_vehiculo = $("#tecnicomecanico_vehiculo"+id).val();
-            var observaciones_vehiculo = $("#observaciones_vehiculo"+id).val();
-        
-			$("#mod_id").val(id);
-			$("#mod_placa").val(placa_vehiculo);
-			$("#mod_marca").val(marca_vehiculo);
-			$("#mod_modelo").val(modelo_vehiculo);
-			$("#mod_tipo").val(tipo_vehiculo);
-			$("#mod_soat").val(soat_vehiculo);
-			$("#mod_tecnicomecanico").val(tecnicomecanico_vehiculo);
-            $("#mod_observaciones").val(observaciones_vehiculo);
-		}
+function obtener_datos(id){
+
+        var placa_vehiculo = document.getElementById("placa_vehiculo"+id).value;
+        var placa_remolque = document.getElementById("placa_remolque"+id).value;
+        var capacidad_vehiculo = document.getElementById("capacidad_vehiculo"+id).value;
+        var soat_vehiculo = document.getElementById("soat_vehiculo"+id).value;
+        var tecnicomecanico_vehiculo = document.getElementById("tecnicomecanico_vehiculo"+id).value;
+        var observaciones_vehiculo = document.getElementById("observaciones_vehiculo"+id).value;
+    
+        $("#mod_id").val(id);
+        $("#mod_placa_vehiculo").val(placa_vehiculo);
+        $("#mod_placa_remolque").val(placa_remolque);
+        $("#mod_capacidad").val(capacidad_vehiculo);
+        $("#mod_soat").val(soat_vehiculo);
+        $("#mod_tecnicomecanico").val(tecnicomecanico_vehiculo);
+        $("#mod_observaciones").val(observaciones_vehiculo);
+    }
 </script>

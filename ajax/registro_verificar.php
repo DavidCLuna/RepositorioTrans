@@ -9,11 +9,12 @@
 		require_once ("../config/conexion.php");//Contiene funcion que conecta a la base de datos
 		// escaping, additionally removing everything that could be (html/javascript-) code
     
-    if(isset($_GET['cedula']) && isset($_GET['id_factura'])){
+    if(isset($_GET['cedula']) && isset($_GET['id_factura']) && isset($_GET['condicion'])){
 
         $url_img = "http://transporte.com.co/uploads/";
         $cedula_verificar = $_GET['cedula'];
         $id_factura_verificar = $_GET['id_factura'];
+        $condicion = $_GET['condicion'];
         
         if (isset($_FILES['file_runt']['name']) && isset($_FILES['file_runt']['tmp_name'])){
 
@@ -86,24 +87,28 @@
         $count=mysqli_num_rows($query);
         if($count >= 1){
             $sql="UPDATE documentos SET ";
+            $accion = false;
             if($file_runt_insert != null && $file_runt_insert != ""){
+                $accion = true;
                 $sql.= "runt_documento = '".$file_runt_insert."' , ";
             }
             
             if($file_procuraduria_insert != null && $file_procuraduria_insert != ""){
+                $accion = true;
                 $sql.= "procuraduria_documento = '".$file_procuraduria_insert."' , ";
             }
             
             if($file_contraloria_insert != null && $file_contraloria_insert != ""){
+                $accion = true;
                 $sql.= "contraloria_documento = '".$file_contraloria_insert."' , ";
             }
             
             if($file_simit_insert != null && $file_simit_insert != ""){
+                $accion = true;
                 $sql.= "simit_documento = '".$file_simit_insert."' , ";
             }
             
-            $sql = substr_replace( $sql, "", -2 );
-            $sql.= ", fecha_hora_documento = now() where cedula_conductor_documento = '".$cedula_verificar."'";
+            $sql.= " fecha_hora_documento = now() where cedula_conductor_documento = '".$cedula_verificar."'";
             
             error_log($sql);
         }else{
@@ -113,9 +118,15 @@
         
 		$query_new_insert = mysqli_query($con,$sql);
 			if ($query_new_insert){
+                
+                if($condicion == "aprobar"){
+                    $sql = "update estados_cargues set estado_cargue = 1 where id_factura_cargue = '".$id_factura_verificar."'";
+                }else if($condicion == "noaprobar"){
+                    $sql = "update estados_cargues set estado_cargue = 2 where id_factura_cargue = '".$id_factura_verificar."'";
+                }
                
                 $sql = "update estados_cargues set estado_cargue = 1 where id_factura_cargue = '".$id_factura_verificar."'";
-                error_log("Error SQL: ".$sql);
+
                 $query_new_insert = mysqli_query($con,$sql);
 			    if ($query_new_insert){
                     $messages[] = "Conductor ha sido verificado satisfactoriamente.";
@@ -135,8 +146,14 @@
                         $placa_vehiculo = $rw_user['placa_vehiculo'];
 
                         include ('../classes/notificacion_verificar.php');
-                        $msg = "El vehículo con placa ".$placa_vehiculo." asignado al conductor ".$nombre_conductor." con número de cédula ".$cedula_verificar." se encuentra pendiente por despachar";
-                        enviarNotificacion($msg, "Vehículo Pendiente",$id_factura_verificar, $placa_vehiculo, $cedula_verificar);
+                        if($condicion == "aprobar"){
+                            $msg = "El vehículo con placa ".$placa_vehiculo." asignado al conductor ".$nombre_conductor." con número de cédula ".$cedula_verificar." se encuentra pendiente por despachar";
+                            enviarNotificacion($msg, "Vehículo Pendiente",$id_factura_verificar, $placa_vehiculo, $cedula_verificar);
+                        }else if($condicion == "noaprobar"){
+                            $msg = "El vehículo con placa ".$placa_vehiculo." asignado al conductor ".$nombre_conductor." con número de cédula ".$cedula_verificar." no se ha aprobado para el cargue por razones legales.";
+                            enviarNotificacion($msg, "Vehículo NO Aprobado",$id_factura_verificar, $placa_vehiculo, $cedula_verificar);
+                        }
+                        
                     }else{
                         $errors[] = "No se pudo enviar la notificación, si vuelve a ocurrir contacte con el departamento de sistemas";
                     }

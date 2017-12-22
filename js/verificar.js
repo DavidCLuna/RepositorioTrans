@@ -72,7 +72,7 @@ function registrar_verificacion(accion){
     
     $.ajax({
         data: form_data,
-        url: "ajax/registro_verificar.php?cedula="+cedula+"&id_factura="+id_factura,
+        url: "ajax/registro_verificar.php?cedula="+cedula+"&id_factura="+id_factura+"&condicion="+accion,
         type: "post",
         processData:false,
         cache:false,
@@ -84,8 +84,6 @@ function registrar_verificacion(accion){
         },
         success: function(datos){
             $("#resultado_cargar_datos").html(datos);
-            $('#btnAprobar').attr("disabled", false);
-            $('#btnNoAprobar').attr("disabled", false);
             load(1);
         }
     });
@@ -108,4 +106,7 @@ function limpiar_campos(){
     document.getElementById("inputPROCURADURIAConsulta").value = "";
     document.getElementById("inputCONTRALORIAConsulta").value = "";
     document.getElementById("resultado_cargar_datos").innerHTML="";
+    
+    $('#btnAprobar').attr("disabled", false);
+    $('#btnNoAprobar').attr("disabled", false);
 }

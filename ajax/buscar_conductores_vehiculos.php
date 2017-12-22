@@ -122,10 +122,9 @@
 			  <table class="table table-hover">
 				<thead>
                     <tr class="">
-                        <th class="text-center">Placa</th>
-                        <th class="text-center">Marca</th>
-                        <th class="text-center">Modelo</th>
-                        <th class="text-center">Tipo</th>
+                        <th class="text-center">Placa Vehículo</th>
+                        <th class="text-center">Placa Remolque</th>
+                        <th class="text-center">Capacidad (Kg)</th>
                         <th class="text-center">SOAT</th>
                         <th class="text-center">Tecnicomecánico</th>
                         <th class="text-center">Observaciones</th>
@@ -138,9 +137,8 @@
 				while ($row=mysqli_fetch_array($query)){
                     $acumulador += 1;
 					$placa_vehiculo = $row['placa_vehiculo'];
-                    $marca_vehiculo = $row['marca_vehiculo'];
-                    $modelo_vehiculo = $row['modelo_vehiculo'];
-                    $tipo_vehiculo = $row['tipo_vehiculo'];
+                    $placa_remolque = $row['placa_remolque'];
+                    $capacidad_vehiculo = $row['capacidad_vehiculo'];
                     $soat_vehiculo = $row['soat_vehiculo'];
                     $tecnicomecanico_vehiculo = $row['tecnicomecanico_vehiculo'];
                     $observaciones_vehiculo = $row['observaciones_vehiculo'];
@@ -150,9 +148,8 @@
                     ?>
                     <tr class="" style="cursor:pointer;" id="tr<?php echo $acumulador; ?>" onclick="seleccionarFilaVehiculos('tr<?php echo $acumulador; ?>',<?php echo $filas?>,'<?php echo $placa_vehiculo; ?>');">
                         <td class="text-center"><?php echo $placa_vehiculo ?></td>
-                        <td class="text-center"><?php echo $marca_vehiculo ?></td>
-                        <td class="text-center"><?php echo $modelo_vehiculo ?></td>
-                        <td class="text-center"><?php echo $tipo_vehiculo ?></td>
+                        <td class="text-center"><?php echo $placa_remolque ?></td>
+                        <td class="text-center"><?php echo $capacidad_vehiculo ?></td>
                         <td class="text-center">
                             <?php 
                                 if(intval($estado_soat)>=1){

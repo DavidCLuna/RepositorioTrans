@@ -77,7 +77,7 @@
 					<th class="text-center">Transportador</th>
                     <!--<th class="text-center">Razón Social</th>-->
                     <th class="text-center">Fecha Ingreso</th>
-					<th class="text-center">Placa</th>
+					<th class="text-center">Placa Vehículo</th>
 					<th class="text-center">Consultar</th>
 				</tr>
 				<?php

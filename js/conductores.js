@@ -160,7 +160,8 @@ $("#modalRazonSocial").on('hidden.bs.modal', function () {
 });
 
 $("#modalRazonSocial").on('hidden.bs.modal', function () {
-    limpiar_campos_razon_social();
+    //limpiar_campos_razon_social();
+    document.getElementById("guardar_razon_social").reset();
 });
 
 function limpiar_campos_registro(){

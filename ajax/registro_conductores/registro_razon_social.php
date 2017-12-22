@@ -3,19 +3,25 @@
 	/*Inicia validacion del lado del servidor*/
 	if (isset($_POST['nombre_razon_social']) && !empty($_POST['nombre_razon_social'])) {
            
-        if(empty($_POST['correo_razon_social'])){
-            $messages_warning []= "Correo electrónico No Aplica. ";
-        }
-        if(empty($_POST['telefono_razon_social'])){
-             $messages_warning []= "Telefono No Aplica. "; 
-        }
         /* Connect To Database*/
         require_once ("../../config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
         require_once ("../../config/conexion.php");//Contiene funcion que conecta a la base de datos
         // escaping, additionally removing everything that could be (html/javascript-) code
         $nombre=mysqli_real_escape_string($con,(strip_tags($_POST["nombre_razon_social"],ENT_QUOTES)));
-        $correo=mysqli_real_escape_string($con,(strip_tags($_POST["correo_razon_social"],ENT_QUOTES)));
-        $telefono=mysqli_real_escape_string($con,(strip_tags($_POST["telefono_razon_social"],ENT_QUOTES)));
+        
+        if(empty($_POST['correo_razon_social'])){
+            $messages_warning []= "Correo electrónico No Aplica. ";
+            $correo = "No Aplica";
+        }else{
+            $correo=mysqli_real_escape_string($con,(strip_tags($_POST["correo_razon_social"],ENT_QUOTES)));    
+        }
+        
+        if(empty($_POST['telefono_razon_social'])){
+            $messages_warning []= "Telefono No Aplica. "; 
+            $telefono = "No Aplica";
+        }else{
+            $telefono=mysqli_real_escape_string($con,(strip_tags($_POST["telefono_razon_social"],ENT_QUOTES)));    
+        }
         
         $sql="INSERT INTO razon_social (nombre_razon_social, correo_razon_social, telefono_razon_social) VALUES (UPPER('".$nombre."'),UPPER('".$correo."'),UPPER('".$telefono."'))";
         $query_new_insert = mysqli_query($con,$sql);

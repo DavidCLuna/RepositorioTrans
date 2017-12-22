@@ -1,6 +1,6 @@
-		$(document).ready(function(){
-			load(1);
-		});
+$(document).ready(function(){
+    load(1);
+});
 
 		function load(page){
 			var q= $("#q").val();
@@ -44,7 +44,12 @@ $("#nuevoProducto").on('hidden.bs.modal', function(){
 function limpiar_campos(){
     document.getElementById("guardar_producto").reset();
 }
+
+$("#myModal2").on('hidden.bs.modal', function(){
+    document.getElementById("resultados_ajax2").innerHTML = "";
+});
 		
+
 		
 		
 		

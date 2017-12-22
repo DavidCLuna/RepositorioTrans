@@ -3,48 +3,43 @@
 	/*Inicia validacion del lado del servidor*/
 	if (empty($_POST['mod_id'])) {
            $errors[] = "ID vacío";
-        }else if (empty($_POST['mod_placa'])) {
-           $errors[] = "Placa vacía";
-        }else if (empty($_POST['mod_marca'])) {
-           $errors[] = "Marca vacía";
-        }else if (empty($_POST['mod_modelo'])) {
-           $errors[] = "Modelo vacío";
-        }else if (empty($_POST['mod_tipo'])) {
-           $errors[] = "Tipo vacío";
+        }else if (empty($_POST['mod_placa_vehiculo'])) {
+           $errors[] = "Placa vehículo vacía";
+        }else if (empty($_POST['mod_placa_remolque'])) {
+           $errors[] = "Placa remolque vacía";
+        }else if (empty($_POST['mod_capacidad_vehiculo'])) {
+           $errors[] = "Capacidad vehículo vacía";
         }else if (empty($_POST['mod_soat'])) {
            $errors[] = "SOAT vacío";
         }else if (empty($_POST['mod_tecnicomecanico'])) {
            $errors[] = "Tecnicomecánico vacío";
-        }else if (empty($_POST['mod_observaciones'])) {
-           $errors[] = "Observaciones vacío";
         } else if (
 			!empty($_POST['mod_id']) &&
-            !empty($_POST['mod_placa']) &&
-            !empty($_POST['mod_marca']) &&
-            !empty($_POST['mod_modelo']) &&
-            !empty($_POST['mod_tipo']) &&
-            !empty($_POST['mod_soat']) &&
-            !empty($_POST['mod_tecnicomecanico']) &&
-            !empty($_POST['mod_observaciones'])
+            !empty($_POST['mod_placa_vehiculo']) &&
+            !empty($_POST['mod_placa_remolque']) &&
+            !empty($_POST['mod_capacidad_vehiculo']) &&
+            !empty($_POST['mod_soat']) && 
+            !empty($_POST['mod_tecnicomecanico']) 
 		){
 		/* Connect To Database*/
 		require_once ("../config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
 		require_once ("../config/conexion.php");//Contiene funcion que conecta a la base de datos
 		// escaping, additionally removing everything that could be (html/javascript-) code
-		$placa=mysqli_real_escape_string($con,(strip_tags($_POST["mod_placa"],ENT_QUOTES)));
-        $marca=mysqli_real_escape_string($con,(strip_tags($_POST["mod_marca"],ENT_QUOTES)));
-        $modelo=mysqli_real_escape_string($con,(strip_tags($_POST["mod_modelo"],ENT_QUOTES)));
-        $tipo=mysqli_real_escape_string($con,(strip_tags($_POST["mod_tipo"],ENT_QUOTES)));
+		$placa_vehiculo=mysqli_real_escape_string($con,(strip_tags($_POST["mod_placa_vehiculo"],ENT_QUOTES)));
+        $placa_remolque=mysqli_real_escape_string($con,(strip_tags($_POST["mod_placa_remolque"],ENT_QUOTES)));
+        $capacidad_vehiculo=mysqli_real_escape_string($con,(strip_tags($_POST["mod_capacidad_vehiculo"],ENT_QUOTES)));
         $soat=mysqli_real_escape_string($con,(strip_tags($_POST["mod_soat"],ENT_QUOTES)));
         $tecnicomecanico=mysqli_real_escape_string($con,(strip_tags($_POST["mod_tecnicomecanico"],ENT_QUOTES)));
         $observaciones=mysqli_real_escape_string($con,(strip_tags($_POST["mod_observaciones"],ENT_QUOTES)));
+        
 		$id_vehiculo=$_POST['mod_id'];
         
 		$sql="UPDATE vehiculos SET 
-        marca_vehiculo=UPPER('".$marca."'), 
-        modelo_vehiculo=UPPER('".$modelo."'), 
-        tipo_vehiculo=UPPER('".$tipo."'), 
-        soat_vehiculo=UPPER('".$soat."'), tecnicomecanico_vehiculo=UPPER('".$tecnicomecanico."'), observaciones_vehiculo=UPPER('".$observaciones."') 
+        placa_remolque=UPPER('".$placa_remolque."'), 
+        capacidad_vehiculo=UPPER('".$capacidad_vehiculo."'), 
+        soat_vehiculo=UPPER('".$soat."'), 
+        tecnicomecanico_vehiculo=UPPER('".$tecnicomecanico."'), 
+        observaciones_vehiculo=UPPER('".$observaciones."') 
         WHERE placa_vehiculo='".$id_vehiculo."'";
 		$query_update = mysqli_query($con,$sql);
 			if ($query_update){
