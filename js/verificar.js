@@ -45,14 +45,16 @@ function imprimir_factura(id_factura){
 }
 
 $("#btn_guardar_enviar").click(function(){
-    registrar_verificacion();
-})
+    registrar_verificacion('noaprobar');
+});
 
 $("#btnAprobar").click(function(){
-    registrar_verificacion();
-})
+    registrar_verificacion('aprobar');
+});
 
-function registrar_verificacion(){
+
+
+function registrar_verificacion(accion){
     
     var file_runt = $('#inputRUNTConsulta').prop('files')[0];   
     var file_simit = $('#inputSIMITConsulta').prop('files')[0];   
@@ -66,6 +68,7 @@ function registrar_verificacion(){
     form_data.append('file_simit', file_simit);
     form_data.append('file_procuraduria', file_procuraduria);
     form_data.append('file_contraloria', file_contraloria);
+    form_data.append('accion', accion);
     
     $.ajax({
         data: form_data,
@@ -91,4 +94,18 @@ function registrar_verificacion(){
 function asigarCedulaIdFacturaCampo(cedula, idFactura){
     $("#cedula_conductor").text(cedula);
     $("#id_factura_cargue").text(idFactura);
+}
+
+$("#myModal").on('hidden.bs.modal', function () {
+    //Resetear formulario
+    //document.getElementById("").reset();
+    limpiar_campos();
+});
+
+function limpiar_campos(){
+    document.getElementById("inputRUNTConsulta").value = "";
+    document.getElementById("inputSIMITConsulta").value = "";
+    document.getElementById("inputPROCURADURIAConsulta").value = "";
+    document.getElementById("inputCONTRALORIAConsulta").value = "";
+    document.getElementById("resultado_cargar_datos").innerHTML="";
 }

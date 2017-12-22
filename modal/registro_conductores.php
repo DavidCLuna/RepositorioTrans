@@ -59,7 +59,8 @@
                 <div class="form-group">
 				<label for="razon_social" class="col-sm-3 control-label">Razón Social</label>
 				<div class="col-sm-8 ajax_razon_social">
-					
+					<select class="form-control" id="razon_social" name="razon_social">
+                    </select>
 				</div>
                     <a data-toggle="modal" data-target="#modalRazonSocial" style="cursor: pointer; color: black;"><img class="img-icon" src="../img/icons8_Add_New_104px_1.png"/></a>
 			  </div>

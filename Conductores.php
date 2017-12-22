@@ -47,10 +47,6 @@
 			<?php
 				include("modal/registro_conductores.php");
 				include("modal/editar_clientes.php");
-            function registrarCargue(){
-                
-            }
-                include("modal/registro_cargues.php");
 			?>
 			<form class="form-horizontal" role="form" id="datos_cotizacion">
 				

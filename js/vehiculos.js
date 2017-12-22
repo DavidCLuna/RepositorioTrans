@@ -18,24 +18,32 @@
 			})
 		}
 
-		function eliminar (id)
-		{
-			var q= $("#q").val();
-		if (confirm("Realmente deseas eliminar el vehículo")){	
-		$.ajax({
-        type: "GET",
-        url: "./ajax/buscar_vehiculos.php",
-        data: "id="+id,"q":q,
-		 beforeSend: function(objeto){
-			$("#resultados").html("Mensaje: Cargando...");
-		  },
-        success: function(datos){
-		$("#resultados").html(datos);
-		load(1);
-		}
-			});
-		}
-		}
+function eliminar (id)
+{
+    var q= $("#q").val();
+    if (confirm("Realmente deseas eliminar el vehículo")){	
+        $.ajax({
+            type: "GET",
+            url: "./ajax/buscar_vehiculos.php",
+            data: "id="+id,"q":q,
+            beforeSend: function(objeto){
+            $("#resultados").html("Mensaje: Cargando...");
+            },
+            success: function(datos){
+                $("#resultados").html(datos);
+                load(1);
+            }
+        });
+    }
+}
+
+$("#nuevoProducto").on('hidden.bs.modal', function(){
+    limpiar_campos();
+});
+
+function limpiar_campos(){
+    document.getElementById("guardar_producto").reset();
+}
 		
 		
 		

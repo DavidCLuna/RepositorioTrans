@@ -165,7 +165,7 @@
                 <div class="form-group">
                     <div class="form-group">
                         <label for="comment">Observaciones:</label>
-                        <textarea class="form-control" rows="3" id="comment"></textarea>
+                        <textarea class="form-control" rows="3" id="observaciones"></textarea>
                     </div>
                 </div>
                 <div class="form-group">

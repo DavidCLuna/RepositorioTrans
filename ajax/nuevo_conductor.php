@@ -14,8 +14,8 @@
         $errors[] = "Por favor digita un nombre. ";
     }else if(!isset($_POST['razon_social']) && empty($_POST['razon_social'])){
         $errors[] = "Debes seleccionar un nombre de razón social. ";
-    }else if($_POST['razon_social'] == "seleccionar"){
-        $errors[] = "Debes seleccionar un nombre de razón social. ";
+    }else if($_POST['razon_social'] == "Seleccionar"){
+        $errors[] = "Debes seleccionar una razón social. ";
     }else{
         
 		/* Connect To Database*/
@@ -33,12 +33,11 @@
         $rw_user=mysqli_fetch_array($query);
         $count=mysqli_num_rows($query);
         if ($count>=1){
-        $id_razon_social = $rw_user['id_razon_social'];
+            $id_razon_social = $rw_user['id_razon_social'];
 
-		$sql="INSERT INTO conductores (cedula_conductor, id_razon_social, nombre_conductor, apellido_conductor,
-        licencia_conductor, fecha_ingreso_conductor) VALUES ('".$cedula."','".$id_razon_social."','".$nombre."','".$apellido."','".$licencia."','".$fecha_ingreso."')";
-		$query_new_insert = mysqli_query($con,$sql);
-            
+            $sql="INSERT INTO conductores (cedula_conductor, id_razon_social, nombre_conductor, apellido_conductor, fecha_ingreso_conductor) VALUES (UPPER('".$cedula."'),UPPER('".$id_razon_social."'),UPPER('".$nombre."'),UPPER('".$apellido."'),UPPER('".$fecha_ingreso."'))";
+            $query_new_insert = mysqli_query($con,$sql);
+
 			if ($query_new_insert){
 				$messages[] = "Conductor ha sido ingresado satisfactoriamente.";
 			} else{
@@ -84,7 +83,7 @@
 				?>
 				<div class="alert alert-warning" role="alert">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
-						<strong>¡Advertencia!</strong>
+						<strong>¡Advertencia!</strong> 
 						<?php
 							foreach ($messages_warning as $message) {
 									echo $message;

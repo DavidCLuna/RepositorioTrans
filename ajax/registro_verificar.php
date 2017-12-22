@@ -76,7 +76,41 @@
             $file_contraloria_insert = "";
         }
         
-		$sql="INSERT INTO documentos (cedula_conductor_documento, runt_documento, procuraduria_documento, contraloria_documento, simit_documento, fecha_hora_documento) VALUES ('".$cedula_verificar."','".$file_runt_insert."','".$file_simit_insert."','".$file_procuraduria_insert."','".$file_contraloria_insert."',now());";
+        /*$query=mysqli_query($con, "select id_razon_social from razon_social where nombre_razon_social ='".$razon_social."'");
+        $rw_user=mysqli_fetch_array($query);
+        $count=mysqli_num_rows($query);
+        if ($count>=1){*/
+            
+        $query=mysqli_query($con, "select * from documentos where cedula_conductor_documento = '".$cedula_verificar."'");    
+        $rw_con=mysqli_fetch_array($query);
+        $count=mysqli_num_rows($query);
+        if($count >= 1){
+            $sql="UPDATE documentos SET ";
+            if($file_runt_insert != null && $file_runt_insert != ""){
+                $sql.= "runt_documento = '".$file_runt_insert."' , ";
+            }
+            
+            if($file_procuraduria_insert != null && $file_procuraduria_insert != ""){
+                $sql.= "procuraduria_documento = '".$file_procuraduria_insert."' , ";
+            }
+            
+            if($file_contraloria_insert != null && $file_contraloria_insert != ""){
+                $sql.= "contraloria_documento = '".$file_contraloria_insert."' , ";
+            }
+            
+            if($file_simit_insert != null && $file_simit_insert != ""){
+                $sql.= "simit_documento = '".$file_simit_insert."' , ";
+            }
+            
+            $sql = substr_replace( $sql, "", -2 );
+            $sql.= ", fecha_hora_documento = now() where cedula_conductor_documento = '".$cedula_verificar."'";
+            
+            error_log($sql);
+        }else{
+            $sql="INSERT INTO documentos (cedula_conductor_documento, runt_documento, procuraduria_documento, contraloria_documento, simit_documento, fecha_hora_documento) 
+            VALUES ('".$cedula_verificar."','".$file_runt_insert."','".$file_procuraduria_insert."','".$file_contraloria_insert."','".$file_simit_insert."',now());";
+        }
+        
 		$query_new_insert = mysqli_query($con,$sql);
 			if ($query_new_insert){
                
@@ -85,6 +119,27 @@
                 $query_new_insert = mysqli_query($con,$sql);
 			    if ($query_new_insert){
                     $messages[] = "Conductor ha sido verificado satisfactoriamente.";
+                    
+                    $query=mysqli_query($con, "SELECT concat(con.nombre_conductor,' ',con.apellido_conductor) as nombre_conductor,
+                        con_vehi.placa_vehiculo  
+                        FROM conductores con 
+                        JOIN conductores_vehiculos con_vehi 
+                        JOIN cargues car 
+                        ON con.cedula_conductor = con_vehi.cedula_conductor 
+                        AND con_vehi.id_conductor_vehiculo = car.id_conductor_vehiculo
+                        WHERE car.id_factura_cargue = '".$id_factura_verificar."'");
+                    $rw_user=mysqli_fetch_array($query);
+                    $count=mysqli_num_rows($query);
+                    if ($count>=1){
+                        $nombre_conductor = $rw_user['nombre_conductor'];
+                        $placa_vehiculo = $rw_user['placa_vehiculo'];
+
+                        include ('../classes/notificacion_verificar.php');
+                        $msg = "El vehículo con placa ".$placa_vehiculo." asignado al conductor ".$nombre_conductor." con número de cédula ".$cedula_verificar." se encuentra pendiente por despachar";
+                        enviarNotificacion($msg, "Vehículo Pendiente",$id_factura_verificar, $placa_vehiculo, $cedula_verificar);
+                    }else{
+                        $errors[] = "No se pudo enviar la notificación, si vuelve a ocurrir contacte con el departamento de sistemas";
+                    }
                 }else{
                     $errors []= "No se pudo modificar el estado del cargue.".mysqli_error($con);    
                 }

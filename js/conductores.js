@@ -1,12 +1,10 @@
     $(document).ready(function(){
         load(1);
-        load_razon_social();
+        load_razon_social('registrar');
         $("#cedula").keypress(function(){
             soloNumeros($("#cedula").val());
 	   });
     });
-
-
 
 function load(page){
     var q= $("#q").val();
@@ -67,6 +65,7 @@ $( "#guardar_cliente" ).submit(function( event ) {
 })
 
 $( "#editar_cliente" ).submit(function( event ) {
+  $('#mod_razon_social').attr("disabled", false);
   $('#actualizar_datos').attr("disabled", true);
   
  var parametros = $(this).serialize();
@@ -80,6 +79,7 @@ $( "#editar_cliente" ).submit(function( event ) {
 			success: function(datos){
 			$("#resultados_ajax2").html(datos);
 			$('#actualizar_datos').attr("disabled", false);
+            $('#mod_razon_social').attr("disabled", true);
 			load(1);
 		  }
 	});
@@ -87,18 +87,19 @@ $( "#editar_cliente" ).submit(function( event ) {
 })
 
 	function obtener_datos(id){
+            //load_razon_social('editar');
 			var nombre_conductor = $("#nombre_conductor"+id).val();
 			var apellido_conductor = $("#apellido_conductor"+id).val();
-			var licencia_conductor = $("#licencia_conductor"+id).val();
+			var razon_social = $("#nombre_razon_social"+id).val();
 			var fecha_ingreso_conductor_str = $("#fecha_ingreso_conductor"+id).val();
-        
             var parts = fecha_ingreso_conductor_str.split('/');
         
             var mydate = new Date(parts[2],parts[0]-1,parts[1]);
-        
 			$("#mod_nombre").val(nombre_conductor);
 			$("#mod_apellido").val(apellido_conductor);
-			$("#mod_licencia").val(licencia_conductor);
+            //document.getElementById("razon_social").value = 'COAGRONORTE';
+			$("#mod_razon_social").val(razon_social);
+            
 			$("#mod_fecha_ingreso").val(parts[2]+'-'+parts[1]+'-'+parts[0]);
 			$("#mod_cedula").val(id);
             $("#mod_id").val(id);
@@ -107,21 +108,17 @@ $( "#editar_cliente" ).submit(function( event ) {
 	
 function soloNumeros(e) 
 { 
-var key = window.Event ? e.which : e.keyCode 
-return ((key >= 48 && key <= 57) || (key==8)) 
+    var key = window.Event ? e.which : e.keyCode 
+    return ((key >= 48 && key <= 57) || (key==8)) 
 }
 		
-function load_razon_social(){
-    $("#loader").fadeIn('slow');
+function load_razon_social(id){
+    $("#loader").fadeIn('');
     $.ajax({
+        type: "GET",
         url:'./ajax/registro_conductores/buscar_razon_social.php?action=ajax',
-         beforeSend: function(objeto){
-         //$('#loader').html('<img src="./img/ajax-loader.gif"> Cargando...');
-      },
         success:function(data){
-            $(".ajax_razon_social").html(data).fadeIn('slow');
-           // $('#loader').html('');
-
+            $(".ajax_razon_social select").html(data).fadeIn('');
         }
     })
 }
@@ -143,10 +140,32 @@ $( "#guardar_razon_social" ).submit(function( event ) {
             $("#nombre_razon_social").val('');
             $("#correo_razon_social").val('');
             $("#telefono_razon_social").val('');
-            load_razon_social();
+            load_razon_social('registrar');
 		  }
 	});
   event.preventDefault();
 });
         
+$("#nuevoCliente").on('hidden.bs.modal', function () {
+    limpiar_campos_registro();
+});
+
+$("#myModal2").on('hidden.bs.modal', function () {
+    document.getElementById("resultados_ajax2").innerHTML = "";
+});
+
+//  limpia el formulario de la ventana modal razon social
+$("#modalRazonSocial").on('hidden.bs.modal', function () {
+    document.getElementById("guardar_razon_social").reset();
+});
+
+$("#modalRazonSocial").on('hidden.bs.modal', function () {
+    limpiar_campos_razon_social();
+});
+
+function limpiar_campos_registro(){
+    document.getElementById("guardar_cliente").reset();
+}
+
+
 

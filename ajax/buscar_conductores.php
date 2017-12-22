@@ -49,8 +49,8 @@
 	if($action == 'ajax'){
 		// escaping, additionally removing everything that could be (html/javascript-) code
          $q = mysqli_real_escape_string($con,(strip_tags($_REQUEST['q'], ENT_QUOTES)));
-		 $aColumns = array('cedula_conductor');//Columnas de busqueda
-		 $sTable = "conductores";
+		 $aColumns = array('con.cedula_conductor');//Columnas de busqueda
+		 $sTable = "conductores con join razon_social razo on con.id_razon_social = razo.id_razon_social";
 		 $sWhere = "";
 		if ( $_GET['q'] != "" )
 		{
@@ -59,11 +59,11 @@
 			{
 				$sWhere .= $aColumns[$i]." LIKE '%".$q."%' OR ";
 			}
-            $sWhere .= " concat(nombre_conductor, ' ', apellido_conductor) like '%".$q."%' OR";
+            $sWhere .= " concat(con.nombre_conductor, ' ', con.apellido_conductor) like '%".$q."%' OR";
 			$sWhere = substr_replace( $sWhere, "", -3 );
 			$sWhere .= ')';
 		}
-		$sWhere.=" order by nombre_conductor";
+		$sWhere.=" order by con.nombre_conductor";
         
 		include 'pagination.php'; //include pagination file
 		//pagination variables
@@ -72,14 +72,13 @@
 		$adjacents  = 4; //gap between pages after number of adjacents
 		$offset = ($page - 1) * $per_page;
 		//Count the total number of row in your table*/
-		$count_query   = mysqli_query($con, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
+		$count_query = mysqli_query($con, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
 		$row= mysqli_fetch_array($count_query);
 		$numrows = $row['numrows'];
 		$total_pages = ceil($numrows/$per_page);
 		$reload = './clientes.php';
 		//main query to fetch the data
-		$sql="SELECT * FROM  $sTable $sWhere LIMIT 
-        $offset,$per_page";
+		$sql="SELECT con.*, razo.nombre_razon_social FROM  $sTable $sWhere";
 		$query = mysqli_query($con, $sql);
 		//loop through fetched data
 		if ($numrows>0){
@@ -90,7 +89,7 @@
 				<tr  class="success">
 					<th class="text-center"># Cedula</th>
 					<th class="text-center">Nombre Completo</th>
-					<th class="text-center">Licencia</th>
+					<th class="text-center">Razón Social</th>
 					<th class="text-center">Fecha Ingreso</th>
 					<th class='text-right'>Acciones</th>
 					
@@ -102,7 +101,7 @@
                     $nombre_conductor = $row['nombre_conductor'];
                         $apellido_conductor = $row['apellido_conductor'];
                         $nombre_completo_conductor=$row['nombre_conductor'].' '.$row['apellido_conductor'];
-						$licencia_conductor=$row['licencia_conductor'];
+						$nombre_razon_social=$row['nombre_razon_social'];
                         $fecha_ingreso_conductor=date("d/m/Y", strtotime($row['fecha_ingreso_conductor']));
 						/*tatus_cliente=$row['status_cliente'];
 						if ($status_cliente==1){$estado="Activo";}
@@ -113,26 +112,26 @@
 					<input type="hidden" value="<?php echo $cedula_conductor;?>" id="cedula_conductor<?php echo $cedula_conductor;?>">
 					<input type="hidden" value="<?php echo $nombre_conductor;?>" id="nombre_conductor<?php echo $cedula_conductor;?>">
                     <input type="hidden" value="<?php echo $apellido_conductor;?>" id="apellido_conductor<?php echo $cedula_conductor;?>">
-					<input type="hidden" value="<?php echo $licencia_conductor;?>" id="licencia_conductor<?php echo $cedula_conductor;?>">
+					<input type="hidden" value="<?php echo $nombre_razon_social;?>" id="nombre_razon_social<?php echo $cedula_conductor;?>">
 					<input type="hidden" value="<?php echo $fecha_ingreso_conductor;?>" id="fecha_ingreso_conductor<?php echo $cedula_conductor;?>">
 					<tr>
 						
 						<td class="text-center"><?php echo $cedula_conductor; ?></td>
 						<td class="text-center"><?php echo $nombre_completo_conductor; ?></td>
-						<td class="text-center"><?php echo $licencia_conductor;?></td>
+						<td class="text-center"><?php echo $nombre_razon_social;?></td>
 						<td class="text-center"><?php echo $fecha_ingreso_conductor;?></td>
 						
 					<td>
                         <span class="pull-right">
-                        <a href="../registrar_cargue.php?cedula=<?php echo $cedula_conductor?>" class='btn btn-default' title='Asignar Cargue'>
-                            <i class="glyphicon glyphicon-plus-sign"></i>
+                        <a href="../registrar_cargue.php?cedula=<?php echo $cedula_conductor?>" class='btn btn-warning' title='Asignar cargue'>
+                            <i class="glyphicon glyphicon-plus"></i> Cargues
                         </a> 
                         <a href="#" class='btn btn-default' title='Editar cliente' onclick="obtener_datos('<?php echo $cedula_conductor;?>');" data-toggle="modal" data-target="#myModal2">
                             <i class="glyphicon glyphicon-edit"></i>
                         </a> 
-                        <a href="#" class='btn btn-default' title='Borrar cliente' onclick="eliminar('<?php echo $cedula_conductor; ?>')">
+                        <!--<a href="#" class='btn btn-default' title='Borrar cliente' onclick="eliminar('<?php echo $cedula_conductor; ?>')">
                             <i class="glyphicon glyphicon-trash"></i> 
-                        </a>
+                        </a>-->
                         </span>
                     </td>
 						

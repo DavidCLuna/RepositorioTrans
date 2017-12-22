@@ -20,8 +20,8 @@
 	require_once ("config/conexion.php");//Contiene funcion que conecta a la base de datos
 	
 
-		$campos="nombre_conductor, apellido_conductor, licencia_conductor";
-		$sql_conductor=mysqli_query($con,"select $campos from conductores where cedula_conductor = '".$_GET['cedula']."'");
+		$campos="razo.nombre_razon_social, con.nombre_conductor, con.apellido_conductor";
+		$sql_conductor=mysqli_query($con,"select $campos from conductores con join razon_social razo on con.id_razon_social = razo.id_razon_social  where con.cedula_conductor = '".$_GET['cedula']."'");
 		$count=mysqli_num_rows($sql_conductor);
 		if ($count==1)
 		{
@@ -30,7 +30,7 @@
 				$nombre_conductor=$rw_conductor['nombre_conductor'];
 				$apellido_conductor=$rw_conductor['apellido_conductor'];
                 $nombre_completo_conductor=$nombre_conductor." ".$apellido_conductor;
-				$licencia_conductor=$rw_conductor['licencia_conductor'];
+				$razon_social=$rw_conductor['nombre_razon_social'];
 				
 		}	
 		else
@@ -85,13 +85,13 @@
                               <tr  class="">
                                 <th class="text-center"># Cédula</th>
                                 <th class="text-center">Nombre Completo</th>
-                                <th class="text-center"># Licencia</th>
+                                <th class="text-center">Razón Social</th>
                               </tr>
                               <input type="hidden" id="cedula_cliente" name="cedula_cliente" value="<?php echo $cedula_conductor;?>">
                               <tr>
                                   <td class="text-center"><?php echo $cedula_conductor ?></td>
                                   <td class="text-center"><?php echo $nombre_completo_conductor ?></td>
-                                  <td class="text-center"><?php echo $licencia_conductor ?></td>
+                                  <td class="text-center"><?php echo $razon_social ?></td>
                               </tr>
                             </table>
                         </div>

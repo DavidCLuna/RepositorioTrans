@@ -75,7 +75,7 @@
                     <th class="text-center"># Factura</th>
 					<th class="text-center">Cédula</th>
 					<th class="text-center">Transportador</th>
-                    <th class="text-center">Licencia</th>
+                    <!--<th class="text-center">Razón Social</th>-->
                     <th class="text-center">Fecha Ingreso</th>
 					<th class="text-center">Placa</th>
 					<th class="text-center">Consultar</th>
@@ -97,7 +97,7 @@
                         <td class="text-center"><?php echo $id_factura; ?></td>
 						<td class="text-center"><?php echo $cedula_conductor; ?></td>
 						<td class="text-center"><?php echo $nombre_conductor; ?></td>
-						<td class="text-center"><?php echo $licencia_conductor; ?></td>
+						<!--<td class="text-center"><?php echo $licencia_conductor; ?></td>-->
                         <td class="text-center"><?php echo $fecha_ingreso_conductor; ?></td>
                         <td class="text-center"><?php echo $placa_conductor; ?></td>
                         
