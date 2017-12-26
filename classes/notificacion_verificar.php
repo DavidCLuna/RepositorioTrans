@@ -26,6 +26,7 @@ function enviarNotificacion($msj, $title, $id_factura, $placa_vehiculo, $cedula_
         ];
         $fields = json_encode( $fields );
 
+    
         //apt-get install -y php5-curl
 
         $ch = curl_init();
