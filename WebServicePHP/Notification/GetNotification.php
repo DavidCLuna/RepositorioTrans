@@ -2,18 +2,10 @@
 /**
  * Obtener datos para realizar el login
  */
-
-require 'ControladoresBD.php';
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-	$body = json_decode(file_get_contents("php://input"),true);
-	
-        // Obtener parámetro idMeta
-
+require '../Conexiones/ControladoresBD.php';
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         // Tratar retorno
-        $retorno = Controlador::getDatosLogin($body['usuario'], $body['contrasena']);
-
+        $retorno = Controlador::getNotify();
 
         if ($retorno) {
 		$Datos["Resultado"] = '1';
@@ -23,9 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		print json_encode(
                         array(
                             'Resultado' => '2',
-                            'Mensaje' => 'Usuario o contraseña incorrectos'
+                            'Datos' => 'Ocurrio un error al intentar consultar la informacion'
                             )
                 );
         }
+    
+    
 
 }
+?>

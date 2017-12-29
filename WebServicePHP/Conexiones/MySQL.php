@@ -4,7 +4,7 @@ class MySQL {
     private $baseDatos;
     private $servidor = "localhost"; // servidor
     private $usuario = "root"; // usuario
-    private $contrasena = "XbU9NRNx"; // contraseña
+    private $contrasena = "1qaz2015+"; // contraseña
     private $puerto = 3306;
     public $result;    
     

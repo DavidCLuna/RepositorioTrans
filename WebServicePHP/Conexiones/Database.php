@@ -9,8 +9,6 @@ require_once 'mysql_login.php';
 
 class Database
 {
-
-
     private static $db = null;
 
     private static $pdo;
@@ -18,13 +16,10 @@ class Database
     final private function __construct()
     {
         try {
-            
             self::getDb();
-
         } catch (PDOException $e) {
 
         }
-
 
     }
 
