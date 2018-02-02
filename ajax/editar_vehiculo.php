@@ -7,8 +7,8 @@
            $errors[] = "Placa vehículo vacía";
         }else if (empty($_POST['mod_placa_remolque'])) {
            $errors[] = "Placa remolque vacía";
-        }else if (empty($_POST['mod_capacidad_vehiculo'])) {
-           $errors[] = "Capacidad vehículo vacía";
+        }else if (empty($_POST['mod_cantidad_vehiculo'])) {
+           $errors[] = "Capacidad vehículo vacía si";
         }else if (empty($_POST['mod_soat'])) {
            $errors[] = "SOAT vacío";
         }else if (empty($_POST['mod_tecnicomecanico'])) {
@@ -17,7 +17,7 @@
 			!empty($_POST['mod_id']) &&
             !empty($_POST['mod_placa_vehiculo']) &&
             !empty($_POST['mod_placa_remolque']) &&
-            !empty($_POST['mod_capacidad_vehiculo']) &&
+            !empty($_POST['mod_cantidad_vehiculo']) &&
             !empty($_POST['mod_soat']) && 
             !empty($_POST['mod_tecnicomecanico']) 
 		){
@@ -27,7 +27,7 @@
 		// escaping, additionally removing everything that could be (html/javascript-) code
 		$placa_vehiculo=mysqli_real_escape_string($con,(strip_tags($_POST["mod_placa_vehiculo"],ENT_QUOTES)));
         $placa_remolque=mysqli_real_escape_string($con,(strip_tags($_POST["mod_placa_remolque"],ENT_QUOTES)));
-        $capacidad_vehiculo=mysqli_real_escape_string($con,(strip_tags($_POST["mod_capacidad_vehiculo"],ENT_QUOTES)));
+        $cantidad_vehiculo=mysqli_real_escape_string($con,(strip_tags($_POST["mod_cantidad_vehiculo"],ENT_QUOTES)));
         $soat=mysqli_real_escape_string($con,(strip_tags($_POST["mod_soat"],ENT_QUOTES)));
         $tecnicomecanico=mysqli_real_escape_string($con,(strip_tags($_POST["mod_tecnicomecanico"],ENT_QUOTES)));
         $observaciones=mysqli_real_escape_string($con,(strip_tags($_POST["mod_observaciones"],ENT_QUOTES)));
@@ -36,7 +36,7 @@
         
 		$sql="UPDATE vehiculos SET 
         placa_remolque=UPPER('".$placa_remolque."'), 
-        capacidad_vehiculo=UPPER('".$capacidad_vehiculo."'), 
+        cantidad_vehiculo=UPPER('".$cantidad_vehiculo."'), 
         soat_vehiculo=UPPER('".$soat."'), 
         tecnicomecanico_vehiculo=UPPER('".$tecnicomecanico."'), 
         observaciones_vehiculo=UPPER('".$observaciones."') 

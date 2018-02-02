@@ -87,6 +87,7 @@
                                     <option>Registrado</option>
                                     <option>Verificado</option>
                                     <option>Despachado</option>
+                                    <option>No Aprobado</option>
                                 </select>
 							</div>
 							

@@ -32,7 +32,7 @@
                 <div class="form-group">
                     <label for="mod_soat" class="col-sm-3 control-label">Capacidad</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control upperCase" id="mod_capacidad" name="mod_capacidad_vehiculo" placeholder="Capacidad del vehículo" required>
+                        <input type="text" class="form-control upperCase" id="mod_cantidad_vehiculo" name="mod_cantidad_vehiculo" placeholder="Capacidad del vehículo" required>
                     </div>
                 </div>
 

@@ -12,8 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
         if ($retorno) {
 		$Datos["Resultado"] = '1';
-                $Datos["Datos"] = $retorno;
-                print json_encode($Datos);
+                $Datos = $retorno;
+                print JSON_FORCE_OBJECT($Datos,JSON_FORCE_OBJECT);
         } else {
 		print json_encode(
                         array(

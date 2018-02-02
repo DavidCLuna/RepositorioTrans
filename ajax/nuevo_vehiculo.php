@@ -9,7 +9,7 @@ include('is_logged.php');//Archivo verifica que el usario que intenta acceder a 
            $errors[] = "No modifiques el nombre del campo placa vehículo";
         }else if (!isset($_POST['placa_remolque'])) {
            $errors[] = "No modifiques el nombre del campo placa remolque";
-        }else if (!isset($_POST['capacidad_vehiculo'])) {
+        }else if (!isset($_POST['cantidad_vehiculo'])) {
            $errors[] = "No modifiques el nombre del campo cantidad vehículo";
         }else if (!isset($_POST['soat_vehiculo'])) {
            $errors[] = "No modifiques el nombre del campo SOAT vehículo";
@@ -22,7 +22,7 @@ include('is_logged.php');//Archivo verifica que el usario que intenta acceder a 
            $errors[] = "Placa vehículo vacía";
         }else if (empty($_POST['placa_remolque'])) {
            $errors[] = "Placa remolque vacía";
-        }else if (empty($_POST['capacidad_vehiculo'])) {
+        }else if (empty($_POST['cantidad_vehiculo'])) {
            $errors[] = "Capacidad vehículo vacía";
         }else if (empty($_POST['soat_vehiculo'])) {
            $errors[] = "SOAT vacío";
@@ -40,11 +40,11 @@ include('is_logged.php');//Archivo verifica que el usario que intenta acceder a 
 		// escaping, additionally removing everything that could be (html/javascript-) code
 		$placa_vehiculo=mysqli_real_escape_string($con,(strip_tags($_POST["placa_vehiculo"],ENT_QUOTES)));
         $placa_remolque=mysqli_real_escape_string($con,(strip_tags($_POST["placa_remolque"],ENT_QUOTES)));
-        $capacidad_vehiculo=mysqli_real_escape_string($con,(strip_tags($_POST["capacidad_vehiculo"],ENT_QUOTES)));
+        $cantidad_vehiculo=mysqli_real_escape_string($con,(strip_tags($_POST["cantidad_vehiculo"],ENT_QUOTES)));
         $soat=mysqli_real_escape_string($con,(strip_tags($_POST["soat_vehiculo"],ENT_QUOTES)));
         $tecnicomecanico=mysqli_real_escape_string($con,(strip_tags($_POST["tecnicomecanico_vehiculo"],ENT_QUOTES)));
         $observaciones=mysqli_real_escape_string($con,(strip_tags($_POST["observaciones_vehiculo"],ENT_QUOTES)));
-		$sql="INSERT INTO vehiculos (placa_vehiculo, placa_remolque, cantidad_vehiculo, soat_vehiculo,tecnicomecanico_vehiculo,observaciones_vehiculo,fecha_creacion_vehiculo) VALUES (UPPER('$placa_vehiculo'),UPPER('$placa_remolque'),UPPER('$capacidad_vehiculo'),UPPER('$soat'),UPPER('$tecnicomecanico'),UPPER('$observaciones'),now())";
+		$sql="INSERT INTO vehiculos (placa_vehiculo, placa_remolque, cantidad_vehiculo, soat_vehiculo,tecnicomecanico_vehiculo,observaciones_vehiculo,fecha_creacion_vehiculo) VALUES (UPPER('$placa_vehiculo'),UPPER('$placa_remolque'),UPPER('$cantidad_vehiculo'),UPPER('$soat'),UPPER('$tecnicomecanico'),UPPER('$observaciones'),now())";
 		$query_new_insert = mysqli_query($con,$sql);
 			if ($query_new_insert){
 				$messages[] = "Vehiculo ha sido ingresado satisfactoriamente.";

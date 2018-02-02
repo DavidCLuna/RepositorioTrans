@@ -134,7 +134,7 @@
                 <div class="form-group">
                     <div class="form-group row padding-5">
                         <div class="col-md-5 pull-right">
-                            <button id="btnNoAprobar" type="button" class="btn btn-danger btn-lg"  data-toggle="modal" data-target="#modalObservaciones">No aprobar Transporte</button>        
+                            <button id="btnNoAprobar" type="button" class="btn btn-danger btn-lg" >No aprobar Transporte</button>        
                         </div>
                         <div class="col-md-4 pull-right">
                             <button id="btnAprobar" type="button" class="btn btn-success btn-lg">Aprobar Transporte</button>
@@ -148,12 +148,10 @@
       </div>
 
 
-
-            <!-- Modal -->  
+<!--
       <div class="modal fade" id="modalObservaciones" role="dialog">
         <div class="modal-dialog">
 
-          <!-- Modal content-->
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -178,6 +176,7 @@
       </div>
 
     </div>
+  -->
 </div>
 	<hr>
 

@@ -74,7 +74,12 @@ function registrar_cargue(){
     let cedula = document.getElementById("valor_cedula_conductores_vehiculos").value;
     let placa = placa_vehiculo_seleccionada;
     let num_factura = document.getElementById("id_factura_cargue").value;
+
+
+alert(contadorFilas);
     
+
+
     var parametros = {
         "cedula" : cedula,
         "placa" : placa,

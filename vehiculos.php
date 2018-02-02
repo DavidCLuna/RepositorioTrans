@@ -118,7 +118,7 @@ function obtener_datos(id){
 
         var placa_vehiculo = document.getElementById("placa_vehiculo"+id).value;
         var placa_remolque = document.getElementById("placa_remolque"+id).value;
-        var capacidad_vehiculo = document.getElementById("capacidad_vehiculo"+id).value;
+        var cantidad_vehiculo = document.getElementById("cantidad_vehiculo"+id).value;
         var soat_vehiculo = document.getElementById("soat_vehiculo"+id).value;
         var tecnicomecanico_vehiculo = document.getElementById("tecnicomecanico_vehiculo"+id).value;
         var observaciones_vehiculo = document.getElementById("observaciones_vehiculo"+id).value;
@@ -126,7 +126,7 @@ function obtener_datos(id){
         $("#mod_id").val(id);
         $("#mod_placa_vehiculo").val(placa_vehiculo);
         $("#mod_placa_remolque").val(placa_remolque);
-        $("#mod_capacidad").val(capacidad_vehiculo);
+        $("#mod_cantidad_vehiculo").val(cantidad_vehiculo);
         $("#mod_soat").val(soat_vehiculo);
         $("#mod_tecnicomecanico").val(tecnicomecanico_vehiculo);
         $("#mod_observaciones").val(observaciones_vehiculo);

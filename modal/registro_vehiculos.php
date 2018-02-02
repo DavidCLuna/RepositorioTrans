@@ -31,7 +31,7 @@
                 <div class="form-group">
                     <label for="codigo" class="col-sm-3 control-label">Capacidad</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control upperCase" placeholder="Capacidad del vehículo (Kg)" id="capacidad_vehiculo" name="capacidad_vehiculo"  required>
+                        <input type="text" class="form-control upperCase" placeholder="Capacidad del vehículo (Kg)" id="cantidad_vehiculo" name="cantidad_vehiculo"  required>
                     </div>
                 </div>
                 

@@ -1,6 +1,6 @@
 <?php
 	/*-------------------------
-	Autor: David Casadiegos
+	Autor: David Casadiegos 
 	Web: transporte.com.co
 	---------------------------*/
 	session_start();
@@ -49,6 +49,39 @@
 	<?php
 	include("navbar.php");
 	?>  
+
+          <script>
+         
+          let contadorFilas = 0;
+
+          function agregarFilaTabla() {
+              contadorFilas ++;
+              var fila_nueva = "<br> <div class='col-sm-4  col-sm-offset-3 col-md-offset-3'>"+
+                          "<input type='text' class='form-control input-sm' id='id_factura_cargue' name='id_factura"+contadorFilas+"' placeholder='Factura o Despacho'>"+
+                   "</div>"+
+                    "<div class='col-lg-4 col-sm-3 col-11' id='cont_factura'>"+
+                        "<div class='form-group'>"+
+                            "<div class='input-group input-file' name='Fichier1'>"+
+                                "<span class='input-group-btn'>"+
+                                  "<button class='btn btn-default btn-choose' type='button'>Adjuntar archivo</button>"+
+                                "</span>"+
+                                         "<input type='text' class='form-control' placeholder='nombre..' name='codigo"+contadorFilas+"'/>"+
+                                "<span class='input-group-btn'>"+
+                                    "<button class='btn btn-warning btn-reset' type='button'>Limpiar</button>"+
+                                "</span>"+
+                            "</div>"+
+                        "</div>"+
+                    "</div>"+
+                    
+                    "<div class='col-lg-4 col-5 col-sm-2'>"+
+                      "<label>"+
+                                 "<input type='checkbox' name='check_factura"+contadorFilas+"'> Factura"+
+                            "</label>"+
+                    "</div>";
+              document.getElementById("cont_factura").innerHTML += fila_nueva;
+            }
+          </script>
+
       <input type="hidden" id="valor_cedula_conductores_vehiculos" value="<?php echo $_GET['cedula']?>"/>
      
     <div class="container">
@@ -61,18 +94,45 @@
     </div>
         <div class="panel panel-success">
             <div class="panel-heading">
-                <h4><img class="img-navbar" src="img/icons8_Bill_100px.png"/> Información Factura</h4>
+                <h4><img class="img-navbar" src="img/icons8_Bill_100px.png"/> Información Factura o Despacho</h4>
             </div>
-            <div class="panel-body">
-                <form class="form-horizontal" role="form" id="datos_factura">
-                    <div class="form-group row">
-                      <label for="nombre_cliente" class="col-md-3 control-label">Número de Factura</label>
-                      <div class="col-md-3">
-                          <input type="text" class="form-control input-sm" id="id_factura_cargue" placeholder="Digite el número de la factura">
-                      </div>
+            <div class="panel-body" role="toolbar">
+                <form class="" role="form" id="datos_factura">
+                      <!--<label for="nombre_cliente" class="col-md-1 control-label">Número </label>-->
+                    <div class="form-inline" id="cont_factura">
+                     <div class="col-sm-1">
+                          <a data-toggle="modal" onclick="agregarFilaTabla()" style="cursor: pointer; color: black;"><img  class="img-icon" src="../img/icons8_Add_New_104px_1.png"/></a>
+                     </div>
+                    
+                        <div class="col-sm-2">
+                              <input type="text" class="form-control input-sm" id="id_factura_cargue" name="id_factura0" placeholder="Factura o Despacho">
+                        </div>
+                        <div class="col-lg-4 col-sm-3 col-11">
+                            <div class="form-group">
+                                <div class="input-group input-file" name="Fichier1">
+                                    <span class="input-group-btn">
+                                      <button class="btn btn-default btn-choose" type="button">Adjuntar archivo</button>
+                                    </span>
+                                        <input type="text" class="form-control" name="codigo0" placeholder='nombre..' />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-warning btn-reset" type="button">Limpiar</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-5 col-sm-2">
+                          <label>
+                                     <input type="checkbox" name="check_factura0"> Factura
+                                </label>
+                        </div>
                     </div>
-                </form>	
-           </div>		
+
+
+              </form>	
+
+           </div>	
+            
+            
 
         <div class="panel-heading">
                 <h4><img class="img-navbar" src="img/icons8_Driver_96px_2.png"/> Información Conductor</h4>
@@ -125,7 +185,7 @@
                         </div>
 
                         <div id="resultados"></div><!-- Carga los datos ajax -->
-                        <div class='outer_div'></div><!-- Carga los datos ajax -->
+                        <div class='outer_div'></div><!-- Carga los datos ajax --> 
                      </div>
            </div>
             <div class="col-md-12 padding-15">
@@ -139,11 +199,14 @@
         <br><br>
         
     </div>
+      
+     
 	<?php
 	include("footer.php");
 	?>
     <script type="text/javascript" src="js/carguesvehiculosconductores.js"></script>    
     <script type="text/javascript" src="js/VentanaCentrada.js"></script>
+    <script type="text/javascript" src="js/inputFile.js"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 

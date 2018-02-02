@@ -8,9 +8,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $retorno = Controlador::getNotify();
 
         if ($retorno) {
-		$Datos["Resultado"] = '1';
-                $Datos["Datos"] = $retorno;
-                print json_encode($Datos);
+		/*$Datos["Resultado"] = '1';
+                $Datos["Datos"] = $retorno;*/
+                print json_encode($retorno);
         } else {
 		print json_encode(
                         array(

@@ -44,6 +44,8 @@
             $where_like_estado = "1";
         }else if($estado == "Despachado"){
             $where_like_estado = "2";
+        }else if($estado == "No Aprobado"){
+            $where_like_estado = "3";
         }else{
             $where_like_estado = "%%";
         }
@@ -60,22 +62,23 @@
 		$total_pages = ceil($numrows/$per_page);
 		$reload = './cargues.php';
 		//main query to fetch the data
-        $sql="SELECT car.id_factura_cargue, con.cedula_conductor, con.nombre_conductor, con.apellido_conductor, vehi.placa_vehiculo, est_car.estado_cargue, est_car.fecha_hora_cargue  
-        FROM cargues car 
+        $sql="SELECT fdp.id_factura_despacho, con.cedula_conductor, con.nombre_conductor, con.apellido_conductor, vehi.placa_vehiculo, est_car.estado_cargue, est_car.fecha_hora_cargue  
+        FROM  cargues car 
+        join factura_despacho fdp
         join conductores_vehiculos con_vehi 
         join vehiculos vehi 
         join conductores con 
         join estados_cargues est_car 
-        ON car.id_factura_cargue = est_car.id_factura_cargue 
+        ON fdp.consecutivo_cargue = est_car.consecutivo_cargue 
         AND con_vehi.id_conductor_vehiculo = car.id_conductor_vehiculo
         AND vehi.placa_vehiculo = con_vehi.placa_vehiculo
         AND con.cedula_conductor = con_vehi.cedula_conductor
         WHERE est_car.estado_cargue LIKE '".$where_like_estado."' 
-        XOR car.id_factura_cargue LIKE '%".$q."%'
+        XOR fdp.id_factura_despacho LIKE '%".$q."%'
         XOR con.cedula_conductor LIKE '%".$q."%' 
         XOR concat(con.nombre_conductor, ' ', con.apellido_conductor) LIKE '%".$q."%'
         XOR vehi.placa_vehiculo LIKE '%".$q."%'
-        ORDER BY est_car.fecha_hora_cargue desc;";
+        ORDER BY est_car.fecha_hora_cargue desc";
 		$query = mysqli_query($con, $sql);
 		//loop through fetched data
 		if ($numrows>0){
@@ -95,7 +98,7 @@
 				</tr>
 				<?php
 				while ($row=mysqli_fetch_array($query)){
-						$id_factura_cargue=$row['id_factura_cargue'];
+						$id_factura_despacho=$row['id_factura_cargue'];
 						
                         $cedula_conductor=$row['cedula_conductor'];
                     
@@ -108,7 +111,7 @@
 						
 					?>
 					<tr>
-						<td class="text-center"><?php echo $id_factura_cargue; ?></td>
+						<td class="text-center"><?php echo $id_factura_despacho; ?></td>
 						<td class="text-center"><?php echo $cedula_conductor; ?></td>
 						<td class="text-center"><?php echo $nombre_completo_conductor; ?></td>
                         <td class="text-center"><?php echo $placa_vehiculo; ?></td>
@@ -117,6 +120,7 @@
                                 if($estado_cargue == "0") echo 'Registrado';
                                 else if($estado_cargue == "1") echo 'Verificado';
                                 else if($estado_cargue == "2") echo 'Despachado';
+                                else if($estado_cargue == "3") echo 'No Aprobado';
                             ?>
                         </td>
                         <td class="text-center"><?php echo $fecha_hora_cargue; ?></td>

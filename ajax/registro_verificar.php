@@ -122,10 +122,10 @@
                 if($condicion == "aprobar"){
                     $sql = "update estados_cargues set estado_cargue = 1 where id_factura_cargue = '".$id_factura_verificar."'";
                 }else if($condicion == "noaprobar"){
-                    $sql = "update estados_cargues set estado_cargue = 2 where id_factura_cargue = '".$id_factura_verificar."'";
+                    $sql = "update estados_cargues set estado_cargue = 3 where id_factura_cargue = '".$id_factura_verificar."'";
                 }
                
-                $sql = "update estados_cargues set estado_cargue = 1 where id_factura_cargue = '".$id_factura_verificar."'";
+                //$sql = "update estados_cargues set estado_cargue = 1 where id_factura_cargue = '".$id_factura_verificar."'";
 
                 $query_new_insert = mysqli_query($con,$sql);
 			    if ($query_new_insert){

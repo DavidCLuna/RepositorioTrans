@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 	/*-------------------------
 	Autor: Obed Alvarado
@@ -42,7 +42,7 @@
                     join estados_cargues est
                     on con.cedula_conductor = cv.cedula_conductor AND 
                     cv.id_conductor_vehiculo = car.id_conductor_vehiculo AND
-                    car.id_factura_cargue = est.id_factura_cargue ";
+                    car.consecutivo_cargue = est.consecutivo_cargue ";
 		 $sWhere = "";
 		
 		$sWhere.= " where est.estado_cargue like '0' 
@@ -82,7 +82,7 @@
 				</tr>
 				<?php
 				while ($row=mysqli_fetch_array($query)){
-                        $id_factura=$row['id_factura_cargue'];
+                        $id_factura=$row['consecutivo_cargue'];
 						$cedula_conductor=$row['cedula_conductor'];
 						$nombre_conductor=$row['nombre_conductor']." ".$row['apellido_conductor'];
 						$licencia_conductor=$row['licencia_conductor'];
@@ -94,7 +94,7 @@
 						$total_venta=$row['total_venta'];*/
 					?>
 					<tr>
-                        <td class="text-center"><?php echo $id_factura; ?></td>
+                        <td class="text-center"><?php echo $consecutivo_cargue; ?></td>
 						<td class="text-center"><?php echo $cedula_conductor; ?></td>
 						<td class="text-center"><?php echo $nombre_conductor; ?></td>
 						<!--<td class="text-center"><?php echo $licencia_conductor; ?></td>-->
@@ -106,7 +106,7 @@
 						<!--<td><span class="label <?php /*echo $label_class;*/?>"><?php /*echo $text_estado; */?></span></td>-->
 						<!--<td class='text-right'><?php /*echo number_format ($total_venta,2); */?></td>-->					
 					<td class="text-center">
-                        <button type="button" class="btn btn-warning" onclick="abrirPestanas();asigarCedulaIdFacturaCampo('<?php echo $cedula_conductor ?>','<?php echo $id_factura?>');" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-search" ></span></button>
+                        <button type="button" class="btn btn-warning" onclick="abrirPestanas();asigarCedulaIdFacturaCampo('<?php echo $cedula_conductor ?>','<?php echo $consecutivo_cargue?>');" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-search" ></span></button>
 					</td>
 						
 					</tr>

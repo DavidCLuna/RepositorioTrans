@@ -77,7 +77,7 @@
 		$total_pages = ceil($numrows/$per_page);
 		$reload = './vehiculos.php';
 		//main query to fetch the data
-		$sql="SELECT placa_vehiculo, placa_remolque, capacidad_vehiculo,soat_vehiculo,tecnicomecanico_vehiculo,observaciones_vehiculo,fecha_creacion_vehiculo,TIMESTAMPDIFF(YEAR, soat_vehiculo, CURDATE()) as estado_soat,TIMESTAMPDIFF(YEAR, tecnicomecanico_vehiculo, CURDATE()) as estado_tecnicomecanico FROM  $sTable $sWhere";
+		$sql="SELECT placa_vehiculo, placa_remolque, cantidad_vehiculo,soat_vehiculo,tecnicomecanico_vehiculo,observaciones_vehiculo, fecha_creacion_vehiculo,TIMESTAMPDIFF(YEAR, soat_vehiculo, CURDATE()) as estado_soat,TIMESTAMPDIFF(YEAR, tecnicomecanico_vehiculo, CURDATE()) as estado_tecnicomecanico FROM  $sTable $sWhere";
 		$query = mysqli_query($con, $sql);
 		//loop through fetched data
 		if ($numrows>0){
@@ -99,7 +99,7 @@
 				while ($row=mysqli_fetch_array($query)){
 						$placa_vehiculo=$row['placa_vehiculo'];
                         $placa_remolque=$row['placa_remolque'];
-                        $capacidad_vehiculo=$row['capacidad_vehiculo'];
+                        $capacidad_vehiculo=$row['cantidad_vehiculo'];
                         $soat_vehiculo=$row['soat_vehiculo'];
                         $tecnicomecanico_vehiculo=$row['tecnicomecanico_vehiculo'];
                         $observaciones_vehiculo=$row['observaciones_vehiculo'];
@@ -110,7 +110,7 @@
 					
 					<input type="hidden" value="<?php echo $placa_vehiculo;?>" id="placa_vehiculo<?php echo $placa_vehiculo;?>">
                     <input type="hidden" value="<?php echo $placa_remolque;?>" id="placa_remolque<?php echo $placa_vehiculo;?>">
-                    <input type="hidden" value="<?php echo $capacidad_vehiculo;?>" id="capacidad_vehiculo<?php echo $placa_vehiculo;?>">
+                    <input type="hidden" value="<?php echo $capacidad_vehiculo;?>" id="cantidad_vehiculo<?php echo $placa_vehiculo;?>">
                     <input type="hidden" value="<?php echo $soat_vehiculo;?>" id="soat_vehiculo<?php echo $placa_vehiculo;?>">
                     <input type="hidden" value="<?php echo $tecnicomecanico_vehiculo;?>" id="tecnicomecanico_vehiculo<?php echo $placa_vehiculo;?>">
                     <input type="hidden" value="<?php echo $observaciones_vehiculo;?>" id="observaciones_vehiculo<?php echo $placa_vehiculo;?>">
