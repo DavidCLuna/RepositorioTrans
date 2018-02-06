@@ -1,11 +1,19 @@
 <?php
 	include('is_logged.php');//Archivo verifica que el usario que intenta acceder a la URL esta logueado
 	/*Inicia validacion del lado del servidor*/
+$dataIdFactura = json_decode($_POST['idFactura']);
+echo ($dataIdFactura[0]);
+
+$dataAdjunto = json_decode($_POST['adjunto']);
+echo ($dataAdjunto[0]);
+
+$dataCheck_factura = json_decode($_POST['check_factura']);
+echo ($dataCheck_factura[0]);
 
 	if (empty($_POST['cedula'])) {
            $errors[] = "La cédula se encuentra vacía";
-        } else if(empty($_POST['num_factura'])){
-            $errors[] = "No has digitado el número de la factura";
+      //  } else if(empty($_POST['num_factura'])){
+      //      $errors[] = "No has digitado el número de la factura";
         }else if (empty($_POST['placa'])){
             $errors[] = "No has seleccionado una placa";
         }else{
@@ -27,7 +35,9 @@
                 $count=$count=mysqli_num_rows($query);
                 if ($count>=1){
                     
-                    $id_conductor_vehiculo = $rw_user['id_conductor_vehiculo'];
+                    
+                    //$errors[] = echo var_dump($dataIdFactura);
+                    /*$id_conductor_vehiculo = $rw_user['id_conductor_vehiculo'];
 
                     $sql="INSERT INTO cargues(id_factura_cargue, id_conductor_vehiculo, id_usuario_usuarios, fecha_hora_cargue) values ('$num_factura','$id_conductor_vehiculo','".$_SESSION['user_id_usuario']."',now())";
                     
@@ -50,7 +60,7 @@
                         } 
                     } else {
                         $errors []= "Error desconocido.";
-                    }
+                    }*/
             }else{
                 $errors []= "Ya se encuentra registrado un cargue con este número de factura";
             }

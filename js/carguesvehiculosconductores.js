@@ -73,21 +73,30 @@ $("#btn_registrar_cargue2").click(function(){
 function registrar_cargue(){
     let cedula = document.getElementById("valor_cedula_conductores_vehiculos").value;
     let placa = placa_vehiculo_seleccionada;
-    let num_factura = document.getElementById("id_factura_cargue").value;
 
+    var idFactura = [];
+    var adjunto = [];
+    var check_factura = [];
 
-alert(contadorFilas);
-    
-
+for (var i = 0; i <= contadorFilas; i++) {
+    alert("prueba: "+i);
+    idFactura[i] = document.getElementById("id_factura"+i.toString()).value;
+    adjunto[i] = document.getElementById("adjunto"+i.toString()).value;
+    if(document.getElementById("check_factura"+i.toString()).checked){
+        check_factura[i] = "true"
+    }else{
+        check_factura[i] = "false"
+    }
+}
 
     var parametros = {
         "cedula" : cedula,
-        "placa" : placa,
-        "num_factura" : num_factura
+        "placa" : placa//,
+        //"num_factura" : num_factura
     };
     
     $.ajax({
-        data: parametros,
+        data: {'idFactura':JSON.stringify(idFactura), 'adjunto':JSON.stringify(adjunto), 'check_factura':JSON.stringify(check_factura),'cedula':cedula, 'placa':placa, 'contadorFilas':contadorFilas},
         url: "ajax/nuevo_cargue.php",
         type: "post",
         beforeSend: function(){
@@ -100,11 +109,12 @@ alert(contadorFilas);
                 $("#resultado_registro_cargue").html(datos);
                 $('#btn_registrar_cargue1').attr("disabled", false);
                 $('#btn_registrar_cargue2').attr("disabled", false);
-               /* if(idTRGlobal != null && idTRGlobal != ""){
-                    seleccionarFilaVehiculos(idTRGlobal);
-                }*/
+               // if(idTRGlobal != null && idTRGlobal != ""){
+                //    seleccionarFilaVehiculos(idTRGlobal);
+               // }
               }
-    })    
+    })   
+
 }
 
 /*

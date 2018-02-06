@@ -57,25 +57,19 @@
           function agregarFilaTabla() {
               contadorFilas ++;
               var fila_nueva = "<br> <div class='col-sm-4  col-sm-offset-3 col-md-offset-3'>"+
-                          "<input type='text' class='form-control input-sm' id='id_factura_cargue' name='id_factura"+contadorFilas+"' placeholder='Factura o Despacho'>"+
+                          "<input type='text' class='form-control input-sm' id='id_factura"+contadorFilas+"' placeholder='Factura o Despacho'>"+
                    "</div>"+
                     "<div class='col-lg-4 col-sm-3 col-11' id='cont_factura'>"+
-                        "<div class='form-group'>"+
-                            "<div class='input-group input-file' name='Fichier1'>"+
-                                "<span class='input-group-btn'>"+
-                                  "<button class='btn btn-default btn-choose' type='button'>Adjuntar archivo</button>"+
-                                "</span>"+
-                                         "<input type='text' class='form-control' placeholder='nombre..' name='codigo"+contadorFilas+"'/>"+
-                                "<span class='input-group-btn'>"+
-                                    "<button class='btn btn-warning btn-reset' type='button'>Limpiar</button>"+
-                                "</span>"+
+                        "<div class='col-lg-4 col-sm-3 col-11'>"+
+                            "<div class='form-group'>"+
+                                "<input type='file' class='form-control-file' id='adjunto"+contadorFilas+"' aria-describedby='fileHelp'>"+
                             "</div>"+
                         "</div>"+
                     "</div>"+
                     
                     "<div class='col-lg-4 col-5 col-sm-2'>"+
                       "<label>"+
-                                 "<input type='checkbox' name='check_factura"+contadorFilas+"'> Factura"+
+                                 "<input type='checkbox' id='check_factura"+contadorFilas+"'> Factura"+
                             "</label>"+
                     "</div>";
               document.getElementById("cont_factura").innerHTML += fila_nueva;
@@ -105,24 +99,16 @@
                      </div>
                     
                         <div class="col-sm-2">
-                              <input type="text" class="form-control input-sm" id="id_factura_cargue" name="id_factura0" placeholder="Factura o Despacho">
+                              <input type="text" class="form-control input-sm" id="id_factura0" placeholder="Factura o Despacho">
                         </div>
                         <div class="col-lg-4 col-sm-3 col-11">
                             <div class="form-group">
-                                <div class="input-group input-file" name="Fichier1">
-                                    <span class="input-group-btn">
-                                      <button class="btn btn-default btn-choose" type="button">Adjuntar archivo</button>
-                                    </span>
-                                        <input type="text" class="form-control" name="codigo0" placeholder='nombre..' />
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-warning btn-reset" type="button">Limpiar</button>
-                                    </span>
-                                </div>
+                                <input type="file" class="form-control-file" id="adjunto0" aria-describedby="fileHelp">
                             </div>
                         </div>
                         <div class="col-lg-4 col-5 col-sm-2">
                           <label>
-                                     <input type="checkbox" name="check_factura0"> Factura
+                                     <input type="checkbox" id="check_factura0"> Factura
                                 </label>
                         </div>
                     </div>
