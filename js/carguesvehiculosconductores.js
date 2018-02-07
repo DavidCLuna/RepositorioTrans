@@ -87,7 +87,7 @@ for (var i = 0; i <= contadorFilas; i++) {
     inputFileDocument = document.getElementById("adjunto"+i.toString());
     
     var file = inputFileDocument.files[0];
-    dataDocument.append('adjunto'+i.toString(),file);
+    dataDocument.append('documento'+i.toString(),file);
 
 
     if(document.getElementById("check_factura"+i.toString()).checked){

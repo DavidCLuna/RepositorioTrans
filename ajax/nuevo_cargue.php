@@ -43,11 +43,31 @@
                     $sql="insert into cargues 
                         (id_conductor_vehiculo, id_usuario_usuarios, fecha_hora_cargue, destino) values('".$id_conductor_vehiculo."','".$_SESSION['user_id_usuario']."',now(),'".$destino_cargue."')";
 
-                    
+                    $consecutivo = consultarConsecutivo();
                     
                     for ($i=0; $i <= $contadorFilas ; $i++) { 
                         
-                        registrarFactura();
+                        $upload_folder ='uploads';
+
+                        $nombre_archivo = $_FILES['documento'.$i]['name'];
+
+                        $tipo_archivo = $_FILES['documento'.$i]['type'];
+
+                        $tamano_archivo = $_FILES['documento'.$i]['size'];
+
+                        $tmp_archivo = $_FILES['documento'.$i]['tmp_name'];
+
+                        $archivador = $upload_folder . '/' . $nombre_archivo;
+
+                        if (!move_uploaded_file($tmp_archivo, $archivador)) {
+
+                            $return = Array('ok' => FALSE, 'msg' => "Ocurrio un error al subir el archivo. No pudo guardarse.", 'status' => ‘error’);
+                            
+                            $nombre_archivo = "";
+
+                        }
+
+                        registrarFactura($consecutivo, $dataIdFactura[$i], $nombre_archivo, $tipoDocumento);
 
                     }
 
@@ -62,13 +82,9 @@
                         values (".id_consecutivo.")
                     */
 
-
-
-
-
                     //$errors[] = echo var_dump($dataIdFactura);
                     
-
+/*
                     $sql="INSERT INTO cargues(id_factura_cargue, id_conductor_vehiculo, id_usuario_usuarios, fecha_hora_cargue) values ('$num_factura','$id_conductor_vehiculo','".$_SESSION['user_id_usuario']."',now())";
                     
                     $query_new_insert = mysqli_query($con,$sql);
@@ -90,7 +106,7 @@
                         } 
                     } else {
                         $errors []= "Error desconocido.";
-                    }
+                    }*/
             }else{
                 $errors []= "Ya se encuentra registrado un cargue con este número de factura";
             }
@@ -106,7 +122,7 @@
                     <?php
                         foreach ($errors as $error) {
                                 echo $error;
-                            }
+                        }
                         ?>
             </div>
             <?php
@@ -130,7 +146,8 @@
 
 function registrarFactura($consecutivo_cargue, $id_factura_despacho, $documento, $tipo_documento){
     
-    
+    $upload_folder='uploads';
+    $nombre_archivo=$_FILES['documento']['name'];
     
     
     $sql="insert into factura_despacho(consecutivo_cargue, id_factura_despacho, url_documento, tipo_documento)
@@ -142,7 +159,11 @@ function registrarFactura($consecutivo_cargue, $id_factura_despacho, $documento,
     }
 }
 
-function consultarConsecutivo
+function consultarConsecutivo(){
+    $resul = mysqli_query($con, "SELECT MAX(consecutivo_cargue) as consecutivo from cargues");
+    $row = mysqli_fetch_array($resul);
+    return $row['consecutivo'];         
+}
 
 
 
