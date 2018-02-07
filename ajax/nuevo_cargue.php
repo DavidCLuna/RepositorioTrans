@@ -1,14 +1,7 @@
 <?php
 	include('is_logged.php');//Archivo verifica que el usario que intenta acceder a la URL esta logueado
 	/*Inicia validacion del lado del servidor*/
-$dataIdFactura = json_decode($_POST['idFactura']);
-echo ($dataIdFactura[0]);
 
-$dataAdjunto = json_decode($_POST['adjunto']);
-echo ($dataAdjunto[0]);
-
-$dataCheck_factura = json_decode($_POST['check_factura']);
-echo ($dataCheck_factura[0]);
 
 	if (empty($_POST['cedula'])) {
            $errors[] = "La cédula se encuentra vacía";
@@ -35,9 +28,46 @@ echo ($dataCheck_factura[0]);
                 $count=$count=mysqli_num_rows($query);
                 if ($count>=1){
                     
+
+                    $dataIdFactura = json_decode($_POST['idFactura']);
+                    echo ($dataIdFactura[0]);
+
+                    $dataAdjunto = json_decode($_POST['adjunto']);
+                    echo ($dataAdjunto[0]);
+
+                    $dataCheck_factura = json_decode($_POST['check_factura']);
+                    echo ($dataCheck_factura[0]);
                     
+                    $id_conductor_vehiculo = $rw_user['id_conductor_vehiculo']; 
+
+                    $sql="insert into cargues 
+                        (id_conductor_vehiculo, id_usuario_usuarios, fecha_hora_cargue, destino) values('".$id_conductor_vehiculo."','".$_SESSION['user_id_usuario']."',now(),'".$destino_cargue."')";
+
+                    
+                    
+                    for ($i=0; $i <= $contadorFilas ; $i++) { 
+                        
+                        registrarFactura();
+
+                    }
+
+                    /*
+                        insert into cargues 
+                        (id_conductor_vehiculo, id_usuario_usuarios, fecha_hora_cargue, destino)
+                        values ();
+
+                        $id_consecutivo = select max(consecutivo_cargue) from cargues;
+
+                        insert into factura_despacho(consecutivo_cargue, id_factura_despacho, url_documento, tipo_documento)
+                        values (".id_consecutivo.")
+                    */
+
+
+
+
+
                     //$errors[] = echo var_dump($dataIdFactura);
-                    /*$id_conductor_vehiculo = $rw_user['id_conductor_vehiculo'];
+                    
 
                     $sql="INSERT INTO cargues(id_factura_cargue, id_conductor_vehiculo, id_usuario_usuarios, fecha_hora_cargue) values ('$num_factura','$id_conductor_vehiculo','".$_SESSION['user_id_usuario']."',now())";
                     
@@ -60,7 +90,7 @@ echo ($dataCheck_factura[0]);
                         } 
                     } else {
                         $errors []= "Error desconocido.";
-                    }*/
+                    }
             }else{
                 $errors []= "Ya se encuentra registrado un cargue con este número de factura";
             }
@@ -96,5 +126,25 @@ echo ($dataCheck_factura[0]);
             </div>
             <?php
         }
+
+
+function registrarFactura($consecutivo_cargue, $id_factura_despacho, $documento, $tipo_documento){
+    
+    
+    
+    
+    $sql="insert into factura_despacho(consecutivo_cargue, id_factura_despacho, url_documento, tipo_documento)
+                        values (".id_consecutivo.")";
+    
+    $query_new_insert = mysqli_query($con,$sql);
+    if ($query_new_insert){
+        echo "registrada factura: ".id_factura_despacho;
+    }
+}
+
+function consultarConsecutivo
+
+
+
 
 ?>

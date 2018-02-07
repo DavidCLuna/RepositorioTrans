@@ -75,28 +75,31 @@ function registrar_cargue(){
     let placa = placa_vehiculo_seleccionada;
 
     var idFactura = [];
-    var adjunto = [];
+    var dataDocument = new FormData();
+    var inputFileDocument;
     var check_factura = [];
 
+
+
 for (var i = 0; i <= contadorFilas; i++) {
-    alert("prueba: "+i);
+
     idFactura[i] = document.getElementById("id_factura"+i.toString()).value;
-    adjunto[i] = document.getElementById("adjunto"+i.toString()).value;
+    inputFileDocument = document.getElementById("adjunto"+i.toString());
+    
+    var file = inputFileDocument.files[0];
+    dataDocument.append('adjunto'+i.toString(),file);
+
+
     if(document.getElementById("check_factura"+i.toString()).checked){
         check_factura[i] = "true"
     }else{
         check_factura[i] = "false"
     }
+
 }
 
-    var parametros = {
-        "cedula" : cedula,
-        "placa" : placa//,
-        //"num_factura" : num_factura
-    };
-    
     $.ajax({
-        data: {'idFactura':JSON.stringify(idFactura), 'adjunto':JSON.stringify(adjunto), 'check_factura':JSON.stringify(check_factura),'cedula':cedula, 'placa':placa, 'contadorFilas':contadorFilas},
+        data: {dataDocument, 'idFactura':JSON.stringify(idFactura), 'adjunto':JSON.stringify(adjunto), 'check_factura':JSON.stringify(check_factura),'cedula':cedula, 'placa':placa, 'contadorFilas':contadorFilas},
         url: "ajax/nuevo_cargue.php",
         type: "post",
         beforeSend: function(){
@@ -119,5 +122,7 @@ for (var i = 0; i <= contadorFilas; i++) {
 
 /*
 https://www.facebook.com/davidhurtadotv/videos/455870698131986/
-*/
+*/ 
+
+
 
