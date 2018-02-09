@@ -72,6 +72,7 @@ $("#btn_registrar_cargue2").click(function(){
 
 function registrar_cargue(){
     let cedula = document.getElementById("valor_cedula_conductores_vehiculos").value;
+    let destino = document.getElementById("destino_cargue").value;
     let placa = placa_vehiculo_seleccionada;
 
     var idFactura = [];
@@ -79,6 +80,7 @@ function registrar_cargue(){
     var inputFileDocument;
     var check_factura = [];
 
+    
 
 
 for (var i = 0; i <= contadorFilas; i++) {
@@ -98,30 +100,30 @@ for (var i = 0; i <= contadorFilas; i++) {
 
 }
 
-    $.ajax({
-        data: {dataDocument, 'idFactura':JSON.stringify(idFactura), 'adjunto':JSON.stringify(adjunto), 'check_factura':JSON.stringify(check_factura),'cedula':cedula, 'placa':placa, 'contadorFilas':contadorFilas},
-        url: "ajax/nuevo_cargue.php",
-        type: "post",
-        beforeSend: function(){
-            $("#resultado_registro_cargue").html("Mensaje: Cargando...");
-            $('#btn_registrar_cargue1').attr("disabled", true);
-            $('#btn_registrar_cargue2').attr("disabled", true);
-            
-        },
-        success: function(datos){
-                $("#resultado_registro_cargue").html(datos);
-                $('#btn_registrar_cargue1').attr("disabled", false);
-                $('#btn_registrar_cargue2').attr("disabled", false);
-               // if(idTRGlobal != null && idTRGlobal != ""){
-                //    seleccionarFilaVehiculos(idTRGlobal);
-               // }
-              }
-    })   
+$.ajax({
+    data: /*dataDocument,*/{ 'idFactura':JSON.stringify(idFactura),  'check_factura':JSON.stringify(check_factura),'cedula':cedula, 'placa':placa, 'destino_cargue':destino,'contadorFilas':contadorFilas},
+    url: "ajax/nuevo_cargue.php",
+    type: "post",
+    beforeSend: function(){
+        $("#resultado_registro_cargue").html("Mensaje: Cargando...");
+        $('#btn_registrar_cargue1').attr("disabled", true);
+        $('#btn_registrar_cargue2').attr("disabled", true);
+
+    },
+    success: function(datos){
+            $("#resultado_registro_cargue").html(datos);
+            $('#btn_registrar_cargue1').attr("disabled", false);
+            $('#btn_registrar_cargue2').attr("disabled", false);
+           // if(idTRGlobal != null && idTRGlobal != ""){
+            //    seleccionarFilaVehiculos(idTRGlobal);
+           // }
+          }
+})   
 
 }
 
 /*
-https://www.facebook.com/davidhurtadotv/videos/455870698131986/
+    https://www.facebook.com/davidhurtadotv/videos/455870698131986/
 */ 
 
 

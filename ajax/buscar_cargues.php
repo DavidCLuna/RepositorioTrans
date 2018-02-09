@@ -98,6 +98,9 @@
 				</tr>
 				<?php
 				while ($row=mysqli_fetch_array($query)){
+                    
+            echo "´rueaaaa";
+            echo "´rueaaaa";
 						$id_factura_despacho=$row['id_factura_cargue'];
 						
                         $cedula_conductor=$row['cedula_conductor'];

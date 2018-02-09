@@ -56,23 +56,23 @@
 
           function agregarFilaTabla() {
               contadorFilas ++;
-              var fila_nueva = "<br> <div class='col-sm-4  col-sm-offset-3 col-md-offset-3'>"+
+              var fila_nueva = "<br> <div class='col-sm-2  col-sm-offset-1 col-md-offset-1'>"+
                           "<input type='text' class='form-control input-sm' id='id_factura"+contadorFilas+"' placeholder='Factura o Despacho'>"+
                    "</div>"+
-                    "<div class='col-lg-4 col-sm-3 col-11' id='cont_factura'>"+
                         "<div class='col-lg-4 col-sm-3 col-11'>"+
                             "<div class='form-group'>"+
                                 "<input type='file' class='form-control-file' id='adjunto"+contadorFilas+"' aria-describedby='fileHelp'>"+
                             "</div>"+
                         "</div>"+
-                    "</div>"+
-                    
                     "<div class='col-lg-4 col-5 col-sm-2'>"+
                       "<label>"+
                                  "<input type='checkbox' id='check_factura"+contadorFilas+"'> Factura"+
                             "</label>"+
-                    "</div>";
-              document.getElementById("cont_factura").innerHTML += fila_nueva;
+                    "</div><br>";
+              
+              $('#cont_factura').append(fila_nueva);
+            
+              
             }
           </script>
 
@@ -91,6 +91,12 @@
                 <h4><img class="img-navbar" src="img/icons8_Bill_100px.png"/> Información Factura o Despacho</h4>
             </div>
             <div class="panel-body" role="toolbar">
+                <div class="form-group row">
+                    <label for="q" style="margin-top:5px;" class="col-md-1 control-label">Destino</label>
+                                <div class="col-md-5">
+                                    <input style="text-transform: uppercase;" type="text" class="form-control"  id="destino_cargue" placeholder="Destino del cargue">
+                                </div>
+                </div>
                 <form class="" role="form" id="datos_factura">
                       <!--<label for="nombre_cliente" class="col-md-1 control-label">Número </label>-->
                     <div class="form-inline" id="cont_factura">
@@ -111,6 +117,7 @@
                                      <input type="checkbox" id="check_factura0"> Factura
                                 </label>
                         </div>
+                        <br>
                     </div>
 
 

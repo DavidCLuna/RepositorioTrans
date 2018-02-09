@@ -138,7 +138,7 @@
                     $acumulador += 1;
 					$placa_vehiculo = $row['placa_vehiculo'];
                     $placa_remolque = $row['placa_remolque'];
-                    $capacidad_vehiculo = $row['capacidad_vehiculo'];
+                    $capacidad_vehiculo = $row['cantidad_vehiculo'];
                     $soat_vehiculo = $row['soat_vehiculo'];
                     $tecnicomecanico_vehiculo = $row['tecnicomecanico_vehiculo'];
                     $observaciones_vehiculo = $row['observaciones_vehiculo'];
