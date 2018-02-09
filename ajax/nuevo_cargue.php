@@ -4,13 +4,13 @@ require_once ("../config/db.php");//Contiene las variables de configuracion para
 require_once ("../config/conexion.php");//Contiene funcion que conecta a la base de datos
 	include('is_logged.php');//Archivo verifica que el usario que intenta acceder a la URL esta logueado
 	/*Inicia validacion del lado del servidor*/
-
-
-	if (empty($_POST['cedula'])) {
+echo $_POST['id_factura0'];
+echo $_POST['adjunto0'];
+	if (empty($_POST['valor_cedula_conductores_vehiculos'])) {
            $errors[] = "La cédula se encuentra vacía";
       //  } else if(empty($_POST['num_factura'])){
       //      $errors[] = "No has digitado el número de la factura";
-        }else if (empty($_POST['placa'])){
+        }else if (empty($_POST['placa_vehiculo'])){
             $errors[] = "No has seleccionado una placa";
         }else if (empty($_POST['contadorFilas'])){
             $errors[] = "No se puedo obtener la cantidad de filas agregadas";

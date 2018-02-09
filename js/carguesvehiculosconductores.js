@@ -72,14 +72,29 @@ $("#btn_registrar_cargue2").click(function(){
 
 function registrar_cargue(){
     let cedula = document.getElementById("valor_cedula_conductores_vehiculos").value;
-    let destino = document.getElementById("destino_cargue").value;
+    //let destino = document.getElementById("destino_cargue").value;
     let placa = placa_vehiculo_seleccionada;
+    
+    $("#placa_vehiculo").val(placa);
 
     var idFactura = [];
     var dataDocument = new FormData();
     var inputFileDocument;
     var check_factura = [];
+/*
 
+            // En el formdata colocamos todos los archivos que vamos a subir 
+            for (var i = 0; i < (d.find('input[type=file]').length); i++) {  
+                // buscará todos los input con el valor "file" y subirá cada archivo. Serán diferenciados en el PHP gracias al "name" de cada uno.
+                dataDocument.append((d.find('input[type="file"]').eq(i).attr("name")),((d.find('input[type="file"]:eq('+i+')')[0]).files[0]));             
+                } 
+                 
+            for (var i = 0; i < (d.find('input').not('input[type=file]').not('input[type=submit]').length); i++) { 
+                // buscará todos los input menos el valor "file" y "sumbit . Serán diferenciados en el PHP gracias al "name" de cada uno.
+                dataDocument.append( (d.find('input').not('input[type=file]').not('input[type=submit]').eq(i).attr("name")),(d.find('input').not('input[type=file]').not('input[type=submit]').eq(i).val()) );            
+                } 
+    */
+    /*
     
 
 
@@ -99,9 +114,9 @@ for (var i = 0; i <= contadorFilas; i++) {
     }
 
 }
-
+*/
 $.ajax({
-    data: /*dataDocument,*/{ 'idFactura':JSON.stringify(idFactura),  'check_factura':JSON.stringify(check_factura),'cedula':cedula, 'placa':placa, 'destino_cargue':destino,'contadorFilas':contadorFilas},
+    data: $("#datos_factura").serialize(),
     url: "ajax/nuevo_cargue.php",
     type: "post",
     beforeSend: function(){
