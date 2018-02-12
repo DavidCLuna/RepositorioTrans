@@ -63,60 +63,11 @@ $( "#formulario_vinculacion_cargue" ).submit(function( event ) {
 })
 
 $("#btn_registrar_cargue1").click(function(){
-    registrar_cargue();
-})
-
-$("#btn_registrar_cargue2").click(function(){
-    registrar_cargue();
-})
-
-function registrar_cargue(){
-    let cedula = document.getElementById("valor_cedula_conductores_vehiculos").value;
-    //let destino = document.getElementById("destino_cargue").value;
-    let placa = placa_vehiculo_seleccionada;
-    
-    $("#placa_vehiculo").val(placa);
-
-    var idFactura = [];
-    var dataDocument = new FormData();
-    var inputFileDocument;
-    var check_factura = [];
-/*
-
-            // En el formdata colocamos todos los archivos que vamos a subir 
-            for (var i = 0; i < (d.find('input[type=file]').length); i++) {  
-                // buscará todos los input con el valor "file" y subirá cada archivo. Serán diferenciados en el PHP gracias al "name" de cada uno.
-                dataDocument.append((d.find('input[type="file"]').eq(i).attr("name")),((d.find('input[type="file"]:eq('+i+')')[0]).files[0]));             
-                } 
-                 
-            for (var i = 0; i < (d.find('input').not('input[type=file]').not('input[type=submit]').length); i++) { 
-                // buscará todos los input menos el valor "file" y "sumbit . Serán diferenciados en el PHP gracias al "name" de cada uno.
-                dataDocument.append( (d.find('input').not('input[type=file]').not('input[type=submit]').eq(i).attr("name")),(d.find('input').not('input[type=file]').not('input[type=submit]').eq(i).val()) );            
-                } 
-    */
-    /*
-    
-
-
-for (var i = 0; i <= contadorFilas; i++) {
-
-    idFactura[i] = document.getElementById("id_factura"+i.toString()).value;
-    inputFileDocument = document.getElementById("adjunto"+i.toString());
-    
-    var file = inputFileDocument.files[0];
-    dataDocument.append('documento'+i.toString(),file);
-
-
-    if(document.getElementById("check_factura"+i.toString()).checked){
-        check_factura[i] = "true"
-    }else{
-        check_factura[i] = "false"
-    }
-
-}
-*/
-$.ajax({
-    data: $("#datos_factura").serialize(),
+    //registrar_cargue();
+    upload_document();
+   /* $.ajax({
+    dataType: "JSON",
+    data: new FormData($('#datos_factura')[0]),
     url: "ajax/nuevo_cargue.php",
     type: "post",
     beforeSend: function(){
@@ -133,13 +84,38 @@ $.ajax({
             //    seleccionarFilaVehiculos(idTRGlobal);
            // }
           }
-})   
+    })   */
+})
+ 
+
+function upload_document(){//Funcion encargada de enviar el archivo via AJAX
+   
+    var data = new FormData();
+    for(var i = 0; i <= contadorFilas; i++){
+        var inputFileImage = document.getElementById("adjunto"+i);
+        var file = inputFileImage.files[0];
+        data.append('adjunto'+i,file);
+        let id_factura = document.getElementById("id_factura"+i).value;
+        alert(id_factura);
+        data.append('id_factura'+i,id_factura);
+    }
+    /*jQuery.each($('#fileToUpload')[0].files, function(i, file) {
+        data.append('file'+i, file);
+    });*/
+
+    $.ajax({
+        url: "ajax/registrar_documentos_cargue.php?cantidad="+contadorFilas,        // Url to which the request is send
+        type: "POST",             // Type of request to be send, called as method
+        data: data, 			  // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+        contentType: false,       // The content type used when sending data to the server.
+        cache: false,             // To unable request pages to be cached
+        processData:false,        // To send DOMDocument or non processed data file it is set to false
+        success: function(data)   // A function to be called if request succeeds
+        {
+           $("#resultado_registro_cargue").html(datos);
+        }
+    });
 
 }
-
-/*
-    https://www.facebook.com/davidhurtadotv/videos/455870698131986/
-*/ 
-
 
 

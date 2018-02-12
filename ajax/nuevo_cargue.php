@@ -6,6 +6,10 @@ require_once ("../config/conexion.php");//Contiene funcion que conecta a la base
 	/*Inicia validacion del lado del servidor*/
 echo $_POST['id_factura0'];
 echo $_POST['adjunto0'];
+echo $_FILES['adjunto0']['name'];
+echo $_POST['cedula'];
+
+
 	if (empty($_POST['valor_cedula_conductores_vehiculos'])) {
            $errors[] = "La cédula se encuentra vacía";
       //  } else if(empty($_POST['num_factura'])){
@@ -184,7 +188,6 @@ function registrarFactura($consecutivo_cargue, $id_factura_despacho, $documento,
 function consultarConsecutivo(){
     $query=mysqli_query($con, "SELECT MAX(consecutivo_cargue) as consecutivo from cargues");
     $row = mysqli_fetch_array($query);
-    
     return $row['consecutivo'];         
 }
 

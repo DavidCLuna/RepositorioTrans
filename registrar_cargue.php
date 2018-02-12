@@ -78,7 +78,7 @@
 
       <input type="hidden" id="valor_cedula_conductores_vehiculos" name="valor_cedula_conductores_vehiculos" value="<?php echo $_GET['cedula']?>"/>
       <input type="hidden" id="placa_vehiculo" name="placa_vehiculo" value=""/>
-      
+      <form class="" role="form" id="datos_factura" method="post" >
     <div class="container">
          <div id="resultado_registro_cargue"></div><!-- Carga el resultado del registro -->
         <div class="form-group row">
@@ -98,8 +98,9 @@
                                     <input style="text-transform: uppercase;" type="text" class="form-control"  id="destino_cargue" name="destino_cargue" placeholder="Destino del cargue">
                                 </div>
                 </div>
-                <form class="" role="form" id="datos_factura">
+                
                       <!--<label for="nombre_cliente" class="col-md-1 control-label">Número </label>-->
+                    <input type="hidden" class="form-control"  id="cedula" name="cedula" value="<?php echo $_GET['cedula'] ?>">
                     <div class="form-inline" id="cont_factura">
                      <div class="col-sm-1">
                           <a data-toggle="modal" onclick="agregarFilaTabla()" style="cursor: pointer; color: black;"><img  class="img-icon" src="../img/icons8_Add_New_104px_1.png"/></a>
@@ -122,7 +123,7 @@
                     </div>
 
 
-              </form>	
+            
 
            </div>	
             
@@ -166,8 +167,6 @@
 
                                 <label for="q" class="col-md-1 control-label">Placa</label>
                                 <div class="col-md-5">
-                                    <input type="hidden" class="form-control"  id="cedula" name="cedula" value="<?php echo $_GET['cedula'] ?>">
-                                    <input type="text" class="form-control"  id="placa" name="placa" placeholder="Placa del vehículo">
                                 </div>
                                 <div class="col-md-3">
                                     <button type="submit" class="btn btn-default"id="guardar_cargue" onclick=''>
@@ -193,6 +192,7 @@
         <br><br>
         
     </div>
+ </form>	
       
      
 	<?php
