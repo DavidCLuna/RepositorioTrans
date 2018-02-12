@@ -1,14 +1,7 @@
 <?php
 	include('is_logged.php');//Archivo verifica que el usario que intenta acceder a la URL esta logueado
 	/*Inicia validacion del lado del servidor*/
-$dataIdFactura = json_decode($_POST['idFactura']);
-echo ($dataIdFactura[0]);
 
-$dataAdjunto = json_decode($_POST['adjunto']);
-echo ($dataAdjunto[0]);
-
-$dataCheck_factura = json_decode($_POST['check_factura']);
-echo ($dataCheck_factura[0]);
 
 	if (empty($_POST['cedula'])) {
            $errors[] = "La cédula se encuentra vacía";
@@ -35,10 +28,63 @@ echo ($dataCheck_factura[0]);
                 $count=$count=mysqli_num_rows($query);
                 if ($count>=1){
                     
-                    
-                    //$errors[] = echo var_dump($dataIdFactura);
-                    /*$id_conductor_vehiculo = $rw_user['id_conductor_vehiculo'];
 
+                    $dataIdFactura = json_decode($_POST['idFactura']);
+                    echo ($dataIdFactura[0]);
+
+                    $dataAdjunto = json_decode($_POST['adjunto']);
+                    echo ($dataAdjunto[0]);
+
+                    $dataCheck_factura = json_decode($_POST['check_factura']);
+                    echo ($dataCheck_factura[0]);
+                    
+                    $id_conductor_vehiculo = $rw_user['id_conductor_vehiculo']; 
+
+                    $sql="insert into cargues 
+                        (id_conductor_vehiculo, id_usuario_usuarios, fecha_hora_cargue, destino) values('".$id_conductor_vehiculo."','".$_SESSION['user_id_usuario']."',now(),'".$destino_cargue."')";
+
+                    $consecutivo = consultarConsecutivo();
+                    
+                    for ($i=0; $i <= $contadorFilas ; $i++) { 
+                        
+                        $upload_folder ='uploads';
+
+                        $nombre_archivo = $_FILES['documento'.$i]['name'];
+
+                        $tipo_archivo = $_FILES['documento'.$i]['type'];
+
+                        $tamano_archivo = $_FILES['documento'.$i]['size'];
+
+                        $tmp_archivo = $_FILES['documento'.$i]['tmp_name'];
+
+                        $archivador = $upload_folder . '/' . $nombre_archivo;
+
+                        if (!move_uploaded_file($tmp_archivo, $archivador)) {
+
+                            $return = Array('ok' => FALSE, 'msg' => "Ocurrio un error al subir el archivo. No pudo guardarse.", 'status' => ‘error’);
+                            
+                            $nombre_archivo = "";
+
+                        }
+
+                        registrarFactura($consecutivo, $dataIdFactura[$i], $nombre_archivo, $tipoDocumento);
+
+                    }
+
+                    /*
+                        insert into cargues 
+                        (id_conductor_vehiculo, id_usuario_usuarios, fecha_hora_cargue, destino)
+                        values ();
+
+                        $id_consecutivo = select max(consecutivo_cargue) from cargues;
+
+                        insert into factura_despacho(consecutivo_cargue, id_factura_despacho, url_documento, tipo_documento)
+                        values (".id_consecutivo.")
+                    */
+
+                    //$errors[] = echo var_dump($dataIdFactura);
+                    
+/*
                     $sql="INSERT INTO cargues(id_factura_cargue, id_conductor_vehiculo, id_usuario_usuarios, fecha_hora_cargue) values ('$num_factura','$id_conductor_vehiculo','".$_SESSION['user_id_usuario']."',now())";
                     
                     $query_new_insert = mysqli_query($con,$sql);
@@ -76,7 +122,7 @@ echo ($dataCheck_factura[0]);
                     <?php
                         foreach ($errors as $error) {
                                 echo $error;
-                            }
+                        }
                         ?>
             </div>
             <?php
@@ -96,5 +142,30 @@ echo ($dataCheck_factura[0]);
             </div>
             <?php
         }
+
+
+function registrarFactura($consecutivo_cargue, $id_factura_despacho, $documento, $tipo_documento){
+    
+    $upload_folder='uploads';
+    $nombre_archivo=$_FILES['documento']['name'];
+    
+    
+    $sql="insert into factura_despacho(consecutivo_cargue, id_factura_despacho, url_documento, tipo_documento)
+                        values (".id_consecutivo.")";
+    
+    $query_new_insert = mysqli_query($con,$sql);
+    if ($query_new_insert){
+        echo "registrada factura: ".id_factura_despacho;
+    }
+}
+
+function consultarConsecutivo(){
+    $resul = mysqli_query($con, "SELECT MAX(consecutivo_cargue) as consecutivo from cargues");
+    $row = mysqli_fetch_array($resul);
+    return $row['consecutivo'];         
+}
+
+
+
 
 ?>
