@@ -62,23 +62,18 @@
 		$total_pages = ceil($numrows/$per_page);
 		$reload = './cargues.php';
 		//main query to fetch the data
-        $sql="SELECT fdp.id_factura_despacho, con.cedula_conductor, con.nombre_conductor, con.apellido_conductor, vehi.placa_vehiculo, est_car.estado_cargue, est_car.fecha_hora_cargue  
-        FROM  cargues car 
-        join factura_despacho fdp
-        join conductores_vehiculos con_vehi 
-        join vehiculos vehi 
-        join conductores con 
-        join estados_cargues est_car 
-        ON fdp.consecutivo_cargue = est_car.consecutivo_cargue 
-        AND con_vehi.id_conductor_vehiculo = car.id_conductor_vehiculo
-        AND vehi.placa_vehiculo = con_vehi.placa_vehiculo
-        AND con.cedula_conductor = con_vehi.cedula_conductor
-        WHERE est_car.estado_cargue LIKE '".$where_like_estado."' 
-        XOR fdp.id_factura_despacho LIKE '%".$q."%'
-        XOR con.cedula_conductor LIKE '%".$q."%' 
-        XOR concat(con.nombre_conductor, ' ', con.apellido_conductor) LIKE '%".$q."%'
-        XOR vehi.placa_vehiculo LIKE '%".$q."%'
-        ORDER BY est_car.fecha_hora_cargue desc";
+        $sql="SELECT estados_cargues.estado_cargue ,estados_cargues.fecha_hora_cargue , factura_despacho.id_factura_despacho,conductores.nombre_conductor , conductores.apellido_conductor ,conductores.cedula_conductor ,vehiculos.placa_vehiculo
+from cargues 
+join estados_cargues on estados_cargues.consecutivo_cargue = cargues.consecutivo_cargue
+join factura_despacho on factura_despacho.consecutivo_cargue = cargues.consecutivo_cargue
+join conductores_vehiculos on conductores_vehiculos.id_conductor_vehiculo = cargues.id_conductor_vehiculo
+join conductores  on conductores.cedula_conductor = conductores_vehiculos.cedula_conductor
+join vehiculos on vehiculos.placa_vehiculo = conductores_vehiculos.placa_vehiculo
+where estados_cargues.estado_cargue LIKE '".$where_like_estado."' 
+and factura_despacho.id_factura_despacho LIKE '%".$q."%'
+xor conductores.cedula_conductor LIKE '%".$q."%'
+xor vehiculos.placa_vehiculo LIKE '%".$q."%'
+order by estados_cargues.fecha_hora_cargue desc";
 		$query = mysqli_query($con, $sql);
 		//loop through fetched data
 		if ($numrows>0){
@@ -99,9 +94,8 @@
 				<?php
 				while ($row=mysqli_fetch_array($query)){
                     
-            echo "´rueaaaa";
-            echo "´rueaaaa";
-						$id_factura_despacho=$row['id_factura_cargue'];
+        
+						$id_factura_despacho=$row['id_factura_despacho'];
 						
                         $cedula_conductor=$row['cedula_conductor'];
                     
