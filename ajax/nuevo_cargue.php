@@ -1,28 +1,33 @@
 <?php
+/* Connect To Database*/
+require_once ("../config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
+require_once ("../config/conexion.php");//Contiene funcion que conecta a la base de datos
 	include('is_logged.php');//Archivo verifica que el usario que intenta acceder a la URL esta logueado
 	/*Inicia validacion del lado del servidor*/
-
-
-	if (empty($_POST['cedula'])) {
+echo $_POST['id_factura0'];
+echo $_POST['adjunto0'];
+	if (empty($_POST['valor_cedula_conductores_vehiculos'])) {
            $errors[] = "La cédula se encuentra vacía";
       //  } else if(empty($_POST['num_factura'])){
       //      $errors[] = "No has digitado el número de la factura";
-        }else if (empty($_POST['placa'])){
+        }else if (empty($_POST['placa_vehiculo'])){
             $errors[] = "No has seleccionado una placa";
+        }else if (empty($_POST['contadorFilas'])){
+            $errors[] = "No se puedo obtener la cantidad de filas agregadas";
+        }else if (empty($_POST['destino_cargue'])){
+            $errors[] = "El destino se encuentra vacío";
         }else{
-            /* Connect To Database*/
-            require_once ("../config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
-            require_once ("../config/conexion.php");//Contiene funcion que conecta a la base de datos
+            
             // escaping, additionally removing everything that could be (html/javascript-) code
             $cedula=mysqli_real_escape_string($con,(strip_tags($_POST["cedula"],ENT_QUOTES)));
             $placa=mysqli_real_escape_string($con,(strip_tags($_POST["placa"],ENT_QUOTES)));
-            $num_factura=mysqli_real_escape_string($con,(strip_tags($_POST["num_factura"],ENT_QUOTES)));
+            /*$num_factura=mysqli_real_escape_string($con,(strip_tags($_POST["num_factura"],ENT_QUOTES)));*/
 
-            $query=mysqli_query($con, "select id_factura_cargue from cargues where id_factura_cargue ='".$num_factura."'");
+            /*$query=mysqli_query($con, "select id_factura_cargue from cargues where id_factura_cargue ='".$num_factura."'");
             $rw_user=mysqli_fetch_array($query);
             $count=$count=mysqli_num_rows($query);
             if ($count==0){
-                
+                */
                 $query=mysqli_query($con, "select id_conductor_vehiculo from conductores_vehiculos where cedula_conductor ='".$cedula."' and placa_vehiculo = '".$placa."'");
                 $rw_user=mysqli_fetch_array($query);
                 $count=$count=mysqli_num_rows($query);
@@ -39,11 +44,30 @@
                     echo ($dataCheck_factura[0]);
                     
                     $id_conductor_vehiculo = $rw_user['id_conductor_vehiculo']; 
-
+                    
+                    $destino_cargue = $_POST['destino_cargue'];
+                    
                     $sql="insert into cargues 
                         (id_conductor_vehiculo, id_usuario_usuarios, fecha_hora_cargue, destino) values('".$id_conductor_vehiculo."','".$_SESSION['user_id_usuario']."',now(),'".$destino_cargue."')";
 
+                    $query_new_insert = mysqli_query($con,$sql);
+                        if ($query_new_insert){
+                            $messages[] = "Se ha registrado el cargue exitosamente.";
+                        }else{
+                            $sql="delete from estado_cargues where id_factura_cargue = '".$num_factura."'";
+                    
+                            $query_new_insert = mysqli_query($con,$sql);
+                            if ($query_new_insert){
+                                
+                            }else{
+                                $errors []= "Lo siento algo ha salido mal intenta nuevamente.".mysqli_error($con);
+                            }
+                        } 
+                    
                     $consecutivo = consultarConsecutivo();
+                    
+                    $contadorFilas = $_POST['contadorFilas'];
+                    
                     
                     for ($i=0; $i <= $contadorFilas ; $i++) { 
                         
@@ -62,9 +86,7 @@
                         if (!move_uploaded_file($tmp_archivo, $archivador)) {
 
                             $return = Array('ok' => FALSE, 'msg' => "Ocurrio un error al subir el archivo. No pudo guardarse.", 'status' => ‘error’);
-                            
                             $nombre_archivo = "";
-
                         }
 
                         registrarFactura($consecutivo, $dataIdFactura[$i], $nombre_archivo, $tipoDocumento);
@@ -107,9 +129,9 @@
                     } else {
                         $errors []= "Error desconocido.";
                     }*/
-            }else{
+           /* }else{
                 $errors []= "Ya se encuentra registrado un cargue con este número de factura";
-            }
+            }*/
         }
     }
 
@@ -160,8 +182,9 @@ function registrarFactura($consecutivo_cargue, $id_factura_despacho, $documento,
 }
 
 function consultarConsecutivo(){
-    $resul = mysqli_query($con, "SELECT MAX(consecutivo_cargue) as consecutivo from cargues");
-    $row = mysqli_fetch_array($resul);
+    $query=mysqli_query($con, "SELECT MAX(consecutivo_cargue) as consecutivo from cargues");
+    $row = mysqli_fetch_array($query);
+    
     return $row['consecutivo'];         
 }
 

@@ -72,13 +72,30 @@ $("#btn_registrar_cargue2").click(function(){
 
 function registrar_cargue(){
     let cedula = document.getElementById("valor_cedula_conductores_vehiculos").value;
+    //let destino = document.getElementById("destino_cargue").value;
     let placa = placa_vehiculo_seleccionada;
+    
+    $("#placa_vehiculo").val(placa);
 
     var idFactura = [];
     var dataDocument = new FormData();
     var inputFileDocument;
     var check_factura = [];
+/*
 
+            // En el formdata colocamos todos los archivos que vamos a subir 
+            for (var i = 0; i < (d.find('input[type=file]').length); i++) {  
+                // buscará todos los input con el valor "file" y subirá cada archivo. Serán diferenciados en el PHP gracias al "name" de cada uno.
+                dataDocument.append((d.find('input[type="file"]').eq(i).attr("name")),((d.find('input[type="file"]:eq('+i+')')[0]).files[0]));             
+                } 
+                 
+            for (var i = 0; i < (d.find('input').not('input[type=file]').not('input[type=submit]').length); i++) { 
+                // buscará todos los input menos el valor "file" y "sumbit . Serán diferenciados en el PHP gracias al "name" de cada uno.
+                dataDocument.append( (d.find('input').not('input[type=file]').not('input[type=submit]').eq(i).attr("name")),(d.find('input').not('input[type=file]').not('input[type=submit]').eq(i).val()) );            
+                } 
+    */
+    /*
+    
 
 
 for (var i = 0; i <= contadorFilas; i++) {
@@ -97,31 +114,31 @@ for (var i = 0; i <= contadorFilas; i++) {
     }
 
 }
+*/
+$.ajax({
+    data: $("#datos_factura").serialize(),
+    url: "ajax/nuevo_cargue.php",
+    type: "post",
+    beforeSend: function(){
+        $("#resultado_registro_cargue").html("Mensaje: Cargando...");
+        $('#btn_registrar_cargue1').attr("disabled", true);
+        $('#btn_registrar_cargue2').attr("disabled", true);
 
-    $.ajax({
-        data: {dataDocument, 'idFactura':JSON.stringify(idFactura), 'adjunto':JSON.stringify(adjunto), 'check_factura':JSON.stringify(check_factura),'cedula':cedula, 'placa':placa, 'contadorFilas':contadorFilas},
-        url: "ajax/nuevo_cargue.php",
-        type: "post",
-        beforeSend: function(){
-            $("#resultado_registro_cargue").html("Mensaje: Cargando...");
-            $('#btn_registrar_cargue1').attr("disabled", true);
-            $('#btn_registrar_cargue2').attr("disabled", true);
-            
-        },
-        success: function(datos){
-                $("#resultado_registro_cargue").html(datos);
-                $('#btn_registrar_cargue1').attr("disabled", false);
-                $('#btn_registrar_cargue2').attr("disabled", false);
-               // if(idTRGlobal != null && idTRGlobal != ""){
-                //    seleccionarFilaVehiculos(idTRGlobal);
-               // }
-              }
-    })   
+    },
+    success: function(datos){
+            $("#resultado_registro_cargue").html(datos);
+            $('#btn_registrar_cargue1').attr("disabled", false);
+            $('#btn_registrar_cargue2').attr("disabled", false);
+           // if(idTRGlobal != null && idTRGlobal != ""){
+            //    seleccionarFilaVehiculos(idTRGlobal);
+           // }
+          }
+})   
 
 }
 
 /*
-https://www.facebook.com/davidhurtadotv/videos/455870698131986/
+    https://www.facebook.com/davidhurtadotv/videos/455870698131986/
 */ 
 
 
