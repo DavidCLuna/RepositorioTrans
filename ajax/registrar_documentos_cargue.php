@@ -69,11 +69,11 @@ include('is_logged.php');//Archivo verifica que el usario que intenta acceder a 
                                 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
                                 // verificar si el archivo ya existe
-                                if (file_exists($target_file)) {
+                                /*if (file_exists($target_file)) {
                                     
                                     $errors[]= "Lo sentimos, el archivo de la fila ".$num_fila." ya existe, entonces no se registró. ";
                                     $uploadOk = 0;
-                                }
+                                }*/
                                 
                                 // carga el archivo en el servidor
                                 if (move_uploaded_file($_FILES["adjunto".$i]["tmp_name"], $target_file)) {    
