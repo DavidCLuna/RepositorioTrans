@@ -7,15 +7,15 @@ include('is_logged.php');//Archivo verifica que el usario que intenta acceder a 
     
     if(!isset($_POST['cedula']) && empty($_POST['cedula'])){ //verificar que la variable cedula no se encuentre vacía
         
-        $errors[] = "La cedula se encuentra vacía";
+        $errors[] = "La cedula se encuentra vacía. ";
         
-    }else if(!isset($_POST['placa']) && empty($_POST['placa'])){ //verificar que la variable placa no se encuentre vacía
+    }else if(!isset($_POST['placaa']) && empty($_POST['placa'])){ //verificar que la variable placa no se encuentre vacía
         
-        $errors[] = "La placa se encuentra vacía";
+        $errors[] = "La placa se encuentra vacía. ";
         
     }else if(!isset($_POST['destino']) && empty($_POST['destino'])){ //verificar que la variable destino no se encuentre vacía
         
-        $errors[] = "El destino se encuentra vacío";
+        $errors[] = "El destino se encuentra vacío. ";
         
     }else{
         //Consulta el id del conductor para realizar el registro del cargue
@@ -31,7 +31,7 @@ include('is_logged.php');//Archivo verifica que el usario que intenta acceder a 
             $query_new_insert = mysqli_query($con,$sql);
             
             if ($query_new_insert){
-                    $messages[] = "Se ha registrado en la tabla cargues exitosamente";
+                    $messages[] = "Se ha registrado en la tabla cargues exitosamente. ";
                 
                     //Consultar el id del consecutivo auto_increment que se registra al registrar el cague
                     $query=mysqli_query($con, "SELECT MAX(consecutivo_cargue) as consecutivo from cargues");
@@ -62,7 +62,8 @@ include('is_logged.php');//Archivo verifica que el usario que intenta acceder a 
                             $query_new_insert = mysqli_query($con,$sql);
                             if ($query_new_insert){
                                 
-                                $messages[] = "Se ha registrado en la tabla factura_despacho exitosamente";
+                                $num_fila=$i+1;
+                                $messages[] = "Se ha registrado en la tabla factura_despacho exitosamente. ";
                                 $target_file = $carpeta . basename($_FILES["adjunto".$i]["name"]);
                                 $uploadOk = 1;
                                 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -70,15 +71,15 @@ include('is_logged.php');//Archivo verifica que el usario que intenta acceder a 
                                 // verificar si el archivo ya existe
                                 if (file_exists($target_file)) {
                                     
-                                    $errors[]= "Lo sentimos, el archivo de la fila ".$i+1 ." ya existe, entonces no se registró.";
+                                    $errors[]= "Lo sentimos, el archivo de la fila ".$num_fila." ya existe, entonces no se registró. ";
                                     $uploadOk = 0;
                                 }
                                 
                                 // carga el archivo en el servidor
                                 if (move_uploaded_file($_FILES["adjunto".$i]["tmp_name"], $target_file)) {    
-                                    $messages[] = "Se ha registrado exitodamente el archivo de la fila ".$i+1 .".";
+                                    $messages[] = "Se ha registrado exitosamente el archivo de la fila ".$num_fila.". ";
                                 }else{
-                                    $errors []= "Algo ha salido mal al registrar el archivo de la fila ".$i+1 .".";
+                                    $errors []= "Algo ha salido mal al registrar el archivo de la fila ".$num_fila.". ";
                                 }
                                 
                             } else {
@@ -95,13 +96,13 @@ include('is_logged.php');//Archivo verifica que el usario que intenta acceder a 
                                 // Todo el registro se realizó sin errores y se redirecciona a la página cargues
                                 echo '<script type="text/javascript">javascript:window.location="http://transporte.com.co/cargues.php"</script>';
                             }else{
-                                $errors[]= "ALgo ha salido mal al registrar en la estados_cargues.".mysqli_error($con);       
+                                $errors[]= "ALgo ha salido mal al registrar en la estados_cargues.".mysqli_error($con).". ";       
                             }    
                         }
                     }
                 
             }else{
-                $errors []= "Algo ha salido mal al registrar en la tabla cargues. ".mysqli_error($con);
+                $errors []= "Algo ha salido mal al registrar en la tabla cargues. ".mysqli_error($con).". ";
             }
             
         }
@@ -117,7 +118,7 @@ include('is_logged.php');//Archivo verifica que el usario que intenta acceder a 
                 <?php
                     foreach ($messages as $message) {
                             echo $message;
-                        }
+                    }
                     ?>
         </div>
         <?php
@@ -132,7 +133,7 @@ include('is_logged.php');//Archivo verifica que el usario que intenta acceder a 
                 <strong>Error!</strong> 
                 <?php
                     foreach ($errors as $error) {
-                            echo $error;
+                            echo $error.", ";
                     }
                     ?>
         </div>

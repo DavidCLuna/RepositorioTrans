@@ -77,7 +77,7 @@ if (version_compare(PHP_VERSION, '5.3.7', '<')) {
                     if ($query_new_user_insert) {
                         $messages[] = "La cuenta ha sido creada con éxito.";
                     } else {
-                        $errors[] = "Lo sentimos , el registro falló. Por favor, regrese y vuelva a intentarlo.";
+                        $errors[] = "Lo sentimos , el registro falló. Por favor, regrese y vuelva a intentarlo. ".mysqli_error($con).".";
                     }
                 }
             

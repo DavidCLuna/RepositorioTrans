@@ -63,28 +63,11 @@ $( "#formulario_vinculacion_cargue" ).submit(function( event ) {
 })
 
 $("#btn_registrar_cargue1").click(function(){
-    //registrar_cargue();
     upload_document();
-   /* $.ajax({
-    dataType: "JSON",
-    data: new FormData($('#datos_factura')[0]),
-    url: "ajax/nuevo_cargue.php",
-    type: "post",
-    beforeSend: function(){
-        $("#resultado_registro_cargue").html("Mensaje: Cargando...");
-        $('#btn_registrar_cargue1').attr("disabled", true);
-        $('#btn_registrar_cargue2').attr("disabled", true);
+})
 
-    },
-    success: function(datos){
-            $("#resultado_registro_cargue").html(datos);
-            $('#btn_registrar_cargue1').attr("disabled", false);
-            $('#btn_registrar_cargue2').attr("disabled", false);
-           // if(idTRGlobal != null && idTRGlobal != ""){
-            //    seleccionarFilaVehiculos(idTRGlobal);
-           // }
-          }
-    })   */
+$("#btn_registrar_cargue2").click(function(){
+    upload_document();
 })
  
 
@@ -97,10 +80,10 @@ function upload_document(){//Funcion encargada de enviar el archivo via AJAX
             let destino = document.getElementById("destino_cargue").value;
             data.append('destino',destino);
         }else{
-            alert('La cédula se encuentra vacía');
+            alert('El destino del cargue se encuentra vacío');
             return;
         }
-                
+        
         if($("#cedula").val() !=''){
             let cedula = document.getElementById("cedula").value;
             data.append('cedula',cedula);
@@ -109,11 +92,13 @@ function upload_document(){//Funcion encargada de enviar el archivo via AJAX
             return;
         }
         
-        if(placa_vehiculo_seleccionada !=''){
-            data.append('placa',placa_vehiculo_seleccionada);
-        }else{
+        alert(placa_vehiculo_seleccionada);
+        if(typeof placa_vehiculo_seleccionada === 'undefined'){
             alert('No has seleccionado una placa');
             return;
+        }else{
+            alert("ingresa");
+            data.append('placa',placa_vehiculo_seleccionada);
         }
         
         if($("#id_factura"+i).val() !=''){
@@ -148,10 +133,7 @@ function upload_document(){//Funcion encargada de enviar el archivo via AJAX
         
         
     }
-    /*jQuery.each($('#fileToUpload')[0].files, function(i, file) {
-        data.append('file'+i, file);
-    });*/
-
+    
     $.ajax({
         url: "ajax/registrar_documentos_cargue.php?cantidad="+contadorFilas,        // Url to which the request is send
         type: "POST",             // Type of request to be send, called as method
@@ -159,12 +141,26 @@ function upload_document(){//Funcion encargada de enviar el archivo via AJAX
         contentType: false,       // The content type used when sending data to the server.
         cache: false,             // To unable request pages to be cached
         processData:false,        // To send DOMDocument or non processed data file it is set to false
-        success: function(data)   // A function to be called if request succeeds
+        beforeSend: function(){
+        $("#resultado_registro_cargue").html("Mensaje: Cargando...");
+        $('#btn_registrar_cargue1').attr("disabled", true);
+        $('#btn_registrar_cargue2').attr("disabled", true);
+
+        },
+        success: function(datos){
+                $("#resultado_registro_cargue").html(datos);
+                $('#btn_registrar_cargue1').attr("disabled", false);
+                $('#btn_registrar_cargue2').attr("disabled", false);
+               // if(idTRGlobal != null && idTRGlobal != ""){
+                //    seleccionarFilaVehiculos(idTRGlobal);
+               // }
+              }
+        /*success: function(data)   // A function to be called if request succeeds
         {
            $("#resultado_registro_cargue").html(data);
-        }
+        }*/
     });
-
+    
 }
 
 
