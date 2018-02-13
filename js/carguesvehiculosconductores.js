@@ -92,12 +92,10 @@ function upload_document(){//Funcion encargada de enviar el archivo via AJAX
             return;
         }
         
-        alert(placa_vehiculo_seleccionada);
         if(typeof placa_vehiculo_seleccionada === 'undefined'){
             alert('No has seleccionado una placa');
             return;
         }else{
-            alert("ingresa");
             data.append('placa',placa_vehiculo_seleccionada);
         }
         
