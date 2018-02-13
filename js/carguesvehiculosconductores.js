@@ -92,6 +92,39 @@ function upload_document(){//Funcion encargada de enviar el archivo via AJAX
    
     var data = new FormData();
     for(var i = 0; i <= contadorFilas; i++){
+        
+        if($("#destino_cargue").val() !=''){
+            let destino = document.getElementById("destino_cargue").value;
+            data.append('destino',destino);
+        }else{
+            alert('La cédula se encuentra vacía');
+            return;
+        }
+                
+        if($("#cedula").val() !=''){
+            let cedula = document.getElementById("cedula").value;
+            data.append('cedula',cedula);
+        }else{
+            alert('La cédula se encuentra vacía');
+            return;
+        }
+        
+        if(placa_vehiculo_seleccionada !=''){
+            data.append('placa',placa_vehiculo_seleccionada);
+        }else{
+            alert('No has seleccionado una placa');
+            return;
+        }
+        
+        if($("#id_factura"+i).val() !=''){
+            let id_factura = document.getElementById("id_factura"+i).value;
+            data.append('id_factura'+i,id_factura);
+        }else{
+            alert('No has digitado el número de factura en la fila '+(i+1));
+            return;
+        }
+        
+        
         if($("#adjunto"+i).val() !=''){
             var inputFileImage = document.getElementById("adjunto"+i);
             var file = inputFileImage.files[0];
@@ -100,14 +133,19 @@ function upload_document(){//Funcion encargada de enviar el archivo via AJAX
             alert('No has seleccionado un archivo en la fila '+(i+1));
             return;
         }
-        let id_factura = document.getElementById("id_factura"+i).value;
-        data.append('id_factura'+i,id_factura);
+           
         
-        if(document.getElementById("check_factura"+i).value == "Factura"){
+       var valorChecked = $("input:radio[name=check_factura"+i+"]:checked").val() 
+        if(valorChecked === "Factura"){
             data.append('checked_factura'+i,"Factura");
-        }else if(document.getElementById("check_factura"+i).value == "Despacho"){
-            data.append('checked_factura'+i,"Despacho");      
+        }else if(valorChecked === "Despacho"){
+            data.append('checked_factura'+i,"Despacho");
+        }else{
+            alert("El tipo de cargue debe ser 'Factura' o 'Despacho', por favor no modifiques estos valores");
+            return;
         }
+        
+        
         
     }
     /*jQuery.each($('#fileToUpload')[0].files, function(i, file) {

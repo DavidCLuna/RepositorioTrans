@@ -80,7 +80,6 @@
           </script>
 
       <input type="hidden" id="valor_cedula_conductores_vehiculos" name="valor_cedula_conductores_vehiculos" value="<?php echo $_GET['cedula']?>"/>
-      <input type="hidden" id="placa_vehiculo" name="placa_vehiculo" value=""/>
       <form class="" role="form" id="datos_factura" method="post" >
     <div class="container">
          <div id="resultado_registro_cargue"></div><!-- Carga el resultado del registro -->
@@ -172,6 +171,10 @@
                             <form class="form-horizontal" role="form" id="formulario_vinculacion_cargue">
 
                                 <label for="q" class="col-md-1 control-label">Placa</label>
+                                <div class="col-md-5">
+                                    <input type="hidden" id="cedula" name="cedula" value="<?php echo $cedula_conductor;?>">
+                                    <input type="text" class="form-control"  id="placa" name="placa" placeholder="Placa del vehículo">
+                                </div>
                                 <div class="col-md-5">
                                 </div>
                                 <div class="col-md-3">

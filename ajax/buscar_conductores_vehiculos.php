@@ -88,7 +88,9 @@
                 </div>
                 <?php
             }
-        }
+        }else{
+        error_log("------cedula y placa vacios");
+    }
 
     if($action == 'delete'){
         if (isset($_POST['cedula']) && isset($_POST['placa'])){
