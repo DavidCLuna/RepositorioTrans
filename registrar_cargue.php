@@ -65,9 +65,12 @@
                             "</div>"+
                         "</div>"+
                     "<div class='col-lg-4 col-5 col-sm-2'>"+
-                      "<label>"+
-                                 "<input type='checkbox' id='check_factura"+contadorFilas+"' name='check_factura"+contadorFilas+"'> Factura"+
-                            "</label>"+
+                      "<label style='cursor:pointer;  margin-right:5px;'>"+
+                                 "<input type='radio' checked id='check_factura"+contadorFilas+"' name='check_factura"+contadorFilas+"' value='Factura'>  Factura"+
+                      "</label>"+
+                      "<label style='cursor:pointer;'>"+
+                                 "<input type='radio' id='check_factura"+contadorFilas+"' name='check_factura"+contadorFilas+"' value='Despacho'> Despacho"+
+                      "</label>"+
                     "</div><br>";
               
               $('#cont_factura').append(fila_nueva);
@@ -111,13 +114,16 @@
                         </div>
                         <div class="col-lg-4 col-sm-3 col-11">
                             <div class="form-group">
-                                <input type="file" class="form-control-file" id="adjunto0" name="adjunto0" aria-describedby="fileHelp">
+                                <input type="file" required class="form-control-file" id="adjunto0" name="adjunto0" aria-describedby="fileHelp">
                             </div>
                         </div>
                         <div class="col-lg-4 col-5 col-sm-2">
-                          <label>
-                                     <input type="checkbox" id="check_factura0" name="check_factura0"> Factura
-                                </label>
+                            <label style="cursor:pointer;" >
+                                <input type="radio" checked  id="check_factura0" name="check_factura0" value="Factura"> Factura
+                            </label>
+                            <label style="cursor:pointer;" >
+                                <input type="radio" id="check_factura0" name="check_factura0" value="Despacho"> Despacho
+                            </label>
                         </div>
                         <br>
                     </div>

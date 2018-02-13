@@ -92,12 +92,23 @@ function upload_document(){//Funcion encargada de enviar el archivo via AJAX
    
     var data = new FormData();
     for(var i = 0; i <= contadorFilas; i++){
-        var inputFileImage = document.getElementById("adjunto"+i);
-        var file = inputFileImage.files[0];
-        data.append('adjunto'+i,file);
+        if($("#adjunto"+i).val() !=''){
+            var inputFileImage = document.getElementById("adjunto"+i);
+            var file = inputFileImage.files[0];
+            data.append('adjunto'+i,file);
+        }else{
+            alert('No has seleccionado un archivo en la fila '+(i+1));
+            return;
+        }
         let id_factura = document.getElementById("id_factura"+i).value;
-        alert(id_factura);
         data.append('id_factura'+i,id_factura);
+        
+        if(document.getElementById("check_factura"+i).value == "Factura"){
+            data.append('checked_factura'+i,"Factura");
+        }else if(document.getElementById("check_factura"+i).value == "Despacho"){
+            data.append('checked_factura'+i,"Despacho");      
+        }
+        
     }
     /*jQuery.each($('#fileToUpload')[0].files, function(i, file) {
         data.append('file'+i, file);
@@ -112,7 +123,7 @@ function upload_document(){//Funcion encargada de enviar el archivo via AJAX
         processData:false,        // To send DOMDocument or non processed data file it is set to false
         success: function(data)   // A function to be called if request succeeds
         {
-           $("#resultado_registro_cargue").html(datos);
+           $("#resultado_registro_cargue").html(data);
         }
     });
 
