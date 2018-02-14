@@ -9,7 +9,7 @@ include('is_logged.php');//Archivo verifica que el usario que intenta acceder a 
         
         $errors[] = "La cedula se encuentra vacía. ";
         
-    }else if(!isset($_POST['placaa']) && empty($_POST['placa'])){ //verificar que la variable placa no se encuentre vacía
+    }else if(!isset($_POST['placa']) && empty($_POST['placa'])){ //verificar que la variable placa no se encuentre vacía
         
         $errors[] = "La placa se encuentra vacía. ";
         
@@ -57,7 +57,7 @@ include('is_logged.php');//Archivo verifica que el usario que intenta acceder a 
                             $name_file = $_FILES["adjunto".$i]["name"];
                             //concatenarle la url 
                             $url = "http://transporte.com.co/uploads/".$name_file;
-                            $sql="insert into factura_despacho(consecutivo_cargue, id_factura_despacho, url_documento, tipo_documento) values ('".$id_consecutivo."','".$_POST['id_factura'.$i]."','".$url."','Despacho')";
+                            $sql="insert into factura_despacho(consecutivo_cargue, id_factura_despacho, url_documento, tipo_documento) values ('".$id_consecutivo."','".$_POST['id_factura'.$i]."','".$url."','".$_POST['checked_factura'.$i]."')";
 
                             $query_new_insert = mysqli_query($con,$sql);
                             if ($query_new_insert){
